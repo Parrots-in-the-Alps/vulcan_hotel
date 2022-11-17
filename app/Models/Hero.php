@@ -9,12 +9,9 @@ class Hero extends Model
 {
     use HasFactory;
 
-    /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'hero_id';
+
+
+    protected $fillable = ['image', 'logo', 'slogan'];
 
 
         /**
