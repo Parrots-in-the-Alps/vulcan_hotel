@@ -1,30 +1,17 @@
 <template>
-    <h1 v-for="element in response" :key="element.id">{{element.slogan}}</h1>
-    <h1 class="text-7xl font-bold underline">
-cucul
-</h1>
+    <LandingPage />
 </template>
 
 <script>
-
+import LandingPage from './views/LandingPage.vue'
 export default {
-  name: "App.vue",
-  data() {
-          return {
-              response: []
-          }
-      },
-      async mounted() {
-          const response = await axios.get('api/show/videos');
-          console.log(response.data)
-          this.response = response.data['videos'];
-      }
+    name: "App.vue",
+    components: { LandingPage },
+   
 }
 </script>
 
 
 <style scoped>
-    h1{
-        color:red
-    }
+
 </style>
