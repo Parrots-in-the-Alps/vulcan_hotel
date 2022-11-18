@@ -27,7 +27,8 @@ class VideoController extends Controller
 
     public function deleteVideos()
     {
-        return response()->json([Video::truncate(), 'description' => 'Video delete'], 200);
+        Video::truncate();
+        return response()->json(['description' => 'Video delete'], 200);
     }
 
     public function deleteVideo($id)
