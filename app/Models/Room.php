@@ -16,4 +16,6 @@ class Room extends Model
      * @var string
      */
     protected $primaryKey = 'room_id';
+
+    protected $fillable = ['name', 'number', 'type', 'capacity', 'price', 'status', 'image', 'description'];
 }

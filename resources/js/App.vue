@@ -1,31 +1,25 @@
-
 <template>
-
-    <div>
-
-        <h1 class="text-3xl font-bold underline">
-    Hello world FROM VUE!
-  </h1>
-
-    </div>
-
-
+    <h1 v-for="element in response" :key="element.id">{{element.slogan}}</h1>
+    <h1 class="text-7xl font-bold underline">
+cucul
+</h1>
 </template>
 
 <script>
 
-export default{
-    name: "App.vue",
-    mounted(){
-        console.log("HAAAAAAAAAAAAAAAAAAAAAAa")
-    },
-    beforeCreate(){
-        console.log("BEFORE CREATION")
-    }
-
-    
+export default {
+  name: "App.vue",
+  data() {
+          return {
+              response: []
+          }
+      },
+      async mounted() {
+          const response = await axios.get('api/show/videos');
+          console.log(response.data)
+          this.response = response.data['videos'];
+      }
 }
-
 </script>
 
 
