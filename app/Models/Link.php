@@ -9,6 +9,8 @@ class Link extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['url', 'name'];
+
     function footer()
     {
         return $this->belongsTo(Footer::class);
