@@ -9,7 +9,8 @@ class VideoController extends Controller
 {
     public function showVideos()
     {
-        return response()->json([Video::all(), 'description' => 'OK'], 200);
+        $videos=Video::all();
+        return response()->json(['videos'=>Video::all(), 'description' => 'OK'], 200);
     }
 
     public function showVideo($id)
