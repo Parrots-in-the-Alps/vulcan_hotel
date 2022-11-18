@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Actuality extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['title', 'image', 'description', 'start_date', 'end_date'];
 }
