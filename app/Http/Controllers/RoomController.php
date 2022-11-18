@@ -35,11 +35,11 @@ public function updateRoom(Request $request, $room){
 
 public function deleteRoom(Room $room){
     $room->delete();
-    return response()->json();
+    return response()->json(['description' => 'Room delete'], 200);
 }
 
 public function deleteRooms(){
     Room::truncate();
-    return response()->json();
+    return response()->json(['description' => 'Rooms delete'], 200);
 }
 }
