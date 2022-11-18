@@ -9,23 +9,29 @@ use Illuminate\Http\Request;
 class HeroController extends Controller
 {
     public function showHeroes() { 
-        return response()->json([Hero::all(), 'description' => 'OK'], 200);
+
+
+        $hero = Hero::all();
+        //  return response()->json($hero, 200);
+        return response()->json(['hero' => Hero::all(), 'description' => 'OK'], 200);
+
     }
 
 
     public function showHero($id){
-
-        return response()->json([Hero::find($id), 'description' => 'OK'], 200);
+        // $hero = Hero::findOrFail($id);
+        // return response()->json($hero);
+         return response()->json(['hero' => Hero::find($id), 'description' => 'OK'], 200);
 
     }
 
-    public function createHero(Request $request)
+    public function store(Request $request)
 {
-    // $this->validate($request, [
-    //     'image' => 'max:100',
-    //     'logo' => 'max:100',
-    //     'slogan' => 'max:5'
-    // ]);
+    $this->validate($request, [
+        'image' => 'max:100',
+        'logo' => 'max:100',
+        'slogan' => 'max:5'
+    ]);
     
     $input = $request->input();
 
@@ -38,16 +44,17 @@ class HeroController extends Controller
     return response()->json(['message' => 'hero created successfully!'], 200);
 }
 
-public function updateHero(Request $request, $hero)
+public function update(Request $request, $hero)
 {
     // La validation de données
-    // $this->validate($request, [
-    //     'image' => 'max:100',
-    //     'logo' => 'max:100',
-    //     'slogan' => 'max:100'
-    // ]);
+    $this->validate($request, [
+        'image' => 'max:100',
+        'logo' => 'max:100',
+        'slogan' => 'max:100'
+    ]);
 
     $input = $request->input();
+    var_dump($request->all());
 
         $hero = Hero::where('id', $hero)->update(
             $input
@@ -61,17 +68,22 @@ public function updateHero(Request $request, $hero)
 }
 
 
-public function deleteHero(Hero $hero)
+public function destroy(Hero $hero)
 {
-    $hero = Hero::where('id', $id);
+    // On supprime le hero
     $hero->delete();
-    return response()->json(['description' => 'Hero delete'], 200);
+
+    // On retourne la réponse JSON
+    return response()->json();
 }
 
-public function deleteHeroes()
+public function destroyAll()
 {
 
-    return response()->json([Hero::truncate(), 'description' => 'Hero delete'], 200);
+    Hero::truncate();
+ 
+    // On retourne la réponse JSON
+    return response()->json();
 }
 
 
