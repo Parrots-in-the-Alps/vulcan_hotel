@@ -25,7 +25,7 @@ class HeroController extends Controller
 
     }
 
-    public function store(Request $request)
+    public function createHero(Request $request)
 {
     $this->validate($request, [
         'image' => 'max:100',
@@ -44,7 +44,7 @@ class HeroController extends Controller
     return response()->json(['message' => 'hero created successfully!'], 200);
 }
 
-public function update(Request $request, $hero)
+public function updateHero(Request $request, $hero)
 {
     // La validation de données
     $this->validate($request, [
@@ -68,7 +68,7 @@ public function update(Request $request, $hero)
 }
 
 
-public function destroy(Hero $hero)
+public function deleteHero(Hero $hero)
 {
     // On supprime le hero
     $hero->delete();
@@ -77,7 +77,7 @@ public function destroy(Hero $hero)
     return response()->json();
 }
 
-public function destroyAll()
+public function deleteHeroes()
 {
 
     Hero::truncate();
