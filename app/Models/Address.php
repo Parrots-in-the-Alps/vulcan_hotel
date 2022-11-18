@@ -9,6 +9,8 @@ class Address extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['street_num', 'street_name', 'zip', 'city_name', 'country'];
+
     public function footer(){
         return $this->belongsTo(Footer::class);
     }
