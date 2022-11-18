@@ -9,12 +9,8 @@ class Footer extends Model
 {
     use HasFactory;
 
-     /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'footer_id';
+    protected $fillable = ['phone_number', 'mail', 'logo', 'address_id', 'link_id'];
+
 
     /**
      * Get the adress associated with the footer.
@@ -22,5 +18,13 @@ class Footer extends Model
     public function address()
     {
         return $this->hasOne(Address::class);
+    }
+
+    /**
+     * Get the links associated with the footer.
+     */
+    public function Link()
+    {
+        return $this->hasMany(Link::class);
     }
 }
