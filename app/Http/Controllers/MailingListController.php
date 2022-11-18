@@ -8,16 +8,16 @@ use Illuminate\Http\Request;
 
 class MailingListController extends Controller
 {
-    public function showMailingLists() { 
+    public function showMailingList() { 
         return response()->json(['mailinglist' => MailingList::all(), 'description' => 'OK'], 200);
     }
 
 
-    public function showMailingList($id){
+    public function showEmail($id){
          return response()->json(['mailinglist' => MailingList::find($id), 'description' => 'OK'], 200);
     }
 
-    public function createMailingList(Request $request)
+    public function createEmail(Request $request)
 {
     $input = $request->input();
     $mailingList = MailingList::create(
@@ -26,7 +26,7 @@ class MailingListController extends Controller
     return response()->json(['message' => 'MailingList created successfully!'], 200);
 }
 
-public function updateMailingList(Request $request, $mailingList)
+public function updateEmail(Request $request, $mailingList)
 {
     $input = $request->input();
         $mailingList = MailingList::where('id', $mailingList)->update(
@@ -36,13 +36,13 @@ public function updateMailingList(Request $request, $mailingList)
 }
 
 
-public function deleteMailingList(MailingList $mailingList)
+public function deleteEmail(MailingList $mailingList)
 {
     $mailingList->delete();
     return response()->json();
 }
 
-public function deleteMailingLists()
+public function deleteMailingList()
 {
     MailingList::truncate();
     return response()->json();
