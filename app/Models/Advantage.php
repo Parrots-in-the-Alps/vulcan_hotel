@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Advantage extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['image_icon', 'title', 'description', 'price'];
 }
