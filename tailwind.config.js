@@ -9,7 +9,17 @@ module.exports = {
     './resources/js/views/*.vue',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'backGround': '#2f2f2f',
+        'callToAction': '#FF5C04',
+        'outerSpace': '#1B3235',
+        'cadetBlue': '#A7A9BE',
+        'gunMetal': '#243236',
+        'persimmon': '#DF6426',
+        'bistre': '#372B20',
+      },
+    },
   },
   plugins: [],
 }
