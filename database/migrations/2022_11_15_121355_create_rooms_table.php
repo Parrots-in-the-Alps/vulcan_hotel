@@ -22,7 +22,8 @@ class CreateRoomsTable extends Migration
             $table->string('type_en');
             $table->integer('capacity');
             $table->float('price');
-            $table->string('status');
+            $table->string('status_fr');
+            $table->string('status_en');
             $table->string('image');
             $table->string('description_fr');
             $table->string('description_en');
