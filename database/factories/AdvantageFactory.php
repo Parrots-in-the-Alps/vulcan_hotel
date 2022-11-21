@@ -16,8 +16,10 @@ class AdvantageFactory extends Factory
     {
         return [
             'image_icon' => $this->faker->imageUrl(640, 480, 'advantage', true),
-            'title' => $this->faker->word(),
-            'description' => $this->faker->sentence(),
+            'title_fr' => $this->faker->word(),
+            'title_en' => $this->faker->word(),
+            'description_fr' => $this->faker->sentence(),
+            'description_en' => $this->faker->sentence(),
             'price' => $this->faker->randomDigit(),
         ];
     }

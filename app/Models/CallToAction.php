@@ -9,7 +9,7 @@ class CallToAction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'action'];
+    protected $fillable = ['title_fr', 'title_en', 'action'];
 
     public function hero(){
         return $this->belongsTo(Hero::class);

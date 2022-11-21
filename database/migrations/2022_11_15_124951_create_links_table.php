@@ -17,7 +17,8 @@ class CreateLinksTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('url');
-            $table->string('name');
+            $table->string('name_fr');
+            $table->string('name_en');
         });
     }
 

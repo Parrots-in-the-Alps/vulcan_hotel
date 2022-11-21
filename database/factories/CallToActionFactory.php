@@ -15,7 +15,8 @@ class CallToActionFactory extends Factory
     {
         return [
 
-            'title' =>$this->faker->word(),
+            'title_fr' =>$this->faker->word(),
+            'title_en' =>$this->faker->word(),
             'action' =>$this->faker->randomDigit(),
 
 
