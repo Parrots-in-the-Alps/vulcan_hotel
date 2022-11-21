@@ -15,7 +15,8 @@ class HeroFactory extends Factory
     {
         return [
             'image' => $this->faker->unique()->imageUrl(640, 480, 'lava', true),
-            'slogan' => $this->faker->unique()->realText($maxNbChars = 80, $indexSize = 2),
+            'slogan_fr' => $this->faker->unique()->realText($maxNbChars = 80, $indexSize = 2),
+            'slogan_en' => $this->faker->unique()->realText($maxNbChars = 80, $indexSize = 2),
             'logo' => $this->faker->unique()->imageUrl(640, 480, 'volcano', true)
         ];
     }

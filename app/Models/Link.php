@@ -9,7 +9,7 @@ class Link extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['url', 'name'];
+    protected $fillable = ['url', 'name_fr', 'name_en'];
 
     function footer()
     {

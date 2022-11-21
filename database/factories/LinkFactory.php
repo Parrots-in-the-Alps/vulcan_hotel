@@ -16,7 +16,8 @@ class LinkFactory extends Factory
     {
         return [
             'url' => Str::random(10) . '.png',
-            'name' => Str::random(10),
+            'name_fr' => Str::random(10),
+            'name_en' => Str::random(10),
         ];
     }
 }

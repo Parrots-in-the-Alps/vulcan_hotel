@@ -16,7 +16,8 @@ class CreateHeroesTable extends Migration
         Schema::create('heroes', function (Blueprint $table) {
             $table->id('hero_id');
             $table->string('image');
-            $table->string('slogan');
+            $table->string('slogan_fr');
+            $table->string('slogan_en');
             $table->string('logo');
             $table->timestamps();
             $table->unsignedInteger('call_to_action_id')->nullable();

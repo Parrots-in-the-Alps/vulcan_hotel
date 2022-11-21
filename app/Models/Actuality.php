@@ -9,5 +9,5 @@ class Actuality extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'image', 'description', 'start_date', 'end_date'];
+    protected $fillable = ['title_fr', 'title_en', 'image', 'description_fr', 'description_en', 'start_date', 'end_date'];
 }

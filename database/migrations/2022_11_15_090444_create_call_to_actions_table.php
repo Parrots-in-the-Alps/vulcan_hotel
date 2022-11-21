@@ -15,7 +15,8 @@ class CreateCallToActionsTable extends Migration
     {
         Schema::create('call_to_actions', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title_fr');
+            $table->string('title_en');
             $table->integer('action');
             $table->timestamps();
         });

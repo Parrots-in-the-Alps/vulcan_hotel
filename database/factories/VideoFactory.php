@@ -14,9 +14,11 @@ class VideoFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->word(),
+            'title_fr' => $this->faker->word(),
+            'title_en' => $this->faker->word(),
             'video_link' => $this->faker->imageUrl(640, 480, 'actuality', true),
-            'description' => $this->faker->sentence(),
+            'description_fr' => $this->faker->sentence(),
+            'description_en' => $this->faker->sentence(),
         ];
     }
 }

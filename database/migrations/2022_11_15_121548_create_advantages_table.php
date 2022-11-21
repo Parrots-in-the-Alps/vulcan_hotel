@@ -17,8 +17,10 @@ class CreateAdvantagesTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('image_icon');
-            $table->string('title');
-            $table->string('description');
+            $table->string('title_fr');
+            $table->string('title_en');
+            $table->string('description_fr');
+            $table->string('description_en');
             $table->float('price');
 
         });

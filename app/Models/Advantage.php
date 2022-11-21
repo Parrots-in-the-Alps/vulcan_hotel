@@ -9,5 +9,5 @@ class Advantage extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['image_icon', 'title', 'description', 'price'];
+    protected $fillable = ['image_icon', 'title_fr', 'title_en',  'description_fr', 'description_en', 'price'];
 }

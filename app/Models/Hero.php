@@ -11,7 +11,7 @@ class Hero extends Model
 
 
 
-    protected $fillable = ['image', 'logo', 'slogan'];
+    protected $fillable = ['image', 'logo', 'slogan_fr', 'slogan_en'];
 
 
         /**
