@@ -56,9 +56,19 @@ public function updateHero(Request $request, $hero)
     $input = $request->input();
     var_dump($request->all());
 
-        $hero = Hero::where('id', $hero)->update(
+
+
+   Hero::where('id', '!=' ,$hero)->update([
+        "status" => false,
+
+    ]);
+
+      Hero::where('id', $hero)->update(
             $input
+            
         );
+
+        
     
     // On modifie les informations de l'hero
     
