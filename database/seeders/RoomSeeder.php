@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Room;
+use File;
 
 class RoomSeeder extends Seeder
 {
@@ -13,6 +15,20 @@ class RoomSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Room::factory(10)->create();
+        $json = File::get("database/data/room.json");
+        $rooms = json_decode($json);
+  
+        foreach ($rooms as $key => $value) {
+            Room::create([
+                "number" => $value->number,
+                "type" => json_encode($value->type),
+                "capacity" => $value->capacity,
+                "price" => $value->price,
+                "status" => $value->status,
+                "image" => $value->image,
+                "name" => $value->name,
+                "description" => json_encode($value->description),
+            ]);
+        }
     }
 }
