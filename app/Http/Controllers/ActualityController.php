@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Actuality\UpdateRequest;
-use App\Http\Resources\ActualityCollection;
-use App\Http\Resources\ActualityResource;
 use App\Models\Actuality;
 use Illuminate\Http\Request;
+use App\Http\Resources\ActualityResource;
+use App\Http\Resources\ActualityCollection;
+use App\Http\Requests\Actuality\UpdateRequest;
 
 class ActualityController extends Controller
 {
@@ -17,15 +17,14 @@ class ActualityController extends Controller
 
     public function showActuality($id)
     {
-        return response()->json(['actuality' => Actuality::find($id), 'description' => 'OK'], 200);
+        return new ActualityResource(Actuality::find($id));
     }
 
-    public function updateActuality(UpdateRequest $request, $id)
+    public function updateActuality(Request $request, $id)
     {
-        $request->validated();
-
+        $actualities_input = $request->input();
         $actuality = Actuality::where('id', $id);
-        $actuality->update($request->safe()->all());
+        $actuality->update($actualities_input);
 
         return response()->json(['description' => 'actuality update'], 200);
     }
@@ -45,9 +44,17 @@ class ActualityController extends Controller
 
     public function createActuality(Request $request)
     {
-        $actuality = new Actuality;
         $actualities_input = $request->input();
-        $actuality->create($actualities_input);
+
+        $actuality = new Actuality();
+        $actuality->image = $actualities_input['image'];
+        $actuality->start_date = $actualities_input['start_date'];
+        $actuality->end_date = $actualities_input['end_date'];
+        $actuality
+            ->setTranslations('title', $actualities_input['title'])
+            ->setTranslations('description', $actualities_input['description'])
+            ->save();
+
         return response()->json(['description' => 'Actuality created'], 200);
     }
 }
