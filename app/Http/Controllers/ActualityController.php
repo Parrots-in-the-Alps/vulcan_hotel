@@ -20,12 +20,12 @@ class ActualityController extends Controller
         return response()->json(['actuality' => Actuality::find($id), 'description' => 'OK'], 200);
     }
 
-    public function updateActuality(UpdateRequest $request)
+    public function updateActuality(UpdateRequest $request, $id)
     {
         $request->validated();
 
-        $actuality = Actuality::where('id', $request->safe()['id']);
-        $actuality->update($request->safe()->collect());
+        $actuality = Actuality::where('id', $id);
+        $actuality->update($request->safe()->all());
 
         return response()->json(['description' => 'actuality update'], 200);
     }
