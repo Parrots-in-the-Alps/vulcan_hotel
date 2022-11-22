@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Footer;
+use App\Http\Resources\FooterCollection;
+use App\Http\Resources\FooterResource;
+
 
 class FooterController extends Controller
 {
     public function showFooters()
     {
-        return response()->json(['footers' => Footer::all(), 'description' => 'OK'], 200);
+        return new FooterCollection(Footer::all());
     }
 
     public function showFooter($id)
     {
-        return response()->json(['footer' => Footer::find($id), 'description' => 'OK'], 200);
+        return new FooterResource(Footer::find($id));
     }
 
     public function updateFooter(Request $request, $id)

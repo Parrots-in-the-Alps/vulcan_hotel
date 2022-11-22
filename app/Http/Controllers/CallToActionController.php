@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\CallToAction;
 use Illuminate\Http\Request;
+use App\Http\Resources\CallToActionCollection;
+use App\Http\Resources\CallToActionResource;
 
 class CallToActionController extends Controller
 {
     public function showCallToActions()
     {
-        return response()->json(['calltoaction' => CallToAction::all(), 'description' => 'OK'], 200);
+        return new CallToActionCollection(CallToAction::all());
     }
 
     public function showCallToAction($id)
     {
-        return response()->json(['calltoaction' => CallToAction::find($id), 'description' => 'OK'], 200);
+        return new CallToActionResource(CallToAction::find($id));
+        //return response()->json(['calltoaction' => CallToAction::find($id), 'description' => 'OK'], 200);
     }
 
     public function updateCallToAction(Request $request, $id)
@@ -40,9 +43,11 @@ class CallToActionController extends Controller
 
     public function createCallToAction(Request $request)
     {
-        $calltoaction = new CallToAction;
         $calltoaction_input = $request->input();
-        $calltoaction->create($calltoaction_input);
+        $calltoaction = new CallToAction;
+        $calltoaction->action=$calltoaction_input['action'];
+        $calltoaction->setTranslations('title',$calltoaction_input['title'])
+                     ->save();
         return response()->json(['description' => 'CallToAction created'], 200);
     }
 }
