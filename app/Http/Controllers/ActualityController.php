@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Actuality\UpdateRequest;
 use App\Http\Resources\ActualityCollection;
 use App\Http\Resources\ActualityResource;
 use App\Models\Actuality;
@@ -19,11 +20,13 @@ class ActualityController extends Controller
         return response()->json(['actuality' => Actuality::find($id), 'description' => 'OK'], 200);
     }
 
-    public function updateActuality(Request $request, $id)
+    public function updateActuality(UpdateRequest $request)
     {
-        $actualities_input = $request->input();
-        $actuality = Actuality::where('id', $id);
-        $actuality->update($actualities_input);
+        $request->validated();
+
+        $actuality = Actuality::where('id', $request->safe()['id']);
+        $actuality->update($request->safe()->collect());
+
         return response()->json(['description' => 'actuality update'], 200);
     }
 
