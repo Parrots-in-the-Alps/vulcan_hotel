@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Actuality extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
-    protected $fillable = ['title_fr', 'title_en', 'image', 'description_fr', 'description_en', 'start_date', 'end_date'];
+    protected $fillable = ['image', 'start_date', 'end_date'];
+
+    public $translatable = ['title', 'description'];
 }

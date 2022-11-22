@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ActualityCollection;
+use App\Http\Resources\ActualityResource;
 use App\Models\Actuality;
 use Illuminate\Http\Request;
 
@@ -9,7 +11,7 @@ class ActualityController extends Controller
 {
     public function showActualities()
     {
-        return response()->json(['actualities' => Actuality::all(), 'description' => 'OK'], 200);
+        return new ActualityCollection(Actuality::all());
     }
 
     public function showActuality($id)

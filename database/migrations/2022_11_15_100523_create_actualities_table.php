@@ -15,11 +15,9 @@ class CreateActualitiesTable extends Migration
     {
         Schema::create('actualities', function (Blueprint $table) {
             $table->id();
-            $table->string('title_fr');
-            $table->string('title_en');
+            $table->json('title')->nullable();
             $table->string('image');
-            $table->string('description_fr');
-            $table->string('description_en');
+            $table->json('description')->nullable();
             $table->timestamp('start_date');
             $table->timestamp('end_date');
             $table->timestamps();

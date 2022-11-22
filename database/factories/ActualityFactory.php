@@ -15,13 +15,17 @@ class ActualityFactory extends Factory
     public function definition()
     {
         return [
-            'title_fr' => $this->faker->word(),
-            'title_en' => $this->faker->word(),
             'image' => $this->faker->imageUrl(640, 480, 'actuality', true),
-            'description_fr' => $this->faker->sentence(),
-            'description_en' => $this->faker->sentence(),
             'start_date' => $this->faker->date(),
             'end_date' => $this->faker->date(),
+            'title' => [
+                'fr' => $this->faker->word(),
+                'en' => $this->faker->word()
+            ],
+            'description' => [
+                'fr' => $this->faker->sentence(),
+                'en' => $this->faker->sentence()
+            ]
         ];
     }
 }
