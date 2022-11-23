@@ -41,13 +41,22 @@ class RoomController extends Controller
 
     public function updateRoom(Request $request, $room)
     {
+
+
+        // le code suivant n'update pas les traductions !!!!!!!!!!!!!!!
+        // $input = $request->input();
+        // $room = Room::where(['id' => $room])
+        //     ->firstOrFail();
+        // $room->updateOrFail(
+        //     $input
+        // );
+        // return new RoomResource($room);
+
         $input = $request->input();
-        $room = Room::where(['id' => $room])
-            ->firstOrFail();
-        $room->updateOrFail(
+        $ye = Room::where('id', $room)->update(
             $input
         );
-        return new RoomResource($room);
+        return response()->json(['message' => 'room updated successfully!'], 200);
     }
 
 
