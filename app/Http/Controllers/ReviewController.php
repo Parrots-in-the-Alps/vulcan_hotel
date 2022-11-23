@@ -10,38 +10,49 @@ use App\Http\Resources\ReviewResource;
 
 class ReviewController extends Controller
 {
-    public function showReviews() { 
+    public function showReviews()
+    {
         return new ReviewCollection(Review::all());
     }
 
-    public function showReview($id){
-         return new ReviewResource(Review::find($id));
+    public function showReview($id)
+    {
+        $review = Review::where(['id' => $id])
+            ->firstOrFail();
+
+        return new ReviewResource(Review::find($id));
     }
 
-    public function createReview(Request $request){
-    $input = $request->input();
-    $review = Review::create(
-        $input
-    );
-    return response()->json(['message' => 'Review created successfully!'], 200);
-}
-
-public function updateReview(Request $request, $review){
-    $input = $request->input();
-        $review = Review::where('id', $review)->update(
+    public function createReview(Request $request)
+    {
+        $input = $request->input();
+        $review = Review::create(
             $input
         );
-    return response()->json(['message' => 'Review updated successfully!'], 200);
-}
+        return new ReviewResource($review);
+    }
+
+    public function updateReview(Request $request, $id)
+    {
+        $input = $request->input();
+        $review = Review::where(['id' => $id])
+            ->firstOrFail();
+        $review->updateOrFail(
+            $input
+        );
+        return new ReviewResource($review);
+    }
 
 
-public function deleteReview(Review $review){
-    $review->delete();
-    return response()->json();
-}
+    public function deleteReview(Review $review)
+    {
+        $review->delete();
+        return response()->json();
+    }
 
-public function deleteReviews(){
-    Review::truncate();
-    return response()->json();
-}
+    public function deleteReviews()
+    {
+        Review::truncate();
+        return response()->json();
+    }
 }

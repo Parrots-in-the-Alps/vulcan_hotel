@@ -36,7 +36,8 @@ class MailingListController extends Controller
     {
         $input = $request->input();
         $email = MailingList::where(['id' => $id])
-            ->updateOrFail(
+            ->firstOrFail();
+        $email->updateOrFail(
                 $input
             );
         return new MailingListResource($email);

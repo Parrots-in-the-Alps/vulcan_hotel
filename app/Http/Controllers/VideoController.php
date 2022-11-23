@@ -16,15 +16,18 @@ class VideoController extends Controller
 
     public function showVideo($id)
     {
-        return new VideoResource(Video::find($id));
+        $video = Video::where(['id' => $id])
+            ->firstOrFail();
+        return new VideoResource($video);
     }
 
     public function updateVideo(Request $request, $id)
     {
         $videos_input = $request->input();
-        $video = Video::where('id', $id);
-        $video->update($videos_input);
-        return response()->json(['description' => 'video update'], 200);
+        $video = Video::where('id', $id)
+            ->firstOrFail();
+        $video->updateOrFail($videos_input);
+        return new VideoResource($video);
     }
 
     public function deleteVideos()
@@ -49,6 +52,7 @@ class VideoController extends Controller
         $video->setTranslations('title', $videos_input['title'])
                 ->setTranslations('description', $videos_input['description'])
                 ->save();
-        return response()->json(['description' => 'video created'], 200);
+
+        return new VideoResource($video);
     }
 }

@@ -41,17 +41,19 @@ class HeroController extends Controller
     public function updateHero(Request $request, $id)
     {
         // La validation de données
-        $this->validate($request, [
-            'image' => 'max:100',
-            'logo' => 'max:100',
-            'slogan' => 'max:100'
-        ]);
+        // $this->validate($request, [
+        //     'image' => 'max:100',
+        //     'logo' => 'max:100',
+        //     'slogan' => 'max:100'
+        // ]);
 
         $input = $request->input();
 
         Hero::where('id', '!=', $id)->updateOrFail(["status" => false,]);
 
-        $hero = Hero::where('id', $id)->updateOrFail($input);
+        $hero = Hero::where('id', $id)
+            ->firstOrFail();
+        $hero->updateOrFail($input);
 
         return new HeroResource($hero);
     }
