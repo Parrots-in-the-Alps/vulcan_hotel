@@ -23,22 +23,10 @@ class UpdateRequest extends FormRequest
      */
     public function rules()
     {
-
-        $locales = ['en', 'it'];
-
-
-        $rulesA = [];
-        foreach ($locales as $locale) {
-            $rulesA['title.' . $locale] = ['nullable', 'string'];
-        }
-
         return [
             'title' => ['required', 'array'],
             'title.fr' => ['required', 'string'],
             'description' => ['required', 'array'],
-        ] + $rulesA;
-
-
-
+        ];
     }
 }

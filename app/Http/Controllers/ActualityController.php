@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Actuality\UpdateRequest;
-use App\Http\Resources\ActualityCollection;
-use App\Http\Resources\ActualityResource;
 use App\Models\Actuality;
 use Illuminate\Http\Request;
+use App\Http\Resources\ActualityResource;
+use App\Http\Resources\ActualityCollection;
 
 class ActualityController extends Controller
 {
@@ -17,37 +16,50 @@ class ActualityController extends Controller
 
     public function showActuality($id)
     {
-        return response()->json(['actuality' => Actuality::find($id), 'description' => 'OK'], 200);
+        $actuality = Actuality::where(['id' => $id])
+            ->firstOrFail();
+
+        return new ActualityResource($actuality);
     }
 
-    public function updateActuality(UpdateRequest $request)
+    public function updateActuality(Request $request, $id)
     {
-        $request->validated();
+        $actualities_input = $request->input();
+        $actuality = Actuality::where(['id' => $id])
+            ->firstOrFail();
+        $actuality->updateOrFail($actualities_input);
 
-        $actuality = Actuality::where('id', $request->safe()['id']);
-        $actuality->update($request->safe()->collect());
-
-        return response()->json(['description' => 'actuality update'], 200);
+        return new ActualityResource($actuality);
     }
 
     public function deleteActualities()
     {
         Actuality::truncate();
+
         return response()->json(['description' => 'Actualities delete'], 200);
     }
 
     public function deleteActuality($id)
     {
-        $actuality = Actuality::where('id', $id);
-        $actuality->delete();
+        Actuality::where(['id' => $id])
+            ->delete();
+
         return response()->json(['description' => 'Actuality delete'], 200);
     }
 
     public function createActuality(Request $request)
     {
-        $actuality = new Actuality;
         $actualities_input = $request->input();
-        $actuality->create($actualities_input);
-        return response()->json(['description' => 'Actuality created'], 200);
+
+        $actuality = new Actuality();
+        $actuality->image = $actualities_input['image'];
+        $actuality->start_date = $actualities_input['start_date'];
+        $actuality->end_date = $actualities_input['end_date'];
+        $actuality
+            ->setTranslations('title', $actualities_input['title'])
+            ->setTranslations('description', $actualities_input['description'])
+            ->save();
+
+        return new ActualityResource($actuality);
     }
 }
