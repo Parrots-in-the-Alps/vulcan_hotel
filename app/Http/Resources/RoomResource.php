@@ -21,10 +21,10 @@ class RoomResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->getTranslation('name', [App::getLocale()]),
-            'type' => $this->getTranslation('type', [App::getLocale()]),
-            'status' => $this->getTranslation('status', [App::getLocale()]),
-            'description' => $this->getTranslation('description', [App::getLocale()]),
+            'name' => $this->getTranslation('name', App::getLocale()),
+            'type' => $this->getTranslation('type', App::getLocale()),
+            'status' => $this->getTranslation('status', App::getLocale()),
+            'description' => $this->getTranslation('description', App::getLocale()),
             'price' => $this->price,
             'number' => $this->number,
             'capacity' => $this->capacity,

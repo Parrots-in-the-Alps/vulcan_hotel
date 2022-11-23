@@ -21,7 +21,7 @@ class CallToActionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->getTranslation('title', [App::getLocale()]),
+            'title' => $this->getTranslation('title', App::getLocale()),
             'action' => $this->image_icon,
             'hero_id' => $this->hero_id
         ];

@@ -21,7 +21,7 @@ class HeroResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'slogan' => $this->getTranslation('slogan', [App::getLocale()]),
+            'slogan' => $this->getTranslation('slogan', App::getLocale()),
             'image' => $this->image,
             'logo' => $this->logo
         ];

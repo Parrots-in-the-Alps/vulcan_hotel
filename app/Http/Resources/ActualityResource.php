@@ -21,9 +21,9 @@ class ActualityResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->getTranslation('title', [App::getLocale()]),
+            'title' => $this->getTranslation('title', App::getLocale()),
             'image' => $this->image,
-            'description' => $this->getTranslation('description', [App::getLocale()]),
+            'description' => $this->getTranslation('description', App::getLocale()),
             'start_date' => $this->start_date,
             'end_date' => $this->end_date
         ];

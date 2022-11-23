@@ -21,7 +21,7 @@ class LinkResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->getTranslation('name', [App::getLocale()]),
+            'name' => $this->getTranslation('name', App::getLocale()),
             'url' => $this->url,
             'footer_id' =>$this->footer_id
         ];
