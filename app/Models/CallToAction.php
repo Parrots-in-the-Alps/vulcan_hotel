@@ -11,10 +11,12 @@ class CallToAction extends Model
     use HasFactory, HasTranslations;
 
     protected $fillable = ['action','hero_id'];
-    public $translatable = ['title'];
+    public $translatable = ['title','modal_content','modal_title'];
 
     public function hero(){
         return $this->belongsTo(Hero::class);
     }
+
+    
    
 }
