@@ -16,15 +16,19 @@ class LinkController extends Controller
 
     public function showLink($id)
     {
-        return new LinkResource(Link::find($id));
+        $link= Link::where(['id' => $id])
+            ->firstOrFail();
+        return new LinkResource($link);
     }
 
     public function updateLink(Request $request, $id)
     {
         $links_input = $request->input();
-        $link = Link::where('id', $id);
-        $link->update($links_input);
-        return response()->json(['description' => 'Link update'], 200);
+        $link = Link::where('id', $id)
+            ->firstOrFail();
+        $link->updateOrFail($links_input);
+
+        return new linkresource($link);
     }
 
     public function deleteLinks()

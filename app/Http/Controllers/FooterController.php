@@ -17,15 +17,20 @@ class FooterController extends Controller
 
     public function showFooter($id)
     {
-        return new FooterResource(Footer::find($id));
+        $footer = Footer::where(['id' => $id])
+            ->firstOrFail();
+
+        return new FooterResource($footer);
     }
 
     public function updateFooter(Request $request, $id)
     {
         $footer_input = $request->input();
-        $footer = Footer::where('id', $id);
+        $footer = Footer::where('id', $id)
+            ->firstOrFail();
         $footer->update($footer_input);
-        return response()->json(['description' => 'footer updated'], 200);
+
+        return new FooterResource($footer);
     }
 
     public function deleteFooters()
@@ -46,6 +51,6 @@ class FooterController extends Controller
         $footer = new Footer;
         $footer_input = $request->input();
         $footer->create($footer_input);
-        return response()->json(['description' => 'footer created'], 200);
+        return new FooterResource($footer);
     }
 }

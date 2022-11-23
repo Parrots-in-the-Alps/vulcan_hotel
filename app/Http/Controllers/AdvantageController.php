@@ -18,7 +18,9 @@ class AdvantageController extends Controller
 
     public function showAdvantage($id)
     {
-        return new AdvantageResource(Advantage::find($id));
+        $advantage = Advantage::where(['id' => $id])
+            ->firstOrFail();
+        return new AdvantageResource($advantage);
         //return response()->json(['advantage' => Advantage::find($id), 'description' => 'OK'], 200);
     }
 
@@ -32,16 +34,16 @@ class AdvantageController extends Controller
                   ->setTranslations('description',$input['description'])
                   ->save();
 
-        return response()->json(['message' => 'Advantage created successfully!'], 200);
+        return new AdvantageResource($advantage);
     }
 
-    public function updateAdvantage(Request $request, $advantage)
+    public function updateAdvantage(Request $request, $id)
     {
         $input = $request->input();
-        $advantage = Advantage::where('id', $advantage)->update(
-            $input
-        );
-        return response()->json(['message' => 'Advantage updated successfully!'], 200);
+        $advantage = Advantage::where(['id', $id])
+            ->firstOrFail();
+        $advantage->updateOrFail($input);
+        return new AdvantageResource($advantage);
     }
 
 

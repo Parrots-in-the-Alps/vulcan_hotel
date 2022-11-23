@@ -16,15 +16,19 @@ class AddressController extends Controller
 
     public function showAddress($id)
     {
-        return new AddressResource(Address::find($id));
+        $address = Address::where(['id' => $id])
+            ->firstOrFail();
+        return new AddressResource($address);
     }
 
     public function updateAddress(Request $request, $id)
     {
         $address_input = $request->input();
-        $address = Address::where('id', $id);
-        $address->update($address_input);
-        return response()->json(['description' => 'address updated'], 200);
+        $address = Address::where(['id' => $id])
+            ->firstOrFail();
+        $address->updateOrFail($address_input);
+
+        return new AddressResource($address);
     }
 
     public function deleteAddresses()
@@ -42,9 +46,9 @@ class AddressController extends Controller
 
     public function createAddress(Request $request)
     {
-        $address = new Address;
         $address_input = $request->input();
+        $address = new Address;
         $address->create($address_input);
-        return response()->json(['description' => 'Actuality created'], 200);
+        return new AddressResource($address);
     }
 }

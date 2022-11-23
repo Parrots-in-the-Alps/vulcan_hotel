@@ -16,16 +16,21 @@ class CallToActionController extends Controller
 
     public function showCallToAction($id)
     {
-        return new CallToActionResource(CallToAction::find($id));
+        $callToAction = CallToAction::where(['id' => $id])
+            ->firstOrFail();
+
+        return new CallToActionResource($callToAction);
         //return response()->json(['calltoaction' => CallToAction::find($id), 'description' => 'OK'], 200);
     }
 
     public function updateCallToAction(Request $request, $id)
     {
-        $calltoaction_input = $request->input();
-        $calltoaction = CallToAction::where('id', $id);
-        $calltoaction->update($calltoaction_input);
-        return response()->json(['description' => 'CallToAction update'], 200);
+        $callToAction_input = $request->input();
+        $callToAction = CallToAction::where('id', $id)
+            ->firstOrFail();
+        $callToAction->updateOrFail($callToAction_input);
+
+        return new CallToActionResource($callToAction);
     }
 
     public function deleteCallToActions()
@@ -49,6 +54,7 @@ class CallToActionController extends Controller
         $calltoaction->hero_id=$calltoaction_input['hero_id'];
         $calltoaction->setTranslations('title',$calltoaction_input['title'])
                      ->save();
-        return response()->json(['description' => 'CallToAction created'], 200);
+                     
+        return new CallToActionResource($calltoaction);
     }
 }

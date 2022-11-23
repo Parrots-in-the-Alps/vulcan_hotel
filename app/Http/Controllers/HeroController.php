@@ -10,102 +10,68 @@ use App\Http\Resources\HeroResource;
 
 class HeroController extends Controller
 {
-    public function showHeroes() { 
-
-
+    public function showHeroes()
+    {
         return new HeroCollection(Hero::all());
-        //  return response()->json($hero, 200);
-        //return response()->json(['hero' => Hero::all(), 'description' => 'OK'], 200);
-
     }
 
 
-    public function showHero($id){
-        // $hero = Hero::findOrFail($id);
-        // return response()->json($hero);
-        return new HeroResource(Hero::find($id));
-        //return response()->json(['hero' => Hero::find($id), 'description' => 'OK'], 200);
+    public function showHero($id)
+    {
 
+        $hero = Hero::where(['id' => $id])
+            ->firstOrFail();
+
+        return new HeroResource($hero);
     }
 
     public function createHero(Request $request)
-{
-    
-    $input = $request->input();
-    $hero = new Hero();
-    $hero->image=$input['image'];
-    $hero->logo=$input['logo'];
-    $hero->setTranslations('sloga', $input['slogan'])
+    {
+
+        $input = $request->input();
+        $hero = new Hero();
+        $hero->image = $input['image'];
+        $hero->logo = $input['logo'];
+        $hero->setTranslations('slogan', $input['slogan'])
             ->save();
 
-    // $this->validate($request, [
-    //     'image' => 'max:100',
-    //     'logo' => 'max:100',
-    //     'slogan' => 'max:5'
-    // ]);
-    
-    
+        return new HeroResource($hero);
+    }
 
-    // // On crée un nouveau hero
-    // $hero = Hero::create(
-    //     $input
-    // );
+    public function updateHero(Request $request, $id)
+    {
+        // La validation de données
+        $this->validate($request, [
+            'image' => 'max:100',
+            'logo' => 'max:100',
+            'slogan' => 'max:100'
+        ]);
 
-    // On retourne les informations du nouvel utilisateur en JSON
-    return response()->json(['message' => 'hero created successfully!'], 200);
-}
+        $input = $request->input();
 
-public function updateHero(Request $request, $hero)
-{
-    // La validation de données
-    $this->validate($request, [
-        'image' => 'max:100',
-        'logo' => 'max:100',
-        'slogan' => 'max:100'
-    ]);
+        Hero::where('id', '!=', $id)->updateOrFail(["status" => false,]);
 
-    $input = $request->input();
-    //var_dump($request->all());
+        $hero = Hero::where('id', $id)->updateOrFail($input);
+
+        return new HeroResource($hero);
+    }
 
 
+    public function deleteHero(Hero $hero)
+    {
+        // On supprime le hero
+        $hero->delete();
 
-   Hero::where('id', '!=' ,$hero)->update([
-        "status" => false,
+        // On retourne la réponse JSON
+        return response()->json();
+    }
 
-    ]);
+    public function deleteHeroes()
+    {
 
-      Hero::where('id', $hero)->update(
-            $input
-            
-        );
+        Hero::truncate();
 
-        
-    
-    // On modifie les informations de l'hero
-    
-
-    // On retourne la réponse JSON
-    return response()->json(['message' => 'hero updated successfully!'], 200);
-}
-
-
-public function deleteHero(Hero $hero)
-{
-    // On supprime le hero
-    $hero->delete();
-
-    // On retourne la réponse JSON
-    return response()->json();
-}
-
-public function deleteHeroes()
-{
-
-    Hero::truncate();
- 
-    // On retourne la réponse JSON
-    return response()->json();
-}
-
-
+        // On retourne la réponse JSON
+        return response()->json();
+    }
 }

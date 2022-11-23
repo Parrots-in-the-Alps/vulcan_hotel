@@ -16,15 +16,20 @@ class HeaderController extends Controller
 
     public function showHeader($id)
     {
-        return new HeaderResource(Header::find($id));
+        $header = Header::where(['id' => $id])
+            ->firstOrFail();
+
+        return new HeaderResource($header);
     }
 
     public function updateHeader(Request $request, $id)
     {
         $headers_input = $request->input();
-        $header = Header::where('id', $id);
+        $header = Header::where('id', $id)
+            ->firstOrFail();
         $header->update($headers_input);
-        return response()->json(['description' => 'Header update'], 200);
+
+        return new HeaderResource($header);
     }
 
     public function deleteHeaders()
@@ -45,6 +50,7 @@ class HeaderController extends Controller
         $header = new Header;
         $headers_input = $request->input();
         $header->create($headers_input);
-        return response()->json(['description' => 'Header created'], 200);
+        
+        return new HeaderResource($header);
     }
 }
