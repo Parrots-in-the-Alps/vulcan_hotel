@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Review;
+use App\Http\Resources\ReviewCollection;
+use App\Http\Resources\ReviewResource;
 
 class ReviewController extends Controller
 {
     public function showReviews() { 
-        return response()->json(['review' => Review::all(), 'description' => 'OK'], 200);
+        return new ReviewCollection(Review::all());
     }
 
     public function showReview($id){
-         return response()->json(['review' => Review::find($id), 'description' => 'OK'], 200);
+         return new ReviewResource(Review::find($id));
     }
 
     public function createReview(Request $request){
