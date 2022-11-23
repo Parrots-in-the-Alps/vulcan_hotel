@@ -4,17 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Link;
 use Illuminate\Http\Request;
+use App\Http\Resources\LinkCollection;
+use App\Http\Resources\LinkResource;
 
 class LinkController extends Controller
 {
     public function showLinks()
     {
-        return response()->json(['links' => Link::all(), 'description' => 'OK'], 200);
+        return new LinkCollection(Link::all());
     }
 
     public function showLink($id)
     {
-        return response()->json(['link' => Link::find($id), 'description' => 'OK'], 200);
+        return new LinkResource(Link::find($id));
     }
 
     public function updateLink(Request $request, $id)
@@ -40,9 +42,11 @@ class LinkController extends Controller
 
     public function createLink(Request $request)
     {
-        $link = new Link;
         $links_input = $request->input();
-        $link->create($links_input);
+        $link = new Link;
+        $link->url=$links_input['url'];
+        $link->setTranslations('name',$links_input['name'])
+             ->save();
         return response()->json(['description' => 'Link created'], 200);
     }
 }
