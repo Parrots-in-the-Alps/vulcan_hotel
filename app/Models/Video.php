@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Video extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
-    protected $fillable = ['title_fr', 'title_en', 'video_link', 'description_fr', 'description_en'];
+    protected $fillable = ['video_link'];
+    public $translatable = ['description', 'title'];
 }

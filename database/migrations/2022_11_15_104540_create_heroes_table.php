@@ -14,18 +14,11 @@ class CreateHeroesTable extends Migration
     public function up()
     {
         Schema::create('heroes', function (Blueprint $table) {
-            $table->id('hero_id');
+            $table->id();
             $table->string('image');
-            $table->string('slogan_fr');
-            $table->string('slogan_en');
+            $table->json('slogan')->nullable();
             $table->string('logo');
             $table->timestamps();
-            $table->unsignedInteger('call_to_action_id')->nullable();
-            $table->foreign('call_to_action_id')
-                    ->references('id')
-                    ->on('call_to_actions')
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
         });
     }
 

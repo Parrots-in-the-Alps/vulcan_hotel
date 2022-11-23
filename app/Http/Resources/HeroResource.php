@@ -2,14 +2,14 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Advantage;
-use Illuminate\Support\Facades\App;
+use App\Models\Hero;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\App;
 
 /**
- * @mixin Advantage
+ * @mixin Hero
  */
-class AdvantageResource extends JsonResource
+class HeroResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,10 +21,9 @@ class AdvantageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->getTranslation('title', [App::getLocale()]),
-            'image_icon' => $this->image_icon,
-            'description' => $this->getTranslation('description', [App::getLocale()]),
-            'price' => $this->price,
+            'slogan' => $this->getTranslation('slogan', [App::getLocale()]),
+            'image' => $this->image,
+            'logo' => $this->logo
         ];
     }
 }

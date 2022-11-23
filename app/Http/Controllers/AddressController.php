@@ -3,18 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Address; 
+use App\Models\Address;
+use App\Http\Resources\AddressCollection;
+use App\Http\Resources\AddressResource; 
 
 class AddressController extends Controller
 {
     public function showAddresses()
     {
-        return response()->json(['addresses' => Address::all(), 'description' => 'OK'], 200);
+        return new AddressCollection(Address::all());
     }
 
     public function showAddress($id)
     {
-        return response()->json(['adress' => Address::find($id), 'description' => 'OK'], 200);
+        return new AddressResource(Address::find($id));
     }
 
     public function updateAddress(Request $request, $id)

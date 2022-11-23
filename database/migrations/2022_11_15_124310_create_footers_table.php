@@ -14,7 +14,7 @@ class CreateFootersTable extends Migration
     public function up()
     {
         Schema::create('footers', function (Blueprint $table) {
-            $table->id('');
+            $table->id();
             $table->integer('phone_number');
             $table->string('mail');
             $table->string('logo');
@@ -23,12 +23,6 @@ class CreateFootersTable extends Migration
             $table->foreign('address_id')
                 ->references('id')
                 ->on('addresses')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->unsignedInteger('link_id')->nullable();
-            $table->foreign('link_id')
-                ->references('id')
-                ->on('links')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });

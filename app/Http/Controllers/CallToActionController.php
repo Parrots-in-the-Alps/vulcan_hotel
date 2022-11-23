@@ -46,6 +46,7 @@ class CallToActionController extends Controller
         $calltoaction_input = $request->input();
         $calltoaction = new CallToAction;
         $calltoaction->action=$calltoaction_input['action'];
+        $calltoaction->hero_id=$calltoaction_input['hero_id'];
         $calltoaction->setTranslations('title',$calltoaction_input['title'])
                      ->save();
         return response()->json(['description' => 'CallToAction created'], 200);

@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Hero;
 use Illuminate\Http\Request;
+use App\Http\Resources\HeroCollection;
+use App\Http\Resources\HeroResource;
 
 class HeroController extends Controller
 {
     public function showHeroes() { 
 
 
-        $hero = Hero::all();
+        return new HeroCollection(Hero::all());
         //  return response()->json($hero, 200);
-        return response()->json(['hero' => Hero::all(), 'description' => 'OK'], 200);
+        //return response()->json(['hero' => Hero::all(), 'description' => 'OK'], 200);
 
     }
 
@@ -21,24 +23,33 @@ class HeroController extends Controller
     public function showHero($id){
         // $hero = Hero::findOrFail($id);
         // return response()->json($hero);
-         return response()->json(['hero' => Hero::find($id), 'description' => 'OK'], 200);
+        return new HeroResource(Hero::find($id));
+        //return response()->json(['hero' => Hero::find($id), 'description' => 'OK'], 200);
 
     }
 
     public function createHero(Request $request)
 {
-    $this->validate($request, [
-        'image' => 'max:100',
-        'logo' => 'max:100',
-        'slogan' => 'max:5'
-    ]);
     
     $input = $request->input();
+    $hero = new Hero();
+    $hero->image=$input['image'];
+    $hero->logo=$input['logo'];
+    $hero->setTranslations('sloga', $input['slogan'])
+            ->save();
 
-    // On crée un nouveau hero
-    $hero = Hero::create(
-        $input
-    );
+    // $this->validate($request, [
+    //     'image' => 'max:100',
+    //     'logo' => 'max:100',
+    //     'slogan' => 'max:5'
+    // ]);
+    
+    
+
+    // // On crée un nouveau hero
+    // $hero = Hero::create(
+    //     $input
+    // );
 
     // On retourne les informations du nouvel utilisateur en JSON
     return response()->json(['message' => 'hero created successfully!'], 200);
@@ -54,7 +65,7 @@ public function updateHero(Request $request, $hero)
     ]);
 
     $input = $request->input();
-    var_dump($request->all());
+    //var_dump($request->all());
 
 
 

@@ -17,7 +17,13 @@ class CreateLinksTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('url');
-            $table->string('name');
+            $table->json('name')->nullable();
+            $table->unsignedInteger('footer_id')->nullable();
+            $table->foreign('footer_id')
+                ->references('id')
+                ->on('footers')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

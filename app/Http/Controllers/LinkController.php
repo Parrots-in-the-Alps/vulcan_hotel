@@ -45,6 +45,7 @@ class LinkController extends Controller
         $links_input = $request->input();
         $link = new Link;
         $link->url=$links_input['url'];
+        $link->footer_id=$links_input['footer_id'];
         $link->setTranslations('name',$links_input['name'])
              ->save();
         return response()->json(['description' => 'Link created'], 200);

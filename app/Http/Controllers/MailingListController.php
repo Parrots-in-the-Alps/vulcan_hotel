@@ -5,16 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\MailingList;
 use Illuminate\Http\Request;
+use App\Http\Resources\MailingListCollection;
+use App\Http\Resources\MailingListResource;
 
 class MailingListController extends Controller
 {
     public function showMailingList() { 
-        return response()->json(['mailinglist' => MailingList::all(), 'description' => 'OK'], 200);
+        return new MailingListCollection(MailingList::all());
     }
 
 
     public function showEmail($id){
-         return response()->json(['mailinglist' => MailingList::find($id), 'description' => 'OK'], 200);
+         return new MailingListResource(MailingList::find($id));
     }
 
     public function createEmail(Request $request)

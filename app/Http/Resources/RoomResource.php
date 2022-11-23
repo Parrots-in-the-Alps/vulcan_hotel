@@ -2,9 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Room;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\App;
 
+/**
+ * @mixin Room
+ */
 class RoomResource extends JsonResource
 {
     /**
@@ -17,10 +21,10 @@ class RoomResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->getTranslations('name', [App::getLocale()]),
-            'type' => $this->getTranslations('type', [App::getLocale()]),
-            'status' => $this->getTranslations('status', [App::getLocale()]),
-            'description' => $this->getTranslations('description', [App::getLocale()]),
+            'name' => $this->getTranslation('name', [App::getLocale()]),
+            'type' => $this->getTranslation('type', [App::getLocale()]),
+            'status' => $this->getTranslation('status', [App::getLocale()]),
+            'description' => $this->getTranslation('description', [App::getLocale()]),
             'price' => $this->price,
             'number' => $this->number,
             'capacity' => $this->capacity,

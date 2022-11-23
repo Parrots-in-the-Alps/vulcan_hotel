@@ -2,9 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Models\CallToAction;
 use Illuminate\Support\Facades\App;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin CallToAction
+ */
 class CallToActionResource extends JsonResource
 {
     /**
@@ -17,8 +21,9 @@ class CallToActionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->getTranslations('title', [App::getLocale()]),
-            'action' => $this->image_icon
+            'title' => $this->getTranslation('title', [App::getLocale()]),
+            'action' => $this->image_icon,
+            'hero_id' => $this->hero_id
         ];
     }
 }

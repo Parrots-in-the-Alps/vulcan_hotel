@@ -4,17 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Video;
 use Illuminate\Http\Request;
+use App\Http\Resources\VideoCollection;
+use App\Http\Resources\VideoResource;
 
 class VideoController extends Controller
 {
     public function showVideos()
     {
-        return response()->json(['videos' => Video::all(), 'description' => 'OK'], 200);
+        return new VideoCollection(Video::all());
     }
 
     public function showVideo($id)
     {
-        return response()->json(['video' => Video::find($id), 'description' => 'OK'], 200);
+        return new VideoResource(Video::find($id));
     }
 
     public function updateVideo(Request $request, $id)
@@ -40,9 +42,13 @@ class VideoController extends Controller
 
     public function createVideo(Request $request)
     {
-        $video = new Video;
+        
         $videos_input = $request->input();
-        $video->create($videos_input);
+        $video = new Video;
+        $video->video_link=$videos_input['video_link'];
+        $video->setTranslations('title', $videos_input['title'])
+                ->setTranslations('description', $videos_input['description'])
+                ->save();
         return response()->json(['description' => 'video created'], 200);
     }
 }

@@ -10,7 +10,7 @@ class Link extends Model
 {
     use HasFactory, HasTranslations;
 
-    protected $fillable = ['url'];
+    protected $fillable = ['url','footer_id'];
     public $translatable = ['name'];
 
     function footer()

@@ -18,6 +18,12 @@ class CreateCallToActionsTable extends Migration
             $table->json('title')->nullable();
             $table->integer('action');
             $table->timestamps();
+            $table->unsignedInteger('hero_id')->nullable();
+            $table->foreign('hero_id')
+                    ->references('id')
+                    ->on('heroes')
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
         });
     }
 

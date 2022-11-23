@@ -4,17 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Header;
 use Illuminate\Http\Request;
+use App\Http\Resources\HeaderCollection;
+use App\Http\Resources\HeaderResource;
 
 class HeaderController extends Controller
 {
     public function showHeaders()
     {
-        return response()->json(['headers' => Header::all(), 'description' => 'OK'], 200);
+        return new HeaderCollection(Header::all());
     }
 
     public function showHeader($id)
     {
-        return response()->json(['header' => Header::find($id), 'description' => 'OK'], 200);
+        return new HeaderResource(Header::find($id));
     }
 
     public function updateHeader(Request $request, $id)

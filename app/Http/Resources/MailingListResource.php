@@ -2,14 +2,13 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Advantage;
-use Illuminate\Support\Facades\App;
+use App\Models\MailingList;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @mixin Advantage
+ * @mixin MailingList
  */
-class AdvantageResource extends JsonResource
+class MailingListResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,10 +20,7 @@ class AdvantageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->getTranslation('title', [App::getLocale()]),
-            'image_icon' => $this->image_icon,
-            'description' => $this->getTranslation('description', [App::getLocale()]),
-            'price' => $this->price,
+            'email' => $this->email
         ];
     }
 }

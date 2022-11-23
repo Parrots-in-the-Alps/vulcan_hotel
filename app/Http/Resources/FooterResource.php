@@ -2,9 +2,12 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Support\Facades\App;
+use App\Models\Footer;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin Footer
+ */
 class FooterResource extends JsonResource
 {
     /**

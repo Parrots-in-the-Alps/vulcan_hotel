@@ -4,14 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Hero extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
 
 
-    protected $fillable = ['image', 'logo', 'slogan_fr', 'slogan_en'];
+    protected $fillable = ['image', 'logo'];
+    public $translatable = ['slogan'];
 
 
         /**

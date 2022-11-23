@@ -8,9 +8,9 @@ use Spatie\Translatable\HasTranslations;
 
 class CallToAction extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
-    protected $fillable = ['action'];
+    protected $fillable = ['action','hero_id'];
     public $translatable = ['title'];
 
     public function hero(){
