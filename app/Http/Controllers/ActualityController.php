@@ -6,7 +6,6 @@ use App\Models\Actuality;
 use Illuminate\Http\Request;
 use App\Http\Resources\ActualityResource;
 use App\Http\Resources\ActualityCollection;
-use App\Http\Requests\Actuality\UpdateRequest;
 
 class ActualityController extends Controller
 {
@@ -17,28 +16,34 @@ class ActualityController extends Controller
 
     public function showActuality($id)
     {
-        return new ActualityResource(Actuality::find($id));
+        $actuality = Actuality::where(['id' => $id])
+            ->firstOrFail();
+
+        return new ActualityResource($actuality);
     }
 
     public function updateActuality(Request $request, $id)
     {
         $actualities_input = $request->input();
-        $actuality = Actuality::where('id', $id);
-        $actuality->update($actualities_input);
+        $actuality = Actuality::where(['id' => $id])
+            ->firstOrFail();
+        $actuality->updateOrFail($actualities_input);
 
-        return response()->json(['description' => 'actuality update'], 200);
+        return new ActualityResource($actuality);
     }
 
     public function deleteActualities()
     {
         Actuality::truncate();
+
         return response()->json(['description' => 'Actualities delete'], 200);
     }
 
     public function deleteActuality($id)
     {
-        $actuality = Actuality::where('id', $id);
-        $actuality->delete();
+        Actuality::where(['id' => $id])
+            ->delete();
+
         return response()->json(['description' => 'Actuality delete'], 200);
     }
 
@@ -55,6 +60,6 @@ class ActualityController extends Controller
             ->setTranslations('description', $actualities_input['description'])
             ->save();
 
-        return response()->json(['description' => 'Actuality created'], 200);
+        return new ActualityResource($actuality);
     }
 }
