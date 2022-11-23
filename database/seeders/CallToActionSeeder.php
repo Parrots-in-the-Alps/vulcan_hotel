@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\CallToAction;
+use File;
 
 class CallToActionSeeder extends Seeder
 {
@@ -13,6 +15,14 @@ class CallToActionSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\CallToAction::factory(5)->create();
+        $json = File::get("database/data/callToAction.json");
+        $cta = json_decode($json);
+  
+        foreach ($cta as $key => $value) {
+            CallToAction::create([
+                "action" => $value->action,
+                "title" => json_encode($value->title),
+            ]);
+        }
     }
 }

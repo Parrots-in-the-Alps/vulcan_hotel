@@ -30,7 +30,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => 'show'], function(){
+Route::middleware('setLocale')->prefix('show')->group(function() {
 
     Route::get('/videos', [VideoController::class, 'showVideos']);
     Route::get('/video/{id}', [VideoController::class, 'showVideo']);

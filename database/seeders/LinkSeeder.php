@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Link;
+use File;
 
 class LinkSeeder extends Seeder
 {
@@ -13,6 +15,14 @@ class LinkSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Link::factory(10)->create();
+        $json = File::get("database/data/link.json");
+        $links = json_decode($json);
+  
+        foreach ($links as $key => $value) {
+            Link::create([
+                "url" => $value->url,
+                "name" => json_encode($value->name),
+            ]);
+        }
     }
 }

@@ -24,7 +24,7 @@ class RoomSeeder extends Seeder
                 "type" => json_encode($value->type),
                 "capacity" => $value->capacity,
                 "price" => $value->price,
-                "status" => $value->status,
+                "status" => json_encode($value->status),
                 "image" => $value->image,
                 "name" => $value->name,
                 "description" => json_encode($value->description),
