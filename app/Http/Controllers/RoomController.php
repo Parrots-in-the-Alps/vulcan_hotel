@@ -5,22 +5,32 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Room;
+use App\Http\Resources\RoomCollection;
+use App\Http\Resources\RoomResource;
 
 class RoomController extends Controller
 {
     public function showRooms() { 
-        return response()->json(['room' => Room::all(), 'description' => 'OK'], 200);
+        return new RoomCollection(Room::all());
     }
 
     public function showRoom($id){
-         return response()->json(['room' => Room::find($id), 'description' => 'OK'], 200);
+         return new RoomResource(Room::find($id));
     }
 
     public function createRoom(Request $request){
     $input = $request->input();
-    $room = Room::create(
-        $input
-    );
+    $room = new Room();
+    $room ->number=$input['number'];
+    $room->capacity=$input['capacity'];
+    $room->price=$input['price'];
+    $room->image=$input['image'];
+    $room->setTranslations('name', $input['name'])
+            ->setTranslations('type', $input['type'])
+            ->setTranslations('status', $input['status'])
+            ->setTranslations('description', $input['description'])
+            ->save();
+            
     return response()->json(['message' => 'Room created successfully!'], 200);
 }
 

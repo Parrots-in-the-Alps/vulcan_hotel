@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Room extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
 
 
-    protected $fillable = ['name_fr', 'name_en', 'number', 'type_fr', 'type_en', 'capacity', 'price', 'status', 'image', 'description_fr', 'description_en'];
+    protected $fillable = ['number', 'capacity', 'price', 'image'];
+    public $translatable = ['description', 'name', 'type', 'status'];
 }
