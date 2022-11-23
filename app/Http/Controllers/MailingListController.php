@@ -10,43 +10,48 @@ use App\Http\Resources\MailingListResource;
 
 class MailingListController extends Controller
 {
-    public function showMailingList() { 
+    public function showMailingList()
+    {
         return new MailingListCollection(MailingList::all());
     }
 
 
-    public function showEmail($id){
-         return new MailingListResource(MailingList::find($id));
+    public function showEmail($id)
+    {
+        $email = MailingList::where(['id' => $id])
+            ->firstOrFail();
+        return new MailingListResource($email);
     }
 
     public function createEmail(Request $request)
-{
-    $input = $request->input();
-    $mailingList = MailingList::create(
-        $input
-    );
-    return response()->json(['message' => 'MailingList created successfully!'], 200);
-}
-
-public function updateEmail(Request $request, $mailingList)
-{
-    $input = $request->input();
-        $mailingList = MailingList::where('id', $mailingList)->update(
+    {
+        $input = $request->input();
+        $email = MailingList::create(
             $input
         );
-    return response()->json(['message' => 'MailingList updated successfully!'], 200);
-}
+        return new MailingListResource($email);
+    }
+
+    public function updateEmail(Request $request, $id)
+    {
+        $input = $request->input();
+        $email = MailingList::where(['id' => $id])
+            ->updateOrFail(
+                $input
+            );
+        return new MailingListResource($email);
+    }
 
 
-public function deleteEmail(MailingList $mailingList)
-{
-    $mailingList->delete();
-    return response()->json();
-}
+    public function deleteEmail(MailingList $mailingList)
+    {
+        $mailingList->delete();
+        return response()->json();
+    }
 
-public function deleteMailingList()
-{
-    MailingList::truncate();
-    return response()->json();
-}
+    public function deleteMailingList()
+    {
+        MailingList::truncate();
+        return response()->json();
+    }
 }
