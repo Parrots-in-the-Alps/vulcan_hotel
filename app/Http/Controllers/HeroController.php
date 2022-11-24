@@ -30,7 +30,7 @@ class HeroController extends Controller
 
     public function updateHero(Request $request, $id)
     {
-        // Hero::where('id', '!=', $id)->updateOrFail(["status" => false]);
+        Hero::where('id', '!=', $id)->update(["isActive" => false]);
         $heroes_input = $request->input();
         $hero = Hero::where(['id' => $id])
             ->firstOrFail();
@@ -59,7 +59,6 @@ class HeroController extends Controller
 
     public function createHero(Request $request)
     {
-
         $heroes_input = $request->input();
 
         $hero = new Hero();
