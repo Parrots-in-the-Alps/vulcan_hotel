@@ -17,6 +17,7 @@ class CreateReviewsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('user_name');
+            $table->boolean('isActive');
             $table->string('image_user_avatar');
             $table->integer('rating');
             $table->string('comment');
