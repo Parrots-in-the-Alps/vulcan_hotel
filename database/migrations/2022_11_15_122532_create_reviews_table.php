@@ -20,7 +20,6 @@ class CreateReviewsTable extends Migration
             $table->string('image_user_avatar');
             $table->integer('rating');
             $table->string('comment');
-            $table->date('creation_date');
         });
     }
 

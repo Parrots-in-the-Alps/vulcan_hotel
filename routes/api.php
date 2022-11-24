@@ -34,28 +34,40 @@ Route::middleware('setLocale')->prefix('show')->group(function() {
 
     Route::get('/videos', [VideoController::class, 'showVideos']);
     Route::get('/video/{id}', [VideoController::class, 'showVideo']);
+    Route::get('/activevideos', [ActualityController::class, 'showActiveVideos']);
     Route::get('/heroes', [HeroController::class, 'showHeroes']);
     Route::get('/hero/{id}', [HeroController::class, 'showHero']);
+    Route::get('/activeheroes', [ActualityController::class, 'showActiveHeroes']);
     Route::get('/addresses', [AddressController::class, 'showAddresses']);
     Route::get('/address/{id}', [AddressController::class, 'showAddress']);
+    Route::get('/activeaddresses', [ActualityController::class, 'showActiveAddresses']);
     Route::get('/footers', [FooterController::class, 'showFooters']);
     Route::get('/footer/{id}', [FooterController::class, 'showFooter']);
+    Route::get('/activefooters', [ActualityController::class, 'showActiveFooters']);
     Route::get('/actualities', [ActualityController::class, 'showActualities']);
     Route::get('/actuality/{id}', [ActualityController::class, 'showActuality']);
+    Route::get('/activeactualities', [ActualityController::class, 'showActiveActualities']);
     Route::get('/advantages', [AdvantageController::class, 'showAdvantages']);
     Route::get('/advantage/{id}', [AdvantageController::class, 'showAdvantage']);
+    Route::get('/activeadvantages', [ActualityController::class, 'showActiveAdvantages']);
     Route::get('/calltoactions', [CallToActionController::class, 'showCallToActions']);
     Route::get('/calltoaction/{id}', [CallToActionController::class, 'showCallToAction']);
+    Route::get('/activecalltoactions', [ActualityController::class, 'showActiveCallToActions']);
     Route::get('/headers', [HeaderController::class, 'showHeaders']);
     Route::get('/header/{id}', [HeaderController::class, 'showHeader']);
+    Route::get('/activeheaders', [ActualityController::class, 'showActiveHeaders']);
     Route::get('/links', [LinkController::class, 'showLinks']);
     Route::get('/link/{id}', [LinkController::class, 'showLink']);
+    Route::get('/activelinks', [ActualityController::class, 'showActiveLinks']);
     Route::get('/mailinglist', [MailingListController::class, 'showMailingList']);
     Route::get('/email/{id}', [MailingListController::class, 'showEmail']);
+    Route::get('/activemailinglist', [ActualityController::class, 'showActiveMailingList']);
     Route::get('/reviews', [ReviewController::class, 'showReviews']);
     Route::get('/review/{id}', [ReviewController::class, 'showReview']);
+    Route::get('/activereviews', [ActualityController::class, 'showActiveReviews']);
     Route::get('/rooms', [RoomController::class, 'showRooms']);
     Route::get('/room/{id}', [RoomController::class, 'showRoom']);
+    Route::get('/activerooms', [ActualityController::class, 'showActiveRooms']);
 
 });
 

@@ -18,40 +18,54 @@ class VideoController extends Controller
     {
         $video = Video::where(['id' => $id])
             ->firstOrFail();
+
         return new VideoResource($video);
+    }
+
+    public function showActiveVideos()
+    {
+        return new VideoCollection(Video::where('isActive',1)->get());
     }
 
     public function updateVideo(Request $request, $id)
     {
         $videos_input = $request->input();
-        $video = Video::where('id', $id)
+        $video = Video::where(['id' => $id])
             ->firstOrFail();
+        $video
+            ->setTranslations('title', $videos_input['title'])
+            ->setTranslations('description', $videos_input['description'])
+            ->save();
         $video->updateOrFail($videos_input);
+            
         return new VideoResource($video);
     }
 
     public function deleteVideos()
     {
         Video::truncate();
-        return response()->json(['description' => 'Video delete'], 200);
+
+        return response()->json(['description' => 'Videos delete'], 200);
     }
 
     public function deleteVideo($id)
     {
-        $video = Video::where('id', $id);
-        $video->delete();
+        Video::where(['id' => $id])
+            ->delete();
+
         return response()->json(['description' => 'Video delete'], 200);
     }
 
     public function createVideo(Request $request)
     {
-        
         $videos_input = $request->input();
-        $video = new Video;
-        $video->video_link=$videos_input['video_link'];
-        $video->setTranslations('title', $videos_input['title'])
-                ->setTranslations('description', $videos_input['description'])
-                ->save();
+
+        $video = new Video();
+        $video->video_link = $videos_input['video_link'];
+        $video
+            ->setTranslations('title', $videos_input['title'])
+            ->setTranslations('description', $videos_input['description'])
+            ->save();
 
         return new VideoResource($video);
     }

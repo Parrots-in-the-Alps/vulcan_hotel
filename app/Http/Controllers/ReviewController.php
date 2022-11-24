@@ -20,39 +20,46 @@ class ReviewController extends Controller
         $review = Review::where(['id' => $id])
             ->firstOrFail();
 
-        return new ReviewResource(Review::find($id));
+        return new ReviewResource($review);
     }
 
-    public function createReview(Request $request)
+    public function showActiveReviews()
     {
-        $input = $request->input();
-        $review = Review::create(
-            $input
-        );
-        return new ReviewResource($review);
+        return new ReviewCollection(Review::where('isActive',1)->get());
     }
 
     public function updateReview(Request $request, $id)
     {
-        $input = $request->input();
+        $reviews_input = $request->input();
         $review = Review::where(['id' => $id])
             ->firstOrFail();
-        $review->updateOrFail(
-            $input
-        );
+        $review->updateOrFail($reviews_input);
+            
         return new ReviewResource($review);
-    }
-
-
-    public function deleteReview(Review $review)
-    {
-        $review->delete();
-        return response()->json();
     }
 
     public function deleteReviews()
     {
         Review::truncate();
-        return response()->json();
+
+        return response()->json(['description' => 'Reviews delete'], 200);
+    }
+
+    public function deleteReview($id)
+    {
+        Review::where(['id' => $id])
+            ->delete();
+
+        return response()->json(['description' => 'Review delete'], 200);
+    }
+
+    public function createReview(Request $request)
+    {
+        $reviews_input = $request->input();
+
+        $review = new Review();
+        $review->create($reviews_input);
+
+        return new ReviewResource($review);
     }
 }
