@@ -16,9 +16,10 @@ class CreateLinksTable extends Migration
         Schema::create('links', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->boolean('isActive')->default(false);
             $table->string('url');
             $table->json('name')->nullable();
-            $table->unsignedInteger('footer_id')->nullable();
+            $table->unsignedInteger('footer_id')->nullable()->constrained();
             $table->foreign('footer_id')
                 ->references('id')
                 ->on('footers')

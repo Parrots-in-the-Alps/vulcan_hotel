@@ -12,6 +12,6 @@ class Room extends Model
 
 
 
-    protected $fillable = ['number', 'capacity', 'price', 'image'];
+    protected $fillable = ['number', 'capacity', 'price', 'image','isActive'];
     public $translatable = ['description', 'name', 'type', 'status'];
 }

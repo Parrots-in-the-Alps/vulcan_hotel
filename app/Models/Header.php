@@ -9,5 +9,5 @@ class Header extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['banner_image'];
+    protected $fillable = ['banner_image','isActive'];
 }

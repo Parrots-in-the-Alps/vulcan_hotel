@@ -20,6 +20,7 @@ class HeaderResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'isActive' =>$this->isActive,
             'banner_image' => $this->banner_image
         ];
     }

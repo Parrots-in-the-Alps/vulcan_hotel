@@ -15,6 +15,7 @@ class CreateHeroesTable extends Migration
     {
         Schema::create('heroes', function (Blueprint $table) {
             $table->id();
+            $table->boolean('isActive')->default(false);
             $table->string('image');
             $table->json('slogan')->nullable();
             $table->string('logo');

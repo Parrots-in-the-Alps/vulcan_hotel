@@ -17,10 +17,10 @@ class CreateReviewsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('user_name');
+            $table->boolean('isActive')->default(false);
             $table->string('image_user_avatar');
             $table->integer('rating');
             $table->string('comment');
-            $table->date('creation_date');
         });
     }
 
