@@ -11,6 +11,14 @@ class Actuality extends Model
     use HasFactory, HasTranslations;
 
     protected $fillable = ['image', 'start_date', 'end_date', 'isActive'];
-
     public $translatable = ['title', 'description'];
+
+    public $casts = [
+        'isActive' => 'boolean'
+    ];
+
+    protected $attributes = [
+        'isActive' => false,
+    ];
+
 }
