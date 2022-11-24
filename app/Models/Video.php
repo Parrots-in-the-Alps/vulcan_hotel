@@ -10,6 +10,6 @@ class Video extends Model
 {
     use HasFactory, HasTranslations;
 
-    protected $fillable = ['video_link'];
+    protected $fillable = ['video_link','isActive'];
     public $translatable = ['description', 'title'];
 }

@@ -19,6 +19,7 @@ class CreateVideosTable extends Migration
             $table->string('video_link');
             $table->json('description')->nullable();
             $table->timestamps();
+            $table->boolean('isActive')->default(false);
         });
     }
 

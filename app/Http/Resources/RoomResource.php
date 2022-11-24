@@ -25,6 +25,7 @@ class RoomResource extends JsonResource
             'type' => $this->getTranslation('type', App::getLocale()),
             'status' => $this->getTranslation('status', App::getLocale()),
             'description' => $this->getTranslation('description', App::getLocale()),
+            'isActive' =>$this->isActive,
             'price' => $this->price,
             'number' => $this->number,
             'capacity' => $this->capacity,

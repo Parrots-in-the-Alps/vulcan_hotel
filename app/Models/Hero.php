@@ -12,7 +12,7 @@ class Hero extends Model
 
 
 
-    protected $fillable = ['image', 'logo'];
+    protected $fillable = ['image', 'logo', 'isActive'];
     public $translatable = ['slogan'];
 
 

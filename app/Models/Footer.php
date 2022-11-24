@@ -9,7 +9,7 @@ class Footer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['phone_number', 'mail', 'logo', 'address_id'];
+    protected $fillable = ['phone_number', 'mail', 'logo', 'address_id','isActive'];
 
 
     /**

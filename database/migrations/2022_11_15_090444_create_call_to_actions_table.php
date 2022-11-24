@@ -15,11 +15,12 @@ class CreateCallToActionsTable extends Migration
     {
         Schema::create('call_to_actions', function (Blueprint $table) {
             $table->id();
+            $table->boolean('isActive')->default(false);
             $table->json('title')->nullable();
             $table->json('modal_title')->nullable();
             $table->json('modal_content')->nullable();
             $table->timestamps();
-            $table->unsignedInteger('hero_id')->nullable();
+            $table->unsignedInteger('hero_id')->nullable()->constrained();
             $table->foreign('hero_id')
                     ->references('id')
                     ->on('heroes')

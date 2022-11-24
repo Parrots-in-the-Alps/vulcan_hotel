@@ -10,6 +10,6 @@ class Advantage extends Model
 {
     use HasFactory, HasTranslations;
 
-    protected $fillable = ['image_icon', 'price'];
+    protected $fillable = ['image_icon', 'price','isActive'];
     public $translatable = ['title', 'description'];
 }

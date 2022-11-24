@@ -23,7 +23,8 @@ class VideoResource extends JsonResource
             'id' => $this->id,
             'title' => $this->getTranslation('title', App::getLocale()),
             'video_link' => $this->video_link,
-            'description' => $this->getTranslation('description', App::getLocale())
+            'description' => $this->getTranslation('description', App::getLocale()),
+            'isActive' => $this->isActive
         ];
     }
 }
