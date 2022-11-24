@@ -11,6 +11,13 @@ class Footer extends Model
 
     protected $fillable = ['phone_number', 'mail', 'logo', 'address_id','isActive'];
 
+    public $casts = [
+        'isActive' => 'boolean'
+    ];
+
+    protected $attributes = [
+        'isActive' => false,
+    ];
 
     /**
      * Get the adress associated with the footer.
@@ -27,4 +34,5 @@ class Footer extends Model
     {
         return $this->hasMany(Link::class);
     }
+    
 }

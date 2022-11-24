@@ -12,4 +12,13 @@ class Advantage extends Model
 
     protected $fillable = ['image_icon', 'price','isActive'];
     public $translatable = ['title', 'description'];
+
+    public $casts = [
+        'isActive' => 'boolean'
+    ];
+
+    protected $attributes = [
+        'isActive' => false,
+    ];
+    
 }

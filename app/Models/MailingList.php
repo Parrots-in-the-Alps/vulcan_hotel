@@ -11,4 +11,12 @@ class MailingList extends Model
 
     protected $fillable = ['email'];
 
+    public $casts = [
+        'isActive' => 'boolean'
+    ];
+
+    protected $attributes = [
+        'isActive' => false,
+    ];
+    
 }
