@@ -21,6 +21,7 @@ class CreateAddressesTable extends Migration
             $table->string('city_name');
             $table->string('country');
             $table->timestamps();
+            $table->boolean('isActive')->default(false);
         });
     }
 
