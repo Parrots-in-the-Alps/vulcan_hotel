@@ -22,7 +22,7 @@ class HeaderController extends Controller
         return new HeaderResource($header);
     }
 
-    public function showActiveHeader()
+    public function showActiveHeaders()
     {
         return new HeaderCollection(Header::where('isActive',1)->get());
     }

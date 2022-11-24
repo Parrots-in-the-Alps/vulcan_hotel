@@ -10,8 +10,15 @@ class Room extends Model
 {
     use HasFactory, HasTranslations;
 
-
-
     protected $fillable = ['number', 'capacity', 'price', 'image','isActive'];
     public $translatable = ['description', 'name', 'type', 'status'];
+
+    public $casts = [
+        'isActive' => 'boolean'
+    ];
+
+    protected $attributes = [
+        'isActive' => false,
+    ];
+    
 }

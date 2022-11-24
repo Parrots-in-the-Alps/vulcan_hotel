@@ -11,7 +11,16 @@ class Address extends Model
 
     protected $fillable = ['street_num', 'street_name', 'zip', 'city_name', 'country','isActive'];
 
+    public $casts = [
+        'isActive' => 'boolean'
+    ];
+
+    protected $attributes = [
+        'isActive' => false,
+    ];
+
     public function footer(){
         return $this->belongsTo(Footer::class);
     }
+    
 }

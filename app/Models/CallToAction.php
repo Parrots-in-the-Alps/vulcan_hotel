@@ -13,10 +13,16 @@ class CallToAction extends Model
     protected $fillable = ['hero_id','isActive'];
     public $translatable = ['title','modal_content','modal_title'];
 
+    public $casts = [
+        'isActive' => 'boolean'
+    ];
+
+    protected $attributes = [
+        'isActive' => false,
+    ];
+
     public function hero(){
         return $this->belongsTo(Hero::class);
     }
-
     
-   
 }

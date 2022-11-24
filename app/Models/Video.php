@@ -12,4 +12,13 @@ class Video extends Model
 
     protected $fillable = ['video_link','isActive'];
     public $translatable = ['description', 'title'];
+
+    public $casts = [
+        'isActive' => 'boolean'
+    ];
+
+    protected $attributes = [
+        'isActive' => false,
+    ];
+    
 }

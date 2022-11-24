@@ -23,7 +23,7 @@ class FooterController extends Controller
         return new FooterResource($footer);
     }
 
-    public function showActiveFooter()
+    public function showActiveFooters()
     {
         return new FooterCollection(Footer::where('isActive',1)->get());
     }

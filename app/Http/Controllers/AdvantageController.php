@@ -23,7 +23,7 @@ class AdvantageController extends Controller
         return new AdvantageResource($advantage);
     }
 
-    public function showActiveAdvantage()
+    public function showActiveAdvantages()
     {
         return new AdvantageCollection(Advantage::where('isActive',1)->get());
     }

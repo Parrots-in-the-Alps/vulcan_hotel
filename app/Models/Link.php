@@ -13,8 +13,17 @@ class Link extends Model
     protected $fillable = ['url','footer_id','isActive'];
     public $translatable = ['name'];
 
+    public $casts = [
+        'isActive' => 'boolean'
+    ];
+
+    protected $attributes = [
+        'isActive' => false,
+    ];
+
     function footer()
     {
         return $this->belongsTo(Footer::class);
     }
+    
 }

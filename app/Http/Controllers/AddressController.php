@@ -22,7 +22,7 @@ class AddressController extends Controller
         return new AddressResource($address);
     }
 
-    public function showActiveAddress()
+    public function showActiveAddresses()
     {
         return new AddressCollection(Address::where('isActive',1)->get());
     }

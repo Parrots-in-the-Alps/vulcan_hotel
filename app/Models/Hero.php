@@ -10,11 +10,16 @@ class Hero extends Model
 {
     use HasFactory, HasTranslations;
 
-
-
     protected $fillable = ['image', 'logo', 'isActive'];
     public $translatable = ['slogan'];
 
+    public $casts = [
+        'isActive' => 'boolean'
+    ];
+
+    protected $attributes = [
+        'isActive' => false,
+    ];
 
         /**
      * Get the CallToAction buttons for the hero.
@@ -23,4 +28,5 @@ class Hero extends Model
     {
         return $this->hasMany(CallToAction::class);
     }
+    
 }
