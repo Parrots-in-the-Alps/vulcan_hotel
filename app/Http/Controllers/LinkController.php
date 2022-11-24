@@ -22,7 +22,7 @@ class LinkController extends Controller
         return new LinkResource($link);
     }
 
-    public function showActiveLink()
+    public function showActiveLinks()
     {
         return new LinkCollection(Link::where('isActive',1)->get());
     }

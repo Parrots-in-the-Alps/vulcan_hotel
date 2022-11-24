@@ -23,7 +23,7 @@ class HeroController extends Controller
         return new HeroResource($hero);
     }
 
-    public function showActiveHero()
+    public function showActiveHeroes()
     {
         return new HeroCollection(Hero::where('isActive',1)->get());
     }
