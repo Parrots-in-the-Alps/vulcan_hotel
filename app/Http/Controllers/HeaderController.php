@@ -22,35 +22,42 @@ class HeaderController extends Controller
         return new HeaderResource($header);
     }
 
+    public function showActiveHeader()
+    {
+        return new HeaderCollection(Header::where('isActive',1)->get());
+    }
+
     public function updateHeader(Request $request, $id)
     {
         $headers_input = $request->input();
-        $header = Header::where('id', $id)
+        $header = Header::where(['id' => $id])
             ->firstOrFail();
-        $header->update($headers_input);
-
+        $header->updateOrFail($headers_input);
+            
         return new HeaderResource($header);
     }
 
     public function deleteHeaders()
     {
         Header::truncate();
+
         return response()->json(['description' => 'Headers delete'], 200);
     }
 
     public function deleteHeader($id)
     {
-        $header = Header::where('id', $id);
-        $header->delete();
+        Header::where(['id' => $id])
+            ->delete();
+
         return response()->json(['description' => 'Header delete'], 200);
     }
 
     public function createHeader(Request $request)
     {
-        $header = new Header;
         $headers_input = $request->input();
+        $header = new Header();
         $header->create($headers_input);
-        
+
         return new HeaderResource($header);
     }
 }

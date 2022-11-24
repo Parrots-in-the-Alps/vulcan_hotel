@@ -15,65 +15,60 @@ class HeroController extends Controller
         return new HeroCollection(Hero::all());
     }
 
-
     public function showHero($id)
     {
-
         $hero = Hero::where(['id' => $id])
             ->firstOrFail();
 
         return new HeroResource($hero);
     }
 
-    public function createHero(Request $request)
+    public function showActiveHero()
     {
-
-        $input = $request->input();
-        $hero = new Hero();
-        $hero->image = $input['image'];
-        $hero->logo = $input['logo'];
-        $hero->setTranslations('slogan', $input['slogan'])
-            ->save();
-
-        return new HeroResource($hero);
+        return new HeroCollection(Hero::where('isActive',1)->get());
     }
 
     public function updateHero(Request $request, $id)
     {
-        // La validation de données
-        // $this->validate($request, [
-        //     'image' => 'max:100',
-        //     'logo' => 'max:100',
-        //     'slogan' => 'max:100'
-        // ]);
-
-        $input = $request->input();
-
-        Hero::where('id', '!=', $id)->updateOrFail(["status" => false,]);
-
-        $hero = Hero::where('id', $id)
+        // Hero::where('id', '!=', $id)->updateOrFail(["status" => false]);
+        $heroes_input = $request->input();
+        $hero = Hero::where(['id' => $id])
             ->firstOrFail();
-        $hero->updateOrFail($input);
-
+        $hero
+            ->setTranslations('slogan', $heroes_input['slogan'])
+            ->save();
+        $hero->updateOrFail($heroes_input);
+            
         return new HeroResource($hero);
-    }
-
-
-    public function deleteHero(Hero $hero)
-    {
-        // On supprime le hero
-        $hero->delete();
-
-        // On retourne la réponse JSON
-        return response()->json();
     }
 
     public function deleteHeroes()
     {
-
         Hero::truncate();
 
-        // On retourne la réponse JSON
-        return response()->json();
+        return response()->json(['description' => 'Heroes delete'], 200);
+    }
+
+    public function deleteHero($id)
+    {
+        Hero::where(['id' => $id])
+            ->delete();
+
+        return response()->json(['description' => 'Hero delete'], 200);
+    }
+
+    public function createHero(Request $request)
+    {
+
+        $heroes_input = $request->input();
+
+        $hero = new Hero();
+        $hero->image = $heroes_input['image'];
+        $hero->logo = $heroes_input['logo'];
+        $hero
+            ->setTranslations('slogan', $heroes_input['slogan'])
+            ->save();
+
+        return new HeroResource($hero);
     }
 }

@@ -22,13 +22,22 @@ class ActualityController extends Controller
         return new ActualityResource($actuality);
     }
 
+    public function showActiveActualities()
+    {
+        return new ActualityCollection(Actuality::where('isActive',1)->get());
+    }
+
     public function updateActuality(Request $request, $id)
     {
         $actualities_input = $request->input();
         $actuality = Actuality::where(['id' => $id])
             ->firstOrFail();
+        $actuality
+            ->setTranslations('title', $actualities_input['title'])
+            ->setTranslations('description', $actualities_input['description'])
+            ->save();
         $actuality->updateOrFail($actualities_input);
-
+            
         return new ActualityResource($actuality);
     }
 

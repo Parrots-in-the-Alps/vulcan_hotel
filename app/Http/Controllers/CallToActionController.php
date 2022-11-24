@@ -16,21 +16,30 @@ class CallToActionController extends Controller
 
     public function showCallToAction($id)
     {
-        $callToAction = CallToAction::where(['id' => $id])
+        $calltoaction = CallToAction::where(['id' => $id])
             ->firstOrFail();
 
-        return new CallToActionResource($callToAction);
-        //return response()->json(['calltoaction' => CallToAction::find($id), 'description' => 'OK'], 200);
+        return new CallToActionResource($calltoaction);
+    }
+
+    public function showActiveCallToActions()
+    {
+        return new CallToActionCollection(CallToAction::where('isActive',1)->get());
     }
 
     public function updateCallToAction(Request $request, $id)
     {
-        $callToAction_input = $request->input();
-        $callToAction = CallToAction::where('id', $id)
+        $calltoactions_input = $request->input();
+        $calltoaction = CallToAction::where(['id' => $id])
             ->firstOrFail();
-        $callToAction->updateOrFail($callToAction_input);
-
-        return new CallToActionResource($callToAction);
+        $calltoaction
+            ->setTranslations('title', $calltoactions_input['title'])
+            ->setTranslations('modal_content', $calltoactions_input['modal_content'])
+            ->setTranslations('modal_title', $calltoactions_input['modal_title'])
+            ->save();
+        $calltoaction->updateOrFail($calltoactions_input);
+            
+        return new CallToActionResource($calltoaction);
     }
 
     public function deleteCallToActions()
@@ -48,14 +57,16 @@ class CallToActionController extends Controller
 
     public function createCallToAction(Request $request)
     {
-        $calltoaction_input = $request->input();
-        $calltoaction = new CallToAction;
-        $calltoaction->hero_id=$calltoaction_input['hero_id'];
-        $calltoaction->setTranslations('title',$calltoaction_input['title'])
-                    ->setTranslations('modal_title',$calltoaction_input['modal_title'])
-                    ->setTranslations('modal_content',$calltoaction_input['modal_content'])
-                     ->save();
-                     
+        $calltoactions_input = $request->input();
+
+        $calltoaction = new CallToAction();
+        $calltoaction->hero_id = $calltoactions_input['hero_id'];
+        $calltoaction
+            ->setTranslations('title', $calltoactions_input['title'])
+            ->setTranslations('modal_content', $calltoactions_input['modal_content'])
+            ->setTranslations('modal_title', $calltoactions_input['modal_title'])
+            ->save();
+
         return new CallToActionResource($calltoaction);
     }
 }

@@ -15,44 +15,51 @@ class MailingListController extends Controller
         return new MailingListCollection(MailingList::all());
     }
 
-
     public function showEmail($id)
     {
         $email = MailingList::where(['id' => $id])
             ->firstOrFail();
+
         return new MailingListResource($email);
     }
 
-    public function createEmail(Request $request)
+    public function showActiveMailingList()
     {
-        $input = $request->input();
-        $email = MailingList::create(
-            $input
-        );
-        return new MailingListResource($email);
+        return new MailingListCollection(MailingList::where('isActive',1)->get());
     }
 
     public function updateEmail(Request $request, $id)
     {
-        $input = $request->input();
+        $mailingList_input = $request->input();
         $email = MailingList::where(['id' => $id])
             ->firstOrFail();
-        $email->updateOrFail(
-                $input
-            );
+        $email->updateOrFail($mailingList_input);
+            
         return new MailingListResource($email);
-    }
-
-
-    public function deleteEmail(MailingList $mailingList)
-    {
-        $mailingList->delete();
-        return response()->json();
     }
 
     public function deleteMailingList()
     {
         MailingList::truncate();
-        return response()->json();
+
+        return response()->json(['description' => 'MailingList delete'], 200);
+    }
+
+    public function deleteEmail($id)
+    {
+        MailingList::where(['id' => $id])
+            ->delete();
+
+        return response()->json(['description' => 'Email delete'], 200);
+    }
+
+    public function createEmail(Request $request)
+    {
+        $mailingList_input = $request->input();
+
+        $email = new MailingList();
+        $email->create($mailingList_input);
+
+        return new MailingListResource($email);
     }
 }

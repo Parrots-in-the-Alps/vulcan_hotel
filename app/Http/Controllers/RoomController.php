@@ -19,56 +19,62 @@ class RoomController extends Controller
     {
         $room = Room::where(['id' => $id])
             ->firstOrFail();
+
         return new RoomResource($room);
     }
 
-    public function createRoom(Request $request)
+    public function showActiveRooms()
     {
-        $input = $request->input();
-        $room = new Room();
-        $room->number = $input['number'];
-        $room->capacity = $input['capacity'];
-        $room->price = $input['price'];
-        $room->image = $input['image'];
-        $room->setTranslations('name', $input['name'])
-            ->setTranslations('type', $input['type'])
-            ->setTranslations('status', $input['status'])
-            ->setTranslations('description', $input['description'])
+        return new RoomCollection(Room::where('isActive',1)->get());
+    }
+
+    public function updateRoom(Request $request, $id)
+    {
+        $rooms_input = $request->input();
+        $room = Room::where(['id' => $id])
+            ->firstOrFail();
+        $room
+            ->setTranslations('name', $rooms_input['name'])
+            ->setTranslations('description', $rooms_input['description'])
+            ->setTranslations('type', $rooms_input['type'])
+            ->setTranslations('status', $rooms_input['status'])
             ->save();
-
+        $room->updateOrFail($rooms_input);
+            
         return new RoomResource($room);
-    }
-
-    public function updateRoom(Request $request, $room)
-    {
-
-
-        // le code suivant n'update pas les traductions !!!!!!!!!!!!!!!
-        // $input = $request->input();
-        // $room = Room::where(['id' => $room])
-        //     ->firstOrFail();
-        // $room->updateOrFail(
-        //     $input
-        // );
-        // return new RoomResource($room);
-
-        $input = $request->input();
-        $ye = Room::where('id', $room)->update(
-            $input
-        );
-        return response()->json(['message' => 'room updated successfully!'], 200);
-    }
-
-
-    public function deleteRoom(Room $room)
-    {
-        $room->delete();
-        return response()->json(['description' => 'Room delete'], 200);
     }
 
     public function deleteRooms()
     {
         Room::truncate();
+
         return response()->json(['description' => 'Rooms delete'], 200);
+    }
+
+    public function deleteRoom($id)
+    {
+        Room::where(['id' => $id])
+            ->delete();
+
+        return response()->json(['description' => 'Room delete'], 200);
+    }
+
+    public function createRoom(Request $request)
+    {
+        $rooms_input = $request->input();
+
+        $room = new Room();
+        $room->number = $rooms_input['number'];
+        $room->capacity = $rooms_input['capacity'];
+        $room->price = $rooms_input['price'];
+        $room->image = $rooms_input['image'];
+        $room
+        ->setTranslations('name', $rooms_input['name'])
+        ->setTranslations('description', $rooms_input['description'])
+        ->setTranslations('type', $rooms_input['type'])
+        ->setTranslations('status', $rooms_input['status'])
+            ->save();
+
+        return new RoomResource($room);
     }
 }

@@ -18,37 +18,46 @@ class AddressController extends Controller
     {
         $address = Address::where(['id' => $id])
             ->firstOrFail();
+
         return new AddressResource($address);
+    }
+
+    public function showActiveAddress()
+    {
+        return new AddressCollection(Address::where('isActive',1)->get());
     }
 
     public function updateAddress(Request $request, $id)
     {
-        $address_input = $request->input();
+        $addresses_input = $request->input();
         $address = Address::where(['id' => $id])
             ->firstOrFail();
-        $address->updateOrFail($address_input);
-
+        $address->updateOrFail($addresses_input);
+            
         return new AddressResource($address);
     }
 
     public function deleteAddresses()
     {
         Address::truncate();
-        return response()->json(['description' => 'addresses deleted'], 200);
+
+        return response()->json(['description' => 'Addresses delete'], 200);
     }
 
     public function deleteAddress($id)
     {
-        $video = Address::where('id', $id);
-        $video->delete();
-        return response()->json(['description' => 'address deleted'], 200);
+        Address::where(['id' => $id])
+            ->delete();
+
+        return response()->json(['description' => 'Address delete'], 200);
     }
 
     public function createAddress(Request $request)
     {
-        $address_input = $request->input();
-        $address = new Address;
-        $address->create($address_input);
+        $addresses_input = $request->input();
+        $address = new Address();
+        $address->create($addresses_input);
+
         return new AddressResource($address);
     }
 }

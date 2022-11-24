@@ -15,47 +15,58 @@ class AdvantageController extends Controller
         return new AdvantageCollection(Advantage::all());
     }
 
-
     public function showAdvantage($id)
     {
         $advantage = Advantage::where(['id' => $id])
             ->firstOrFail();
+
         return new AdvantageResource($advantage);
-        //return response()->json(['advantage' => Advantage::find($id), 'description' => 'OK'], 200);
     }
 
-    public function createAdvantage(Request $request)
+    public function showActiveAdvantage()
     {
-        $input = $request->input();
-        $advantage = new Advantage();
-        $advantage->image_icon=$input['image_icon'];
-        $advantage->price=$input['price'];
-        $advantage->setTranslations('title',$input['title'])
-                  ->setTranslations('description',$input['description'])
-                  ->save();
-
-        return new AdvantageResource($advantage);
+        return new AdvantageCollection(Advantage::where('isActive',1)->get());
     }
 
     public function updateAdvantage(Request $request, $id)
     {
-        $input = $request->input();
-        $advantage = Advantage::where(['id', $id])
+        $advantages_input = $request->input();
+        $advantage = Advantage::where(['id' => $id])
             ->firstOrFail();
-        $advantage->updateOrFail($input);
+        $advantage
+            ->setTranslations('title', $advantages_input['title'])
+            ->setTranslations('description', $advantages_input['description'])
+            ->save();
+        $advantage->updateOrFail($advantages_input);
+            
         return new AdvantageResource($advantage);
-    }
-
-
-    public function deleteAdvantage(Advantage $advantage)
-    {
-        $advantage->delete();
-        return response()->json();
     }
 
     public function deleteAdvantages()
     {
         Advantage::truncate();
-        return response()->json();
+
+        return response()->json(['description' => 'Advantages delete'], 200);
+    }
+
+    public function deleteAdvantage($id)
+    {
+        Advantage::where(['id' => $id])
+            ->delete();
+
+        return response()->json(['description' => 'Advantage delete'], 200);
+    }
+
+    public function createAdvantage(Request $request)
+    {
+        $advantages_input = $request->input();
+        $advantage = new Advantage();
+        $advantage->image_icon = $advantages_input['image_icon'];
+        $advantage->price = $advantages_input['price'];
+        $advantage->setTranslations('title', $advantages_input['title'])
+                  ->setTranslations('description', $advantages_input['description'])
+                  ->save();
+
+        return new AdvantageResource($advantage);
     }
 }

@@ -23,34 +23,42 @@ class FooterController extends Controller
         return new FooterResource($footer);
     }
 
+    public function showActiveFooter()
+    {
+        return new FooterCollection(Footer::where('isActive',1)->get());
+    }
+
     public function updateFooter(Request $request, $id)
     {
-        $footer_input = $request->input();
-        $footer = Footer::where('id', $id)
+        $footers_input = $request->input();
+        $footer = Footer::where(['id' => $id])
             ->firstOrFail();
-        $footer->update($footer_input);
-
+        $footer->updateOrFail($footers_input);
+            
         return new FooterResource($footer);
     }
 
     public function deleteFooters()
     {
-        Footer::truncate();
-        return response()->json(['description' => 'footers deleted'], 200);
+        Footer::truncHeaderate();
+
+        return response()->json(['description' => 'Footers delete'], 200);
     }
 
     public function deleteFooter($id)
     {
-        $footer = Footer::where('id', $id);
-        $footer->delete();
-        return response()->json(['description' => 'footer deleted'], 200);
+        Footer::where(['id' => $id])
+            ->delete();
+
+        return response()->json(['description' => 'Footer delete'], 200);
     }
 
     public function createFooter(Request $request)
     {
-        $footer = new Footer;
-        $footer_input = $request->input();
-        $footer->create($footer_input);
+        $footers_input = $request->input();
+        $footer = new Footer();
+        $footer->create($footers_input);
+
         return new FooterResource($footer);
     }
 }
