@@ -41,6 +41,7 @@ Route::middleware('setLocale')->prefix('show')->group(function() {
     Route::get('/footers', [FooterController::class, 'showFooters']);
     Route::get('/footer/{id}', [FooterController::class, 'showFooter']);
     Route::get('/actualities', [ActualityController::class, 'showActualities']);
+    Route::get('/activeActualities', [ActualityController::class, 'showActiveActualities']);
     Route::get('/actuality/{id}', [ActualityController::class, 'showActuality']);
     Route::get('/advantages', [AdvantageController::class, 'showAdvantages']);
     Route::get('/advantage/{id}', [AdvantageController::class, 'showAdvantage']);
