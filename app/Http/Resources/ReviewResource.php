@@ -25,8 +25,7 @@ class ReviewResource extends JsonResource
             'isActive' => $this->isActive,
             'image_user_avatar' => $this->image_user_avatar,
             'rating' => $this->rating,
-            'comment'=> $this->comment,
-            'creation_date' =>$this->creation_date
+            'comment'=> $this->comment
         ];
     }
 }

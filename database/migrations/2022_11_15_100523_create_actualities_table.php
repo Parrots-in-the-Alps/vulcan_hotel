@@ -18,7 +18,7 @@ class CreateActualitiesTable extends Migration
             $table->json('title')->nullable();
             $table->string('image');
             $table->json('description')->nullable();
-            $table->boolean('isActive');//gere l'affichage dans la landing page
+            $table->boolean('isActive')->default(false);//gere l'affichage dans la landing page
             $table->timestamp('start_date');
             $table->timestamp('end_date');
             $table->timestamps();

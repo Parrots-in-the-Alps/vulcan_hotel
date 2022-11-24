@@ -15,7 +15,7 @@ class CreateHeaderTable extends Migration
     {
         Schema::create('headers', function (Blueprint $table) {
             $table->id();
-            $table->boolena('isActive');
+            $table->boolena('isActive')->default(false);
             $table->timestamps();
             $table->string('banner_image');
         });
