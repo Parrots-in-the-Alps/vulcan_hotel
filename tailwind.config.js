@@ -20,6 +20,10 @@ module.exports = {
         'bistre': '#372B20',
       },
     },
+    fontFamily: {
+      Philosopher: ['philosopher-mono', 'Philosopher', 'sans-serif'],
+      Cinzel: ['cinzel-mono', 'Cinzel', 'sans-serif']
+  },
   },
   plugins: [],
 }
