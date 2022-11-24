@@ -22,7 +22,8 @@ module.exports = {
     },
     fontFamily: {
       Philosopher: ['philosopher-mono', 'Philosopher', 'sans-serif'],
-      Cinzel: ['cinzel-mono', 'Cinzel', 'sans-serif']
+      Cinzel: ['cinzel-mono', 'Cinzel', 'sans-serif'],
+      Megrim: ['megrim-mono', 'Megrim', 'sans-serif']
   },
   },
   plugins: [],
