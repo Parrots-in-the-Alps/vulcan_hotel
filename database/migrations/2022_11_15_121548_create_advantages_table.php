@@ -16,6 +16,7 @@ class CreateAdvantagesTable extends Migration
         Schema::create('advantages', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->boolean('isActive');
             $table->string('image_icon');
             $table->json('title')->nullable();
             $table->json('description')->nullable();
