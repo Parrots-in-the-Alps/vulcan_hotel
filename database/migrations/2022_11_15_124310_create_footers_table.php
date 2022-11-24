@@ -15,11 +15,12 @@ class CreateFootersTable extends Migration
     {
         Schema::create('footers', function (Blueprint $table) {
             $table->id();
+            $table->boolean('isActive')->default(false);
             $table->integer('phone_number');
             $table->string('mail');
             $table->string('logo');
             $table->timestamps();
-            $table->unsignedInteger('address_id')->nullable();
+            $table->unsignedInteger('address_id')->nullable()->constrained();
             $table->foreign('address_id')
                 ->references('id')
                 ->on('addresses')

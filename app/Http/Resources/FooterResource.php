@@ -21,6 +21,7 @@ class FooterResource extends JsonResource
         return [
             'id' => $this->id,
             'phone_number' => $this->phone_number,
+            'isActive' =>$this->isActive,
             'mail' => $this->mail,
             'logo' => $this->logo,
             'address_id' => $this->address_id,
