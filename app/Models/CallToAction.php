@@ -10,7 +10,7 @@ class CallToAction extends Model
 {
     use HasFactory, HasTranslations;
 
-    protected $fillable = ['action','hero_id'];
+    protected $fillable = ['hero_id','isActive'];
     public $translatable = ['title','modal_content','modal_title'];
 
     public function hero(){

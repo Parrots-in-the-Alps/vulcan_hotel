@@ -15,6 +15,7 @@ class CreateCallToActionsTable extends Migration
     {
         Schema::create('call_to_actions', function (Blueprint $table) {
             $table->id();
+            $table->boolean('isActive');
             $table->json('title')->nullable();
             $table->json('modal_title')->nullable();
             $table->json('modal_content')->nullable();
