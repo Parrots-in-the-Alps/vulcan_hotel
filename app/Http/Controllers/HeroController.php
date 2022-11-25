@@ -25,7 +25,7 @@ class HeroController extends Controller
 
     public function showActiveHeroes()
     {
-        return new HeroCollection(Hero::where('isActive',1)->get());
+        return new HeroCollection(Hero::where('isActive',true)->get());
     }
 
     public function updateHero(Request $request, $id)

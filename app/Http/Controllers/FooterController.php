@@ -25,7 +25,7 @@ class FooterController extends Controller
 
     public function showActiveFooters()
     {
-        return new FooterCollection(Footer::where('isActive',1)->get());
+        return new FooterCollection(Footer::where('isActive',true)->get());
     }
 
     public function updateFooter(Request $request, $id)

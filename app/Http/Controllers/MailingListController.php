@@ -25,7 +25,7 @@ class MailingListController extends Controller
 
     public function showActiveMailingList()
     {
-        return new MailingListCollection(MailingList::where('isActive',1)->get());
+        return new MailingListCollection(MailingList::where('isActive',true)->get());
     }
 
     public function updateEmail(Request $request, $id)

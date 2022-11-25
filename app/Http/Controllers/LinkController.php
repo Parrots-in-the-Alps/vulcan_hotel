@@ -24,7 +24,7 @@ class LinkController extends Controller
 
     public function showActiveLinks()
     {
-        return new LinkCollection(Link::where('isActive',1)->get());
+        return new LinkCollection(Link::where('isActive',true)->get());
     }
 
     public function updateLink(Request $request, $id)

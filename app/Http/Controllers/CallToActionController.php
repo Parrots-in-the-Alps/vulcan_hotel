@@ -24,7 +24,7 @@ class CallToActionController extends Controller
 
     public function showActiveCallToActions()
     {
-        return new CallToActionCollection(CallToAction::where('isActive',1)->get());
+        return new CallToActionCollection(CallToAction::where('isActive',true)->get());
     }
 
     public function updateCallToAction(Request $request, $id)

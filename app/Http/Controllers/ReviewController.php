@@ -25,7 +25,7 @@ class ReviewController extends Controller
 
     public function showActiveReviews()
     {
-        return new ReviewCollection(Review::where('isActive',1)->get());
+        return new ReviewCollection(Review::where('isActive',true)->get());
     }
 
     public function updateReview(Request $request, $id)

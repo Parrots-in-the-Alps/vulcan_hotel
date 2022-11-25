@@ -24,7 +24,7 @@ class VideoController extends Controller
 
     public function showActiveVideos()
     {
-        return new VideoCollection(Video::where('isActive',1)->get());
+        return new VideoCollection(Video::where('isActive',true)->get());
     }
 
     public function updateVideo(Request $request, $id)

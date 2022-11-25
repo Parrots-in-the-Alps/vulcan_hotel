@@ -25,7 +25,7 @@ class AdvantageController extends Controller
 
     public function showActiveAdvantages()
     {
-        return new AdvantageCollection(Advantage::where('isActive',1)->get());
+        return new AdvantageCollection(Advantage::where('isActive',true)->get());
     }
 
     public function updateAdvantage(Request $request, $id)

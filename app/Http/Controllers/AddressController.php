@@ -24,7 +24,7 @@ class AddressController extends Controller
 
     public function showActiveAddresses()
     {
-        return new AddressCollection(Address::where('isActive',1)->get());
+        return new AddressCollection(Address::where('isActive',true)->get());
     }
 
     public function updateAddress(Request $request, $id)

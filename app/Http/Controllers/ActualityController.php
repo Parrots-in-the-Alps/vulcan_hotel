@@ -24,7 +24,7 @@ class ActualityController extends Controller
 
     public function showActiveActualities()
     {
-        return new ActualityCollection(Actuality::where('isActive',1)->get());
+        return new ActualityCollection(Actuality::where('isActive',true)->get());
     }
 
     public function updateActuality(Request $request, $id)

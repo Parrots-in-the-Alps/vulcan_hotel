@@ -24,7 +24,7 @@ class HeaderController extends Controller
 
     public function showActiveHeaders()
     {
-        return new HeaderCollection(Header::where('isActive',1)->get());
+        return new HeaderCollection(Header::where('isActive',true)->get());
     }
 
     public function updateHeader(Request $request, $id)
