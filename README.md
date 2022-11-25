@@ -70,3 +70,8 @@ In the terminal :
 cp .env.example .env
 
 php artisan key:generate
+
+## Handling models, migrations, seeders, factories and controllers
+
+php artisan make:model Modelname -mfsc  generates everything
+
