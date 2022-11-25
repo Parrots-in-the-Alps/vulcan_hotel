@@ -6,7 +6,7 @@
       <div class="px-6 py-4">
       <div class="font-bold text-xl mb-2">{{ room.name }}</div>
         <p class="text-gray-700 text-base">
-        <img :src="'/images/rooms/' + room.image" alt="image d'une suite">
+        <img class="object-cover h-48 w-96" :src="'/images/rooms/' + room.image" alt="image d'une suite">
         {{ room.description }}
         </p>
       </div>
@@ -25,11 +25,21 @@ export default {
     }
   },
   async mounted() {
-    const response = await axios.get('api/show/activerooms');
+    const response = await axios.get('api/show/activerooms',{
+      headers: {
+        'Accept-Language' : userLocale
+      }
+    });
     console.log(response.data['data'])
     this.response = response.data['data'];
   }
 }
+
+const userLocale =
+  navigator.languages && navigator.languages.length
+    ? navigator.languages[0]
+    : navigator.language;
+
 </script>
 
 
