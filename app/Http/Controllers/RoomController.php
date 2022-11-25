@@ -25,23 +25,27 @@ class RoomController extends Controller
 
     public function showActiveRooms()
     {
-        return new RoomCollection(Room::where('isActive',1)->get());
+        return new RoomCollection(Room::where('isActive',true)->get());
     }
 
     public function updateRoom(Request $request, $id)
     {
-        $rooms_input = $request->input();
-        $room = Room::where(['id' => $id])
-            ->firstOrFail();
-        $room
-            ->setTranslations('name', $rooms_input['name'])
-            ->setTranslations('description', $rooms_input['description'])
-            ->setTranslations('type', $rooms_input['type'])
-            ->setTranslations('status', $rooms_input['status'])
-            ->save();
-        $room->updateOrFail($rooms_input);
-            
-        return new RoomResource($room);
+        // $rooms_input = $request->input();
+        // $room = Room::where(['id' => $id])
+        //     ->firstOrFail();
+        // $room
+        //     ->setTranslations('name', $rooms_input['name'])
+        //     ->setTranslations('description', $rooms_input['description'])
+        //     ->setTranslations('type', $rooms_input['type'])
+        //     ->setTranslations('status', $rooms_input['status'])
+        //     ->save();
+        // $room->updateOrFail($rooms_input);
+
+        $input = $request->input();
+        $ye = Room::where('id', $id)->update(
+            $input
+        );
+        return response()->json(['message' => 'room updated successfully!'], 200);
     }
 
     public function deleteRooms()
