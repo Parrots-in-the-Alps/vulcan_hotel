@@ -10,12 +10,12 @@ use App\Http\Resources\MailingListResource;
 
 class MailingListController extends Controller
 {
-    public function showMailingList()
+    public function index()
     {
         return new MailingListCollection(MailingList::all());
     }
 
-    public function showEmail($id)
+    public function show($id)
     {
         $email = MailingList::where(['id' => $id])
             ->firstOrFail();
@@ -28,7 +28,7 @@ class MailingListController extends Controller
         return new MailingListCollection(MailingList::where('isActive',true)->get());
     }
 
-    public function updateEmail(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $mailingList_input = $request->input();
         $email = MailingList::where(['id' => $id])
@@ -45,7 +45,7 @@ class MailingListController extends Controller
         return response()->json(['description' => 'MailingList delete'], 200);
     }
 
-    public function deleteEmail($id)
+    public function destroy($id)
     {
         MailingList::where(['id' => $id])
             ->delete();
@@ -53,7 +53,7 @@ class MailingListController extends Controller
         return response()->json(['description' => 'Email delete'], 200);
     }
 
-    public function createEmail(Request $request)
+    public function store(Request $request)
     {
         $mailingList_input = $request->input();
 

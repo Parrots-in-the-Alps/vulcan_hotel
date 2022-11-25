@@ -9,12 +9,12 @@ use App\Http\Resources\ActualityCollection;
 
 class ActualityController extends Controller
 {
-    public function showActualities()
+    public function index()
     {
         return new ActualityCollection(Actuality::all());
     }
 
-    public function showActuality($id)
+    public function show($id)
     {
         $actuality = Actuality::where(['id' => $id])
             ->firstOrFail();
@@ -27,7 +27,7 @@ class ActualityController extends Controller
         return new ActualityCollection(Actuality::where('isActive',true)->get());
     }
 
-    public function updateActuality(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $input = $request->input();
         $ye = Actuality::where('id', $id)->update(
@@ -43,7 +43,7 @@ class ActualityController extends Controller
         return response()->json(['description' => 'Actualities delete'], 200);
     }
 
-    public function deleteActuality($id)
+    public function destroy($id)
     {
         Actuality::where(['id' => $id])
             ->delete();
@@ -51,7 +51,7 @@ class ActualityController extends Controller
         return response()->json(['description' => 'Actuality delete'], 200);
     }
 
-    public function createActuality(Request $request)
+    public function store(Request $request)
     {
         $actualities_input = $request->input();
 

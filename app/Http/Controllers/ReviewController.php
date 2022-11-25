@@ -10,12 +10,12 @@ use App\Http\Resources\ReviewResource;
 
 class ReviewController extends Controller
 {
-    public function showReviews()
+    public function index()
     {
         return new ReviewCollection(Review::all());
     }
 
-    public function showReview($id)
+    public function show($id)
     {
         $review = Review::where(['id' => $id])
             ->firstOrFail();
@@ -28,7 +28,7 @@ class ReviewController extends Controller
         return new ReviewCollection(Review::where('isActive',true)->get());
     }
 
-    public function updateReview(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $reviews_input = $request->input();
         $review = Review::where(['id' => $id])
@@ -45,7 +45,7 @@ class ReviewController extends Controller
         return response()->json(['description' => 'Reviews delete'], 200);
     }
 
-    public function deleteReview($id)
+    public function destroy($id)
     {
         Review::where(['id' => $id])
             ->delete();
@@ -53,7 +53,7 @@ class ReviewController extends Controller
         return response()->json(['description' => 'Review delete'], 200);
     }
 
-    public function createReview(Request $request)
+    public function store(Request $request)
     {
         $reviews_input = $request->input();
 

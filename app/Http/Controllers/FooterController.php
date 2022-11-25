@@ -10,12 +10,12 @@ use App\Http\Resources\FooterResource;
 
 class FooterController extends Controller
 {
-    public function showFooters()
+    public function index()
     {
         return new FooterCollection(Footer::all());
     }
 
-    public function showFooter($id)
+    public function show($id)
     {
         $footer = Footer::where(['id' => $id])
             ->firstOrFail();
@@ -28,7 +28,7 @@ class FooterController extends Controller
         return new FooterCollection(Footer::where('isActive',true)->get());
     }
 
-    public function updateFooter(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $footers_input = $request->input();
         $footer = Footer::where(['id' => $id])
@@ -45,7 +45,7 @@ class FooterController extends Controller
         return response()->json(['description' => 'Footers delete'], 200);
     }
 
-    public function deleteFooter($id)
+    public function destroy($id)
     {
         Footer::where(['id' => $id])
             ->delete();
@@ -53,7 +53,7 @@ class FooterController extends Controller
         return response()->json(['description' => 'Footer delete'], 200);
     }
 
-    public function createFooter(Request $request)
+    public function store(Request $request)
     {
         $footers_input = $request->input();
         $footer = new Footer();

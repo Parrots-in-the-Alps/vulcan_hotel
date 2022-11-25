@@ -9,12 +9,12 @@ use App\Http\Resources\LinkResource;
 
 class LinkController extends Controller
 {
-    public function showLinks()
+    public function index()
     {
         return new LinkCollection(Link::all());
     }
 
-    public function showLink($id)
+    public function show($id)
     {
         $link = Link::where(['id' => $id])
             ->firstOrFail();
@@ -27,7 +27,7 @@ class LinkController extends Controller
         return new LinkCollection(Link::where('isActive',true)->get());
     }
 
-    public function updateLink(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $input = $request->input();
         $ye = Link::where('id', $id)->update(
@@ -43,7 +43,7 @@ class LinkController extends Controller
         return response()->json(['description' => 'Links delete'], 200);
     }
 
-    public function deleteLink($id)
+    public function destroy($id)
     {
         Link::where(['id' => $id])
             ->delete();
@@ -51,7 +51,7 @@ class LinkController extends Controller
         return response()->json(['description' => 'Link delete'], 200);
     }
 
-    public function createLink(Request $request)
+    public function store(Request $request)
     {
         $links_input = $request->input();
 

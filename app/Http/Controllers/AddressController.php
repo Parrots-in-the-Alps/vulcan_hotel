@@ -9,12 +9,12 @@ use App\Http\Resources\AddressResource;
 
 class AddressController extends Controller
 {
-    public function showAddresses()
+    public function index()
     {
         return new AddressCollection(Address::all());
     }
 
-    public function showAddress($id)
+    public function show($id)
     {
         $address = Address::where(['id' => $id])
             ->firstOrFail();
@@ -27,7 +27,7 @@ class AddressController extends Controller
         return new AddressCollection(Address::where('isActive',true)->get());
     }
 
-    public function updateAddress(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $addresses_input = $request->input();
         $address = Address::where(['id' => $id])
@@ -44,7 +44,7 @@ class AddressController extends Controller
         return response()->json(['description' => 'Addresses delete'], 200);
     }
 
-    public function deleteAddress($id)
+    public function destroy($id)
     {
         Address::where(['id' => $id])
             ->delete();
@@ -52,7 +52,7 @@ class AddressController extends Controller
         return response()->json(['description' => 'Address delete'], 200);
     }
 
-    public function createAddress(Request $request)
+    public function store(Request $request)
     {
         $addresses_input = $request->input();
         $address = new Address();

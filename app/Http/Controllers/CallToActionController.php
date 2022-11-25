@@ -9,12 +9,12 @@ use App\Http\Resources\CallToActionResource;
 
 class CallToActionController extends Controller
 {
-    public function showCallToActions()
+    public function index()
     {
         return new CallToActionCollection(CallToAction::all());
     }
 
-    public function showCallToAction($id)
+    public function show($id)
     {
         $calltoaction = CallToAction::where(['id' => $id])
             ->firstOrFail();
@@ -27,7 +27,7 @@ class CallToActionController extends Controller
         return new CallToActionCollection(CallToAction::where('isActive',true)->get());
     }
 
-    public function updateCallToAction(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $input = $request->input();
         $ye = CallToAction::where('id', $id)->update(
@@ -42,14 +42,14 @@ class CallToActionController extends Controller
         return response()->json(['description' => 'CallToActions delete'], 200);
     }
 
-    public function deleteCallToAction($id)
+    public function destroy($id)
     {
         $calltoaction = CallToAction::where('id', $id);
         $calltoaction->delete();
         return response()->json(['description' => 'CallToAction delete'], 200);
     }
 
-    public function createCallToAction(Request $request)
+    public function store(Request $request)
     {
         $calltoactions_input = $request->input();
 

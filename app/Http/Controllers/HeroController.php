@@ -10,12 +10,12 @@ use App\Http\Resources\HeroResource;
 
 class HeroController extends Controller
 {
-    public function showHeroes()
+    public function index()
     {
         return new HeroCollection(Hero::all());
     }
 
-    public function showHero($id)
+    public function show($id)
     {
         $hero = Hero::where(['id' => $id])
             ->firstOrFail();
@@ -28,7 +28,7 @@ class HeroController extends Controller
         return new HeroCollection(Hero::where('isActive',true)->get());
     }
 
-    public function updateHero(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $input = $request->input();
         $ye = Hero::where('id', $id)->update(
@@ -44,7 +44,7 @@ class HeroController extends Controller
         return response()->json(['description' => 'Heroes delete'], 200);
     }
 
-    public function deleteHero($id)
+    public function destroy($id)
     {
         Hero::where(['id' => $id])
             ->delete();
@@ -52,7 +52,7 @@ class HeroController extends Controller
         return response()->json(['description' => 'Hero delete'], 200);
     }
 
-    public function createHero(Request $request)
+    public function store(Request $request)
     {
         $heroes_input = $request->input();
 

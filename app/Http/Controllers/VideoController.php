@@ -9,12 +9,12 @@ use App\Http\Resources\VideoResource;
 
 class VideoController extends Controller
 {
-    public function showVideos()
+    public function index()
     {
         return new VideoCollection(Video::all());
     }
 
-    public function showVideo($id)
+    public function show($id)
     {
         $video = Video::where(['id' => $id])
             ->firstOrFail();
@@ -27,7 +27,7 @@ class VideoController extends Controller
         return new VideoCollection(Video::where('isActive',true)->get());
     }
 
-    public function updateVideo(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $input = $request->input();
         $ye = Vidzo::where('id', $id)->update(
@@ -43,7 +43,7 @@ class VideoController extends Controller
         return response()->json(['description' => 'Videos delete'], 200);
     }
 
-    public function deleteVideo($id)
+    public function destroy($id)
     {
         Video::where(['id' => $id])
             ->delete();
@@ -51,7 +51,7 @@ class VideoController extends Controller
         return response()->json(['description' => 'Video delete'], 200);
     }
 
-    public function createVideo(Request $request)
+    public function store(Request $request)
     {
         $videos_input = $request->input();
 

@@ -9,12 +9,12 @@ use App\Http\Resources\HeaderResource;
 
 class HeaderController extends Controller
 {
-    public function showHeaders()
+    public function index()
     {
         return new HeaderCollection(Header::all());
     }
 
-    public function showHeader($id)
+    public function show($id)
     {
         $header = Header::where(['id' => $id])
             ->firstOrFail();
@@ -27,7 +27,7 @@ class HeaderController extends Controller
         return new HeaderCollection(Header::where('isActive',true)->get());
     }
 
-    public function updateHeader(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $headers_input = $request->input();
         $header = Header::where(['id' => $id])
@@ -44,7 +44,7 @@ class HeaderController extends Controller
         return response()->json(['description' => 'Headers delete'], 200);
     }
 
-    public function deleteHeader($id)
+    public function destroy($id)
     {
         Header::where(['id' => $id])
             ->delete();
@@ -52,7 +52,7 @@ class HeaderController extends Controller
         return response()->json(['description' => 'Header delete'], 200);
     }
 
-    public function createHeader(Request $request)
+    public function store(Request $request)
     {
         $headers_input = $request->input();
         $header = new Header();

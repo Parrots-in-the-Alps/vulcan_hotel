@@ -10,12 +10,12 @@ use App\Http\Resources\RoomResource;
 
 class RoomController extends Controller
 {
-    public function showRooms()
+    public function index()
     {
         return new RoomCollection(Room::all());
     }
 
-    public function showRoom($id)
+    public function show($id)
     {
         $room = Room::where(['id' => $id])
             ->firstOrFail();
@@ -28,7 +28,7 @@ class RoomController extends Controller
         return new RoomCollection(Room::where('isActive',true)->get());
     }
 
-    public function updateRoom(Request $request, $id)
+    public function update(Request $request, $id)
     {
         // $rooms_input = $request->input();
         // $room = Room::where(['id' => $id])
@@ -55,7 +55,7 @@ class RoomController extends Controller
         return response()->json(['description' => 'Rooms delete'], 200);
     }
 
-    public function deleteRoom($id)
+    public function destroy($id)
     {
         Room::where(['id' => $id])
             ->delete();
@@ -63,7 +63,7 @@ class RoomController extends Controller
         return response()->json(['description' => 'Room delete'], 200);
     }
 
-    public function createRoom(Request $request)
+    public function store(Request $request)
     {
         $rooms_input = $request->input();
 

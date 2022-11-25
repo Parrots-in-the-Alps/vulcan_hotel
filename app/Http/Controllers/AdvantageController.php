@@ -10,12 +10,12 @@ use App\Http\Resources\AdvantageResource;
 
 class AdvantageController extends Controller
 {
-    public function showAdvantages()
+    public function index()
     {
         return new AdvantageCollection(Advantage::all());
     }
 
-    public function showAdvantage($id)
+    public function show($id)
     {
         $advantage = Advantage::where(['id' => $id])
             ->firstOrFail();
@@ -28,7 +28,7 @@ class AdvantageController extends Controller
         return new AdvantageCollection(Advantage::where('isActive',true)->get());
     }
 
-    public function updateAdvantage(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $input = $request->input();
         $ye = Advantage::where('id', $id)->update(
@@ -44,7 +44,7 @@ class AdvantageController extends Controller
         return response()->json(['description' => 'Advantages delete'], 200);
     }
 
-    public function deleteAdvantage($id)
+    public function destroy($id)
     {
         Advantage::where(['id' => $id])
             ->delete();
@@ -52,7 +52,7 @@ class AdvantageController extends Controller
         return response()->json(['description' => 'Advantage delete'], 200);
     }
 
-    public function createAdvantage(Request $request)
+    public function store(Request $request)
     {
         $advantages_input = $request->input();
         $advantage = new Advantage();
