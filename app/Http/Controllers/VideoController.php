@@ -30,7 +30,7 @@ class VideoController extends Controller
     public function updateVideo(Request $request, $id)
     {
         $input = $request->input();
-        $ye = Vidzo::where('id', $id)->update(
+        $ye = Video::where('id', $id)->update(
             $input
         );
         return response()->json(['message' => 'video updated successfully!'], 200);

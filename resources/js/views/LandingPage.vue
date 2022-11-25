@@ -1,6 +1,7 @@
 <template>
 
     <Rooms />
+    <Actualities />
    
 </template>
 
