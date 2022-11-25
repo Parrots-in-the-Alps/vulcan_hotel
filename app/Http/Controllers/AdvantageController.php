@@ -30,16 +30,11 @@ class AdvantageController extends Controller
 
     public function updateAdvantage(Request $request, $id)
     {
-        $advantages_input = $request->input();
-        $advantage = Advantage::where(['id' => $id])
-            ->firstOrFail();
-        $advantage
-            ->setTranslations('title', $advantages_input['title'])
-            ->setTranslations('description', $advantages_input['description'])
-            ->save();
-        $advantage->updateOrFail($advantages_input);
-            
-        return new AdvantageResource($advantage);
+        $input = $request->input();
+        $ye = Advantage::where('id', $id)->update(
+            $input
+        );
+        return response()->json(['message' => 'advantage updated successfully!'], 200);
     }
 
     public function deleteAdvantages()

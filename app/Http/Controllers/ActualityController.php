@@ -29,16 +29,11 @@ class ActualityController extends Controller
 
     public function updateActuality(Request $request, $id)
     {
-        $actualities_input = $request->input();
-        $actuality = Actuality::where(['id' => $id])
-            ->firstOrFail();
-        $actuality
-            ->setTranslations('title', $actualities_input['title'])
-            ->setTranslations('description', $actualities_input['description'])
-            ->save();
-        $actuality->updateOrFail($actualities_input);
-            
-        return new ActualityResource($actuality);
+        $input = $request->input();
+        $ye = Actuality::where('id', $id)->update(
+            $input
+        );
+        return response()->json(['message' => 'Actuality updated successfully!'], 200);
     }
 
     public function deleteActualities()

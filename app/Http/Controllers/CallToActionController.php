@@ -29,17 +29,11 @@ class CallToActionController extends Controller
 
     public function updateCallToAction(Request $request, $id)
     {
-        $calltoactions_input = $request->input();
-        $calltoaction = CallToAction::where(['id' => $id])
-            ->firstOrFail();
-        $calltoaction
-            ->setTranslations('title', $calltoactions_input['title'])
-            ->setTranslations('modal_content', $calltoactions_input['modal_content'])
-            ->setTranslations('modal_title', $calltoactions_input['modal_title'])
-            ->save();
-        $calltoaction->updateOrFail($calltoactions_input);
-            
-        return new CallToActionResource($calltoaction);
+        $input = $request->input();
+        $ye = CallToAction::where('id', $id)->update(
+            $input
+        );
+        return response()->json(['message' => 'CTA updated successfully!'], 200);
     }
 
     public function deleteCallToActions()

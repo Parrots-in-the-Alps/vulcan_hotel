@@ -29,16 +29,11 @@ class VideoController extends Controller
 
     public function updateVideo(Request $request, $id)
     {
-        $videos_input = $request->input();
-        $video = Video::where(['id' => $id])
-            ->firstOrFail();
-        $video
-            ->setTranslations('title', $videos_input['title'])
-            ->setTranslations('description', $videos_input['description'])
-            ->save();
-        $video->updateOrFail($videos_input);
-            
-        return new VideoResource($video);
+        $input = $request->input();
+        $ye = Vidzo::where('id', $id)->update(
+            $input
+        );
+        return response()->json(['message' => 'video updated successfully!'], 200);
     }
 
     public function deleteVideos()

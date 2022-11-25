@@ -29,15 +29,11 @@ class LinkController extends Controller
 
     public function updateLink(Request $request, $id)
     {
-        $links_input = $request->input();
-        $link = Link::where(['id' => $id])
-            ->firstOrFail();
-        $link
-            ->setTranslations('name', $links_input['name'])
-            ->save();
-        $link->updateOrFail($links_input);
-            
-        return new LinkResource($link);
+        $input = $request->input();
+        $ye = Link::where('id', $id)->update(
+            $input
+        );
+        return response()->json(['message' => 'room updated successfully!'], 200);
     }
 
     public function deleteLinks()

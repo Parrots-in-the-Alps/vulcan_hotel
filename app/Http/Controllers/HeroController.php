@@ -30,16 +30,11 @@ class HeroController extends Controller
 
     public function updateHero(Request $request, $id)
     {
-        Hero::where('id', '!=', $id)->update(["isActive" => false]);
-        $heroes_input = $request->input();
-        $hero = Hero::where(['id' => $id])
-            ->firstOrFail();
-        $hero
-            ->setTranslations('slogan', $heroes_input['slogan'])
-            ->save();
-        $hero->updateOrFail($heroes_input);
-            
-        return new HeroResource($hero);
+        $input = $request->input();
+        $ye = Hero::where('id', $id)->update(
+            $input
+        );
+        return response()->json(['message' => 'room updated successfully!'], 200);
     }
 
     public function deleteHeroes()
