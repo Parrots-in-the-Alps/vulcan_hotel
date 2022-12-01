@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Room;
 use File;
+use App\Http\Resources\RoomCollection;
+use App\Http\Resources\RoomResource;
 
 class RoomSeeder extends Seeder
 {
@@ -16,19 +18,22 @@ class RoomSeeder extends Seeder
     public function run()
     {
         $json = File::get("database/data/room.json");
-        $rooms = json_decode($json);
+        $rooms = json_decode($json, true);
   
         foreach ($rooms as $key => $value) {
-            Room::create([
-                "number" => $value->number,
-                "type" => json_encode($value->type),
-                "capacity" => $value->capacity,
-                "price" => $value->price,
-                "status" => json_encode($value->status),
-                "image" => $value->image,
-                "name" => $value->name,
-                "description" => json_encode($value->description),
-            ]);
+            $room = new Room();
+            $room->number = $value["number"];
+            $room->capacity = $value["capacity"];
+            $room->price = $value["price"];
+            $room->image = $value["image"];
+            $room->isActive = true;
+            $room
+            ->setTranslations('name', $value["name"])
+            ->setTranslations('description', $value["description"])
+            ->setTranslations('type', $value["type"])
+            ->setTranslations('status', $value["status"])
+                ->save();
         }
+
     }
 }
