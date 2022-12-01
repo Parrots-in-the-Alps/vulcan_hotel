@@ -15,9 +15,9 @@ export default {
         }
     },
     async mounted() {
-        const response = await axios.get('api/show/addresses');
+        const response = await axios.get('api/show/activeaddresses');
         console.log(response.data)
-        this.response = response.data['address'];
+        this.response = response.data['data'];
     }
 }
 </script>

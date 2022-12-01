@@ -15,9 +15,9 @@ export default {
         }
     },
     async mounted() {
-        const response = await axios.get('api/show/calltoactions');
+        const response = await axios.get('api/show/activecalltoactions');
         console.log(response.data)
-        this.response = response.data['calltoaction'];
+        this.response = response.data['data'];
     }
 }
 </script>

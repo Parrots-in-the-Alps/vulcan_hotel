@@ -15,9 +15,9 @@ export default {
         }
     },
     async mounted() {
-        const response = await axios.get('api/show/advantages');
+        const response = await axios.get('api/show/activeadvantages');
         console.log(response.data)
-        this.response = response.data['advantage'];
+        this.response = response.data['data'];
     }
 }
 </script>

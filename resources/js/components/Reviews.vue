@@ -13,9 +13,9 @@ export default {
         }
     },
     async mounted() {
-        const response = await axios.get('api/show/rooms');
+        const response = await axios.get('api/show/activereviews');
         console.log(response.data)
-        this.response = response.data['room'];
+        this.response = response.data['data'];
     }
 }
 </script>

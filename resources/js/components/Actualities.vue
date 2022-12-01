@@ -33,7 +33,7 @@ export default {
         }
     },
     async mounted() {
-        const response = await axios.get('api/show/actualities');
+        const response = await axios.get('api/show/activeactualities');
         console.log(response.data)
         this.response = response.data['data'];
     },
