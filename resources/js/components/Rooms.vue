@@ -25,7 +25,7 @@ export default {
     }
   },
   async mounted() {
-    const response = await axios.get('api/show/activerooms');
+    const response = await axios.get('api/rooms/active');
     console.log(response.data['data'])
     this.response = response.data['data'];
   }
