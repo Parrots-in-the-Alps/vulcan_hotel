@@ -26,5 +26,5 @@ module.exports = {
       Megrim: ['megrim-mono', 'Megrim', 'sans-serif']
   },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 }
