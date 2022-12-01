@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
          \App\Models\User::factory(10)->create();
          $this->call([
             // CallToActionSeeder::class,
-            // ActualitySeeder::class,
+            ActualitySeeder::class,
             // AdvantageSeeder::class,
             // AddressSeeder::class,
             // VideoSeeder::class,
