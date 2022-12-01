@@ -16,14 +16,15 @@ class VideoSeeder extends Seeder
     public function run()
     {
         $json = File::get("database/data/video.json");
-        $videos = json_decode($json);
+        $videos = json_decode($json, JSON_OBJECT_AS_ARRAY);
   
         foreach ($videos as $key => $value) {
-            Video::create([
-                "video_link" => $value->video_link,
-                "title" => json_encode($value->title),
-                "description" => json_encode($value->description),
-            ]);
+            $video = new Video();
+            $video->video_link = $value["video_link"];
+            $video
+            ->setTranslations('title', $value["title"])
+            ->setTranslations('description', $value["description"])
+                ->save();
         }
     }
 }

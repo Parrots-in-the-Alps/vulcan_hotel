@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Header;
+use File;
 
 class HeaderSeeder extends Seeder
 {
@@ -13,6 +15,12 @@ class HeaderSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Header::factory(10)->create();
+        $json = File::get("database/data/header.json");
+        $headers = json_decode($json, JSON_OBJECT_AS_ARRAY);
+  
+        foreach ($headers as $key => $value) {
+            $header = new Header();
+            $header->banner_image = $value["banner_image"];
     }
+}
 }
