@@ -103,13 +103,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     Route::delete('/alladvantages', [AdvantageController::class, 'deleteAdvantages']);
 //     Route::delete('/advantage/{id}', [AdvantageController::class, 'deleteAdvantage']);
 //     Route::delete('/allcalltoactions', [CallToActionController::class, 'deleteCallToActions']);
-//     Route::delete('/calltoaction/{id}', [CallToActionController::class, 'deleteCallToAction']);
-//     Route::delete('/allheaders', [HeaderController::class, 'deleteHeaders']);
-//     Route::delete('/header/{id}', [HeaderController::class, 'deleteHeader']);
-//     Route::delete('/alllinks', [LinkController::class, 'deleteLinks']);
+//     Route::delete('/calltoaction/{id}', [CallToActionController::class, 'deleteCallToAction']);Route::get('/activecalltoactions', [CallToActionController::class, 'showActiveCallToActions']);
 //     Route::delete('/link/{id}', [LinkController::class, 'deleteLink']);
 //     Route::delete('/mailinglist', [MailingListController::class, 'deleteMailingList']);
-//     Route::delete('/email/{id}', [usersMailingListController::class, 'deleteEmail']);
+//     Route::delete('/email/{id}', [usersMailingListControllerRoute::get('/activeactualities', [ActualityController::class, 'showActiveActualities']);::class, 'deleteEmail']);
 //     Route::delete('/allreviews', [ReviewController::class, 'deleteReviews']);
 //     Route::delete('/review/{id}', [ReviewController::class, 'deleteReview']);
 //     Route::delete('/allrooms', [RoomController::class, 'deleteRooms']);
@@ -136,6 +133,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::middleware('setLocale')->group(function() {
+    Route::get('/rooms/active', [RoomController::class, 'showActiveRooms']);
+    Route::get('/reviews/active', [ReviewController::class, 'showActiveReviews']);
+    Route::get('/mailinglists/active', [MailingListController::class, 'showActiveMailingList']);
+    Route::get('/links/active', [LinkController::class, 'showActiveLinks']);
+    Route::get('/headers/active', [HeaderController::class, 'showActiveHeaders']);
+    Route::get('/advantages/active', [AdvantageController::class, 'showActiveAdvantages']);
+    Route::get('/actualities/active', [ActualityController::class, 'showActiveActualities']);
+    Route::get('/footers/active', [FooterController::class, 'showActiveFooters']);
+    Route::get('/addresses/active', [AddressController::class, 'showActiveAddresses']);
+    Route::get('/heroes/active', [HeroController::class, 'showActiveHeroes']);
+    Route::get('/videos/active', [VideoController::class, 'showActiveVideos']);
     Route::apiResource("rooms", RoomController::class);
     Route::apiResource("actualities", ActualityController::class);
     Route::apiResource("heroes", HeroController::class);
