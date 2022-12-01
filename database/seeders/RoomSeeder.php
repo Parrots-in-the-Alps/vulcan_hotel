@@ -18,7 +18,7 @@ class RoomSeeder extends Seeder
     public function run()
     {
         $json = File::get("database/data/room.json");
-        $rooms = json_decode($json, true);
+        $rooms = json_decode($json, JSON_OBJECT_AS_ARRAY);
   
         foreach ($rooms as $key => $value) {
             $room = new Room();

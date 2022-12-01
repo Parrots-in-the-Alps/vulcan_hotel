@@ -16,13 +16,15 @@ class LinkSeeder extends Seeder
     public function run()
     {
         $json = File::get("database/data/link.json");
-        $links = json_decode($json);
+        $links = json_decode($json, JSON_OBJECT_AS_ARRAY);
   
         foreach ($links as $key => $value) {
-            Link::create([
-                "url" => $value->url,
-                "name" => json_encode($value->name),
-            ]);
+            $link = new Link();
+            $link->url = $value["url"];
+            $link
+            ->setTranslations('name', $value["name"])
+                ->save();
+
         }
     }
 }

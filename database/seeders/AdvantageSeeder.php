@@ -16,15 +16,18 @@ class AdvantageSeeder extends Seeder
     public function run()
     {
         $json = File::get("database/data/advantages.json");
-        $advantages = json_decode($json);
+        $advantages = json_decode($json, JSON_OBJECT_AS_ARRAY);
   
         foreach ($advantages as $key => $value) {
-            Advantage::create([
-                "price" => $value->price,
-                "image_icon" => $value->image_icon,
-                "title" => json_encode($value->title),
-                "description" => json_encode($value->description),
-            ]);
+
+        $advantage = new Advantage();
+        $advantage->price = $value["price"];
+        $advantage->image_icon = $value["image_icon"];
+        $advantage
+            ->setTranslations('title', $value["title"])
+            ->setTranslations('description', $value["description"])
+            ->save();
+
         }
     }
 }
