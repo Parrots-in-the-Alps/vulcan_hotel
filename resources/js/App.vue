@@ -1,12 +1,13 @@
 <template>
-    <div class="w-screen h-screen flex flex-row justify-center bg-backGround">
-        <div></div>
-        <div class="w-screen h-screen md:max-w-lg lg:max-w-2xl xl:max-w-5xl 2xl:max-w-7xl">
+    <div class="w-full h-full flex flex-row justify-center bg-backGround bg-repeat">
+
+        <div class="w-full h-full md:max-w-lg lg:max-w-2xl xl:max-w-5xl 2xl:max-w-7xl">
             <Header />
             <LandingPage />
             <Footer />
         </div>
-        <div></div>
+        
+
     </div>
 
 </template>
