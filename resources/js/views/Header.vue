@@ -18,7 +18,7 @@
     <div class="flex items-center">
 
       <ul class="sm:flex space-x-4 max-sm:hidden items-center">
-        <li><a href="#" class="text-gray-700 hover:text-persimmon text-md ">Advantages</a></li>
+        <li><a href="#" class="text-gray-700 hover:text-persimmon text-md ">Services</a></li>
         <li><a href="#" class="text-gray-700 hover:text-persimmon  text-md ">Rooms</a></li>
         <li><a href="#" class="text-gray-700 hover:text-persimmon  text-md ">Actualities</a></li>
         <li><a href="#" class="text-gray-700 hover:text-persimmon  text-md ">Reviews</a></li>

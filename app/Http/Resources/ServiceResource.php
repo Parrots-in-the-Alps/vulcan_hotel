@@ -2,14 +2,14 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Advantage;
+use App\Models\Service;
 use Illuminate\Support\Facades\App;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @mixin Advantage
+ * @mixin Service
  */
-class AdvantageResource extends JsonResource
+class ServiceResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

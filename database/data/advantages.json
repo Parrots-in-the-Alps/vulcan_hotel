@@ -1,5 +1,0 @@
-[
-    {"image_icon" : "bakery_advantage.png","title" : {"en" : "breakfast", "fr" : "petit déjeuner"} , "price" : 12, "description" :  {"en" : "Our breakfast are made by a famous chief", "fr" : "Nos petits déjeunér vous sont concocter par un chef reconnu"} },
-    {"image_icon" : "image.png", "title" : {"en" : "lava show", "fr" : "spectacle de lave"} , "price" : 30, "description" :  {"en" : "Come abd witness one of our many volcanic eruptions for an unforgettable  stay", "fr" : "Venez assister à nos une de nos nombreuses éruptio ns volcaniques pour un séjour inoubliable"} },
-    {"image_icon" : "image.png", "title" : {"en" : "promotion", "fr" : "promotion"} , "price" : 1, "description" : {"en" : "Take advantage of our various promotions for advantageous rates", "fr" : "Profitez de nos différentes promotions pour des tarifs avantageux"} }
-]
