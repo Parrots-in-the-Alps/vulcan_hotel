@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-class AdvantageFactory extends Factory
+class ServiceFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,7 +15,7 @@ class AdvantageFactory extends Factory
     public function definition()
     {
         return [
-            'image_icon' => $this->faker->imageUrl(640, 480, 'advantage', true),
+            'image_icon' => $this->faker->imageUrl(640, 480, 'service', true),
             'title_fr' => $this->faker->word(),
             'title_en' => $this->faker->word(),
             'description_fr' => $this->faker->sentence(),

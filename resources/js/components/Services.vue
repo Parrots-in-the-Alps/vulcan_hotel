@@ -8,14 +8,14 @@
 <script>
 
 export default {
-    name: "Advantages.vue",
+    name: "Servicevue",
     data() {
         return {
             response: []
         }
     },
     async mounted() {
-        const response = await axios.get('api/show/activeadvantages');
+        const response = await axios.get('api/services/active');
         console.log(response.data)
         this.response = response.data['data'];
     }
