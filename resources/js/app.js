@@ -4,10 +4,7 @@ import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import App from './App.vue'
 
-const userLocale =
-  navigator.languages && navigator.languages.length
-    ? navigator.languages[0]
-    : navigator.language;
+const userLocale = navigator.language.replace(new RegExp('-.*'), '');
 
 axios.defaults.headers.get['Accept-Language'] = userLocale;
 
