@@ -1,7 +1,7 @@
 <template>
     <Heroes />
     <ContentSeparator 
-   menuTitle="Advantages" />
+   menuTitle="Services" />
    <Services />
 
  <ContentSeparator 

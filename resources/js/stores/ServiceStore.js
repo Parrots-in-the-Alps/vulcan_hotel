@@ -2,9 +2,9 @@ import { defineStore } from 'pinia'
 import axios from "axios"
 
 
-export const useRoomStore = defineStore('rooms',{
+export const useServiceStore = defineStore('services',{
     state: () =>({
-        activeRooms:[]
+        activeServices: []
     }),
     
     getters:{
@@ -13,10 +13,10 @@ export const useRoomStore = defineStore('rooms',{
 
     actions: {
 
-        async fetchActiveRooms(){
+        async fetchActiveAdvantages(){
             try {
-                const data = await axios.get('api/rooms/active');
-                  this.activeRooms = data.data['data'];
+                const data = await axios.get('api/services/active');
+                  this.activeServices = data.data['data'];
                 }
                 catch (error) {
                   alert(error)
