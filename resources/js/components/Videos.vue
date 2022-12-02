@@ -12,11 +12,7 @@
               }
           },
           async mounted() {
-              const response = await axios.get('api/show/activevideos',{
-                headers: {
-                            'Accept-Language' : userLocale
-                        }
-              });
+              const response = await axios.get('api/show/activevideos');
               console.log(response.data)
               this.response = response.data['data'];
           }
