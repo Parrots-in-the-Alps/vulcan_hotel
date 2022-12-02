@@ -8,7 +8,6 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\FooterController;
 use App\Http\Controllers\ActualityController;
 use App\Http\Controllers\AdvantageController;
-use App\Http\Controllers\CallToActionController;
 use App\Http\Controllers\HeaderController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\MailingListController;
@@ -46,7 +45,6 @@ Route::middleware('setLocale')->group(function() {
     Route::apiResource("actualities", ActualityController::class);
     Route::apiResource("heroes", HeroController::class);
     Route::apiResource("advantages", AdvantageController::class);
-    Route::apiResource("calltoactions", CallToActionController::class);
     Route::apiResource("links", LinkController::class);
     Route::apiResource("videos", VideoController::class);
     Route::apiResource("reviews", ReviewController::class);
