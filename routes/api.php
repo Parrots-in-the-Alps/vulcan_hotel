@@ -7,7 +7,7 @@ use App\Http\Controllers\VideoController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\FooterController;
 use App\Http\Controllers\ActualityController;
-use App\Http\Controllers\AdvantageController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\HeaderController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\MailingListController;
@@ -35,7 +35,7 @@ Route::middleware('setLocale')->group(function() {
     Route::get('/mailinglists/active', [MailingListController::class, 'showActiveMailingList']);
     Route::get('/links/active', [LinkController::class, 'showActiveLinks']);
     Route::get('/headers/active', [HeaderController::class, 'showActiveHeaders']);
-    Route::get('/advantages/active', [AdvantageController::class, 'showActiveAdvantages']);
+    Route::get('/services/active', [ServiceController::class, 'showActiveServices']);
     Route::get('/actualities/active', [ActualityController::class, 'showActiveActualities']);
     Route::get('/footers/active', [FooterController::class, 'showActiveFooters']);
     Route::get('/addresses/active', [AddressController::class, 'showActiveAddresses']);
@@ -44,7 +44,7 @@ Route::middleware('setLocale')->group(function() {
     Route::apiResource("rooms", RoomController::class);
     Route::apiResource("actualities", ActualityController::class);
     Route::apiResource("heroes", HeroController::class);
-    Route::apiResource("advantages", AdvantageController::class);
+    Route::apiResource("services", ServiceController::class);
     Route::apiResource("links", LinkController::class);
     Route::apiResource("videos", VideoController::class);
     Route::apiResource("reviews", ReviewController::class);

@@ -1,7 +1,18 @@
 <template>
+    <Heroes />
+    <ContentSeparator 
+   menuTitle="Advantages" />
+   <Services />
+
  <ContentSeparator 
-   menuTitle="Roomzes" />
+   menuTitle="Rooms" />
     <Rooms />
+    <ContentSeparator 
+   menuTitle="Video" />
+    <Videos />
+    <ContentSeparator 
+   menuTitle="Reviews" />
+    <Reviews />
    <ContentSeparator 
    menuTitle="Actualities" />
     <Actualities />
@@ -13,7 +24,7 @@
 
 <script>
 import Actualities from '../components/Actualities';
-import Advantages from '../components/Advantages';
+import Services from '../components/Services';
 import Heroes from '../components/Heroes';
 import Reviews from '../components/Reviews';
 import Rooms from '../components/Rooms';
@@ -22,7 +33,7 @@ import ContentSeparator from '../components/ContentSeparator';
     export default {
         name: 'landingPage',
         components: {
-            Actualities, Advantages, Heroes, Reviews,  Rooms, Videos, ContentSeparator 
+            Actualities, Services, Heroes, Reviews,  Rooms, Videos, ContentSeparator 
         }
     }
 </script>

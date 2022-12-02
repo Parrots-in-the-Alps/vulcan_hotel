@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
          $this->call([
             ActualitySeeder::class,
-            AdvantageSeeder::class,
+            ServiceSeeder::class,
             AddressSeeder::class,
             VideoSeeder::class,
             HeroSeeder::class,
