@@ -27,23 +27,18 @@ import { useServiceStore } from '../stores/ServiceStore';
 
 export default {
     name: "Servicevue",
-    beforeMount(){
-        this.detectBrowserLanguage();
-    },
+    inject:[
+        'isFrench'
+    ],
     data() {
         return {
-            isFrench:false
+            isFrench:this.isFrench
         }
     },
     computed: {
         ...mapStores(useServiceStore)
     },
     methods:{
-        detectBrowserLanguage(){
-            if(navigator.language.startsWith("fr")){
-                this.isFrench=true;
-            }
-        }
     }
 }
 </script>

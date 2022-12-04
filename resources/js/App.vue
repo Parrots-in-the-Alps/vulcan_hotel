@@ -20,6 +20,7 @@ import { useUserStore } from ".//stores/RoomStore.js";
 import { useRoomStore } from './/stores/RoomStore.js';
 import { useServiceStore } from './/stores/ServiceStore.js';
 import { mapStores } from 'pinia';
+import { computed } from 'vue'
 
 
 
@@ -30,22 +31,28 @@ export default {
     beforeMount(){
         this.roomStore.fetchActiveRooms();
         this.serviceStore.fetchActiveServices();
+        this.detectBrowserLanguage();
+        
     },
     data(){
-        return{
-            
+        return {
+            isFrench:false
         }
     },
     provide(){
         return{
-
+            isFrench:computed(()=> this.isFrench)
         }
     },
     computed: {
          ...mapStores(useRoomStore, useServiceStore)
     },
-    methods: {
-
+    methods:{
+        detectBrowserLanguage(){
+            if(navigator.language.startsWith("fr")){
+                this.isFrench=true;
+            }
+        }
     }
 
 
