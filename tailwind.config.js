@@ -8,6 +8,23 @@ module.exports = {
     './resources/js/components/*.vue',
     './resources/js/views/*.vue',
   ],
+  daisyui: {
+    themes: [
+      {
+        mytheme: {
+          "primary": "#a7a9be", //cadet blue
+          "secondary": "#df6426", //perismon
+          "accent": "#ff5c04", //callToaction-orange pétant
+          "neutral": "#1b3235", //outerspace
+          "base-100": "#2f2f2f", //backGround-jet
+          "info": "#243236", //gunMetal
+          "success": "#372b20", //bistre 
+          "warning": "#FBBD23", //defaut->jaune
+          "error": "#F87272", //defaut->saumon
+        },
+      },
+    ],
+  },
   theme: {
     extend: {
       colors: {
@@ -24,7 +41,8 @@ module.exports = {
       Philosopher: ['philosopher-mono', 'Philosopher', 'sans-serif'],
       Cinzel: ['cinzel-mono', 'Cinzel', 'sans-serif'],
       Megrim: ['megrim-mono', 'Megrim', 'sans-serif']
-  },
+    },
+    
   },
   plugins: [require("daisyui")],
 }

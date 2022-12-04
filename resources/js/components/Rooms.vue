@@ -1,6 +1,6 @@
 
 <template>
-  
+
   <!-- <div class="flex flex-row justify-around">
     <div v-for="room in response" :key="room.id" class="max-w-sm rounded overflow-hidden shadow-lg">
       <div class="px-6 py-4">
@@ -16,7 +16,7 @@
 
 <div class=" flex justify-center items-center">
 
-   <div v-for="room in response" :key="room.id" class="p-1">
+   <div v-for="room in roomStore.activeRooms" :key="room.id" class="p-1">
             <div class="group relative block overflow-hidden rounded-md transition-all duration-500">
                             <a href="#" class="lightbox transition-all duration-500 group-hover:scale-105 tobii-zoom" title="">
                                 <img class="object-cover h-48 w-96" :src="'/images/rooms/' + room.image">
@@ -27,23 +27,26 @@
                             </div>
                         </div>
                     </div>
-  
+
 </div>
 </template>
 
 <script>
+import { mapStores } from 'pinia';
+import { useRoomStore } from '../stores/RoomStore';
 
 export default {
   name: "Rooms.vue",
+  mounted(){
+    
+  },
   data() {
     return {
-      response: []
+      
     }
   },
-  async mounted() {
-    const response = await axios.get('api/rooms/active');
-    console.log(response.data['data'])
-    this.response = response.data['data'];
+  computed:{
+    ...mapStores(useRoomStore)
   }
 }
 

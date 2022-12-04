@@ -5,7 +5,7 @@
             <LandingPage />
             <Footer />
         </div>
-        
+
 
     </div>
 
@@ -16,17 +16,43 @@
 import LandingPage from './views/LandingPage.vue'
 import Footer from './views/Footer.vue'
 import Header from './views/Header.vue'
-import { useUserStore } from ".//stores/RoomStore.js"
+import { useUserStore } from ".//stores/RoomStore.js";
+import { useRoomStore } from './/stores/RoomStore.js';
+import { useServiceStore } from './/stores/ServiceStore.js';
+import { mapStores } from 'pinia';
+
+
 
 
 export default {
     name: "App.vue",
     components: { LandingPage, Footer, Header },
+    beforeMount(){
+        this.roomStore.fetchActiveRooms();
+        this.serviceStore.fetchActiveServices();
+    },
+    data(){
+        return{
+            
+        }
+    },
+    provide(){
+        return{
+
+        }
+    },
+    computed: {
+         ...mapStores(useRoomStore, useServiceStore)
+    },
+    methods: {
+
+    }
+
 
 }
 </script>
 
-
+ 
 <style scoped>
 
 </style>

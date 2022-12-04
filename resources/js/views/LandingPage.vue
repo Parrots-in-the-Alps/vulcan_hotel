@@ -30,13 +30,13 @@ import Reviews from '../components/Reviews';
 import Rooms from '../components/Rooms';
 import Videos from '../components/Videos';
 import ContentSeparator from '../components/ContentSeparator';
-import { useRoomStore } from '../stores/RoomStore.js';
-import { useServiceStore } from '../stores/ServiceStore.js';
+
     export default {
         name: 'landingPage',
         components: {
             Actualities, Services, Heroes, Reviews,  Rooms, Videos, ContentSeparator 
-        }
+        },
+        
     }
 </script>
 
