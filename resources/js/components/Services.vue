@@ -11,7 +11,7 @@
                 <p class="font-Philosopher text-primary">{{service.description}}</p>
                 <p class="font-Philosopher text-primary">{{service.price}} €$</p>
                 <div class="card-actions">
-                    <button v-if="userLanguage" class="btn btn-secondary font-Cinzel text-base-100">Reserver</button>
+                    <button v-if="isFrench" class="btn btn-secondary font-Cinzel text-base-100">Reserver</button>
                     <button v-else class="btn btn-secondary font-Cinzel text-base-100">Book Now</button> 
                 </div>
             </div>
@@ -32,7 +32,7 @@ export default {
     },
     data() {
         return {
-            userLanguage:false
+            isFrench:false
         }
     },
     computed: {
@@ -41,7 +41,7 @@ export default {
     methods:{
         detectBrowserLanguage(){
             if(navigator.language.startsWith("fr")){
-                this.userLanguage=true;
+                this.isFrench=true;
             }
         }
     }
@@ -50,7 +50,5 @@ export default {
 
 
 <style scoped>
-h1 {
-    color: red
-}
+
 </style>
