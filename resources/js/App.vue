@@ -31,12 +31,12 @@ export default {
     beforeMount(){
         this.roomStore.fetchActiveRooms();
         this.serviceStore.fetchActiveServices();
-        this.detectBrowserLanguage();
+        
         
     },
     data(){
         return {
-            isFrench:false
+            isFrench:(navigator.language.startsWith("fr")?true:false)
         }
     },
     provide(){
@@ -48,11 +48,7 @@ export default {
          ...mapStores(useRoomStore, useServiceStore)
     },
     methods:{
-        detectBrowserLanguage(){
-            if(navigator.language.startsWith("fr")){
-                this.isFrench=true;
-            }
-        }
+        
     }
 
 
