@@ -41,7 +41,7 @@ export default {
     },
     data() {
         return {
-            isFrench: (navigator.language.startsWith("fr") ? true : false),
+            isFrench: (navigator.language.startsWith("fr")),
             actualities: [],
             hero: [],
             footer: [],
@@ -102,7 +102,7 @@ export default {
 }
 </script>
 
- 
+
 <style scoped>
 
 </style>
