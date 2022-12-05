@@ -1,10 +1,10 @@
 
 <template>
 
-    <div  class="flex flex-row justify-center space-x-1">
+    <div  class="flex flex-row justify-center space-x-40">
         <div v-for="service in serviceStore.activeServices" :key="service.id" class="card w-96 bg-backGround shadow-xl">
             <figure class="px-10 pt-10">
-                <img src="https://placeimg.com/400/225/arch" alt="Shoes" class="rounded-xl" />
+                <img :src="('/images/services/' + service.image_icon)" :alt="service.title" class="rounded-xl" />
             </figure>
             <div class="card-body items-center text-center ">
                 <h2 class="card-title font-Cinzel text-secondary">{{service.title}}</h2>
