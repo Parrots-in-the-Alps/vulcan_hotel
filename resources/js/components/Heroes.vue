@@ -32,9 +32,12 @@
 
 export default {
     name: "Heroes.vue",
+    inject:[
+    'isFrench'
+    ],
     data() {
         return {
-            response: []
+            isFrench:this.isFrench
         }
     },
     async mounted() {
