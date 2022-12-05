@@ -94,7 +94,7 @@ export default {
         async fetchVideos(){
             const response = await axios.get('api/videos/active');
             console.log(response.data)
-            this.video = response.data['data'];
+            this.videos = response.data['data'];
         }
     }
 

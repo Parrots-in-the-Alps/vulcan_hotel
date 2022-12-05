@@ -21,6 +21,7 @@ class VideoSeeder extends Seeder
         foreach ($videos as $key => $value) {
             $video = new Video();
             $video->video_link = $value["video_link"];
+            $video->isActive = true;
             $video
             ->setTranslations('title', $value["title"])
             ->setTranslations('description', $value["description"])
