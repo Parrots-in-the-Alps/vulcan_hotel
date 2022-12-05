@@ -6,16 +6,15 @@
     
     export default {
       name: "Videos.vue",
-      data() {
-              return {
-                  response: []
-              }
-          },
-          async mounted() {
-              const response = await axios.get('api/show/activevideos');
-              console.log(response.data)
-              this.response = response.data['data'];
-          }
+    inject:[
+        'isFrench',
+        'videos'
+    ],
+    data() {
+        return {
+            videos: this.videos
+        }
+    },
     }
     </script>
     

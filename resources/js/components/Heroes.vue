@@ -33,18 +33,15 @@
 export default {
     name: "Heroes.vue",
     inject:[
-    'isFrench'
+    'isFrench',
+    'hero'
     ],
     data() {
         return {
-            isFrench:this.isFrench
+            isFrench:this.isFrench,
+            hero:this.hero
         }
     },
-    async mounted() {
-        const response = await axios.get('api/heroes/active');
-        console.log(response.data)
-        this.response = response.data['data'];
-    }
 }
 </script>
 

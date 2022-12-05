@@ -6,23 +6,18 @@
 <script>
 
 export default {
-    name: "reviews.vue",
+    name: "reviews.vue",inject:[
+        'isFrench',
+        'reviews'
+    ],
     data() {
         return {
-            response: []
+            reviews: this.reviews
         }
     },
-    async mounted() {
-        const response = await axios.get('api/show/activereviews');
-        console.log(response.data)
-        this.response = response.data['data'];
-    }
 }
 </script>
     
     
 <style scoped>
-h1 {
-    color: red
-}
 </style>

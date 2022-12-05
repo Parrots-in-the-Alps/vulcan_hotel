@@ -28,27 +28,74 @@ import { computed } from 'vue'
 export default {
     name: "App.vue",
     components: { LandingPage, Footer, Header },
-    beforeMount(){
+    beforeMount() {
         this.roomStore.fetchActiveRooms();
         this.serviceStore.fetchActiveServices();
-        
-        
+        this.fetchActualities();
+        this.fetchHero();
+        this.fetchFooter();
+        this.fetchReviews();
+        this.fetchVideos();
+
+
     },
-    data(){
+    data() {
         return {
-            isFrench:(navigator.language.startsWith("fr")?true:false)
+            isFrench: (navigator.language.startsWith("fr") ? true : false),
+            actualities: [],
+            hero: [],
+            footer: [],
+            reviews: [],
+            videos: []
+
+
+
         }
     },
-    provide(){
-        return{
-            isFrench:computed(()=> this.isFrench)
+    provide() {
+        return {
+            isFrench: computed(() => this.isFrench),
+            actualities: computed(() => this.actualities),
+            hero: computed(() => this.hero),
+            footer: computed(() => this.footer),
+            reviews: computed(() => this.reviews),
+            videos: computed(() => this.videos)
         }
     },
     computed: {
-         ...mapStores(useRoomStore, useServiceStore)
+        ...mapStores(useRoomStore, useServiceStore)
     },
-    methods:{
-        
+    methods: {
+
+        async fetchActualities() {
+            const response = await axios.get('api/actualities/active');
+            console.log(response.data)
+            this.actualities = response.data['data'];
+        },
+
+        async fetchHero() {
+            const response = await axios.get('api/heroes/active');
+            console.log(response.data)
+            this.hero = response.data['data'];
+        },
+
+        async fetchFooter(){
+            const response = await axios.get('api/footers/active');
+            console.log(response.data)
+            this.footer = response.data['data'];
+        },
+
+        async fetchReviews(){
+            const response = await axios.get('api/reviews/active');
+            console.log(response.data)
+            this.reviews = response.data['data'];
+        },
+
+        async fetchVideos(){
+            const response = await axios.get('api/videos/active');
+            console.log(response.data)
+            this.video = response.data['data'];
+        }
     }
 
 

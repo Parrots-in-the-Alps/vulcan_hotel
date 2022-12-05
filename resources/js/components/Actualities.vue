@@ -2,7 +2,7 @@
 <template>
 
 <div class="flex flex-row mt-16 justify-center items-center">
-    <div v-for="(element,i) in response" :key="element.id" class="max-w-sm mr-5 max-h-sm rounded overflow-hidden shadow-lg">
+    <div v-for="(element,i) in actualities" :key="element.id" class="max-w-sm mr-5 max-h-sm rounded overflow-hidden shadow-lg">
         <label :for="('my-modal' + i)">
 
                  <img :for="('my-modal' + i)" class="object-cover h-48 w-96 btn hover:bg-persimmon" :src="'/images/actualities/' + element.image" alt="Sunset in the mountains">
@@ -85,23 +85,19 @@
 
 export default {
     name: "Actualities.vue",
+    inject:[
+        'isFrench',
+        'actualities'
+    ],
     data() {
         return {
-            response: []
+            actualities: this.actualities
         }
     },
-    async mounted() {
-        const response = await axios.get('api/actualities/active');
-        console.log(response.data)
-        this.response = response.data['data'];
-    },
-
 }
 </script>
 
 
 <style scoped>
-    h1{
-        color:red
-    }
+  
 </style>

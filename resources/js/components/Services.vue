@@ -1,7 +1,7 @@
 
 <template>
 
-    <div  class="flex flex-row justify-items-center space-x-1">
+    <div  class="flex flex-row justify-center space-x-1">
         <div v-for="service in serviceStore.activeServices" :key="service.id" class="card w-96 bg-backGround shadow-xl">
             <figure class="px-10 pt-10">
                 <img src="https://placeimg.com/400/225/arch" alt="Shoes" class="rounded-xl" />
