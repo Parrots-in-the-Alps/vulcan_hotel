@@ -33,7 +33,7 @@
 
 <script>
 import { mapStores } from 'pinia';
-import { useRoomStore } from '../stores/RoomStore';
+import { useRoomStore } from '../../stores/RoomStore';
 
 export default {
   name: "Rooms.vue",

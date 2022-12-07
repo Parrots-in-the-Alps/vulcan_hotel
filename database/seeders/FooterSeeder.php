@@ -24,6 +24,7 @@ class FooterSeeder extends Seeder
             $footer->mail = $value["mail"];
             $footer->logo = $value["logo"];
             $footer->address_id = $value["address_id"];
+            $footer->save();
     }
     }
 }
