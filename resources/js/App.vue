@@ -1,33 +1,29 @@
 <template>
+
     <div class="w-full h-full flex justify-center">
         <div class="w-full h-full md:max-w-lg lg:max-w-2xl xl:max-w-5xl 2xl:max-w-7xl">
             <Header />
-            <LandingPage />
+                <router-view v-slot="{ Component }">
+                    <component :is="Component" />
+                </router-view>
             <Footer />
         </div>
-
-
     </div>
 
 </template>
 
 <script>
 
-import LandingPage from './views/LandingPage.vue'
-import Footer from './views/Footer.vue'
-import Header from './views/Header.vue'
-import { useUserStore } from ".//stores/RoomStore.js";
-import { useRoomStore } from './/stores/RoomStore.js';
-import { useServiceStore } from './/stores/ServiceStore.js';
+import Header from './components/commons/Header.vue';
+import Footer from './components/commons/Footer.vue';
+import { useRoomStore } from './stores/RoomStore.js';
+import { useServiceStore } from './stores/ServiceStore.js';
 import { mapStores } from 'pinia';
-import { computed } from 'vue'
-
-
-
+import { computed } from 'vue';
 
 export default {
     name: "App.vue",
-    components: { LandingPage, Footer, Header },
+    components: { Header, Footer },
     beforeMount() {
         this.roomStore.fetchActiveRooms();
         this.serviceStore.fetchActiveServices();
@@ -36,8 +32,6 @@ export default {
         this.fetchFooter();
         this.fetchReviews();
         this.fetchVideos();
-
-
     },
     data() {
         return {
@@ -47,9 +41,6 @@ export default {
             footer: [],
             reviews: [],
             videos: []
-
-
-
         }
     },
     provide() {
@@ -97,8 +88,6 @@ export default {
             this.videos = response.data['data'];
         }
     }
-
-
 }
 </script>
 

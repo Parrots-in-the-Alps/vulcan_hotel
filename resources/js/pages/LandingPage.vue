@@ -37,24 +37,21 @@
 </template>
 
 <script>
-import Actualities from '../components/Actualities';
-import Services from '../components/Services';
-import Heroes from '../components/Heroes';
-import Reviews from '../components/Reviews';
-import Rooms from '../components/Rooms';
-import Videos from '../components/Videos';
-import ContentSeparator from '../components/ContentSeparator';
+import ContentSeparator from '../components/commons/ContentSeparator.vue';
+import Heroes from '../components/landing/Heroes.vue';
+import Services from '../components/landing/Services.vue';
+import Rooms from '../components/landing/Rooms.vue';
+import Videos from '../components/landing/Videos.vue';
+import Reviews from '../components/landing/Reviews.vue';
+import Actualities from '../components/landing/Actualities.vue';
 
-    export default {
-        name: 'landingPage',
-        inject: [
+export default {
+    name: 'LandingPage',
+    inject: [
         'isFrench',
-        
     ],
-        components: {
-            Actualities, Services, Heroes, Reviews,  Rooms, Videos, ContentSeparator 
-        },
-        
-    }
+    components: {
+        ContentSeparator, Heroes, Services, Rooms, Videos, Reviews, Actualities 
+    },
+}
 </script>
-

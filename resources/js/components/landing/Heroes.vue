@@ -20,8 +20,10 @@
                 stroke="#A7A9BE" stroke-width="5" />
         </svg>
         <div class="self-center">
-            <button v-if="isFrench" class="btn btn-secondary font-Cinzel text-base-100">Reserver</button>
-            <button v-else class="btn btn-secondary font-Cinzel text-base-100">Book Now</button>
+            <router-link to="/reservation">
+                <button v-if="isFrench" class="btn btn-secondary font-Cinzel text-base-100">Reserver</button>
+                <button v-else class="btn btn-secondary font-Cinzel text-base-100">Book</button>
+            </router-link>
         </div>
     </div>
 

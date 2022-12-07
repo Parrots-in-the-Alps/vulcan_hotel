@@ -23,7 +23,7 @@
 
 <script>
 import { mapStores } from 'pinia';
-import { useServiceStore } from '../stores/ServiceStore';
+import { useServiceStore } from '../../stores/ServiceStore';
 
 export default {
     name: "Servicevue",
