@@ -25,6 +25,7 @@ class ReviewSeeder extends Seeder
             $review->image_user_avatar = $value["image_user_avatar"];
             $review->rating = $value["rating"];
             $review->comment = $value["comment"];
+            $review->save();
     }
     }
 }
