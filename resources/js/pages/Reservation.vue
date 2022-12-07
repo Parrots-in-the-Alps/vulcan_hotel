@@ -2,7 +2,7 @@
 <template>
 
     <div>
-        <h1>reservation card template</h1>
+        <h1>Reservation card template</h1>
     </div>
 
 </template>
