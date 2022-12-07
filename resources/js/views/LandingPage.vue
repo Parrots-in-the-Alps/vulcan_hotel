@@ -1,25 +1,39 @@
 <template>
     <Heroes />
+
     <ContentSeparator 
    menuTitle="Services" />
+   
    <Services />
 
- <ContentSeparator 
-   menuTitle="Rooms" />
+   <ContentSeparator 
+   v-if="isFrench" menuTitle="Nos chambres" />
+
+   <ContentSeparator 
+    v-else menuTitle="Rooms" />
+
     <Rooms />
+
     <ContentSeparator 
    menuTitle="Video" />
+
     <Videos />
+
     <ContentSeparator 
-   menuTitle="Reviews" />
-    <Reviews />
+   v-if="isFrench" menuTitle="Avis clients" />
+
    <ContentSeparator 
-   menuTitle="Actualities" />
+   v-else menuTitle="Reviews" />
+
+    <Reviews />
+
+   <ContentSeparator 
+   v-if="isFrench" menuTitle="Actualities" />
+
+   <ContentSeparator 
+   v-else menuTitle="Actualities" />
+
     <Actualities />
-
-
-   
-   
 </template>
 
 <script>
@@ -33,6 +47,10 @@ import ContentSeparator from '../components/ContentSeparator';
 
     export default {
         name: 'landingPage',
+        inject: [
+        'isFrench',
+        
+    ],
         components: {
             Actualities, Services, Heroes, Reviews,  Rooms, Videos, ContentSeparator 
         },
