@@ -46,6 +46,9 @@ module.exports = {
         'persimmon': '#DF6426',
         'bistre': '#372B20',
       },
+      width: {
+        '270': '270px' // w-default input with icons (look at Stays.vue)
+      }
     },
     fontFamily: {
       Philosopher: ['philosopher-mono', 'Philosopher', 'sans-serif'],

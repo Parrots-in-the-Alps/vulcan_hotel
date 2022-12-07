@@ -1,7 +1,7 @@
 
 <template>
 
-    <div class="flex justify-center">
+    <div class="mt-10 flex justify-center">
         <div class="card w-96 bg-base-100 shadow-xl">
             <div class="card-body">
                 <router-view v-slot="{ Component }">
