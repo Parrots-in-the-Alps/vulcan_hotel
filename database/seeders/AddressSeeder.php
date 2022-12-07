@@ -25,6 +25,7 @@ class AddressSeeder extends Seeder
             $address->zip = $value["zip"];
             $address->city_name = $value["city_name"];
             $address->country = $value["country"];
+            $address->save();
     }
 }
 
