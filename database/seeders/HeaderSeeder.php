@@ -21,6 +21,7 @@ class HeaderSeeder extends Seeder
         foreach ($headers as $key => $value) {
             $header = new Header();
             $header->banner_image = $value["banner_image"];
+            $header->save();
     }
 }
 }
