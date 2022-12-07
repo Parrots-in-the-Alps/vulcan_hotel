@@ -1,6 +1,6 @@
 <template>
 
-    <div class="card-title self-center font-['Cinzel']">Stays</div>
+    <div class="card-title self-center text-secondary font-Cinzel">Stays</div>
     <label class="label">
         <span class="label-text">DATES</span>
     </label>
@@ -33,7 +33,7 @@
     </div>
     
     
-    <PreviousNextButtonVue />
+    <PreviousNextButtonVue previousRoute="/reservation/stays" nextRoute="/reservation/services"/>
 
 </template>
 
