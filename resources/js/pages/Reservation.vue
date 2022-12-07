@@ -1,8 +1,14 @@
 
 <template>
 
-    <div>
-        <h1>Reservation card template</h1>
+    <div class="flex justify-center">
+        <div class="card w-96 bg-base-100 shadow-xl">
+            <div class="card-body">
+                <router-view v-slot="{ Component }">
+                    <component :is="Component" />
+                </router-view>
+            </div>
+        </div>
     </div>
 
 </template>
