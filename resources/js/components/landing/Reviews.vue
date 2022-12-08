@@ -421,11 +421,6 @@ export default {
         'isFrench',
         'reviews'
     ],
-    data() {
-        return {
-            reviews: this.reviews
-        }
-    },
 }
 </script>
     

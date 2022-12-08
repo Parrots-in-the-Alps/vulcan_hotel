@@ -26,11 +26,6 @@ export default {
         'isFrench',
         'videos'
     ],
-    data() {
-        return {
-            videos: this.videos
-        }
-    },
 }
 </script>
     

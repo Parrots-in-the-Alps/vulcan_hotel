@@ -38,12 +38,6 @@ export default {
     'isFrench',
     'hero'
     ],
-    data() {
-        return {
-            isFrench:this.isFrench,
-            hero:this.hero
-        }
-    },
 }
 </script>
 

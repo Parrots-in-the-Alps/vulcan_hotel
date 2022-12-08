@@ -89,11 +89,6 @@ export default {
         'isFrench',
         'actualities'
     ],
-    data() {
-        return {
-            actualities: this.actualities
-        }
-    },
 }
 </script>
 

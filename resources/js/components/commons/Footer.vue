@@ -67,11 +67,5 @@ export default {
         'isFrench',
         'footer'
     ],
-    data() {
-        return {
-            isFrench: this.isFrench,
-            footer: this.footer
-        }
-    },
 }
 </script>

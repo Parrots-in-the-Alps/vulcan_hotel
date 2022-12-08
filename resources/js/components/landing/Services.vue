@@ -32,11 +32,6 @@ export default {
     inject: [
         'isFrench'
     ],
-    data() {
-        return {
-            isFrench: this.isFrench
-        }
-    },
     computed: {
         ...mapStores(useServiceStore)
     },
