@@ -33,7 +33,7 @@
     </div>
     
     
-    <PreviousNextButtonVue previousRoute="/reservation/stays" nextRoute="/reservation/services"/>
+    <PreviousNextButtonVue previousRoute="/" nextRoute="/reservation/therooms"/>
 
 </template>
 
