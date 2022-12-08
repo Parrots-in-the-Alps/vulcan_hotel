@@ -1,14 +1,18 @@
 
 <template>
 
-    <div class="mt-10 flex justify-center">
-        <div class="card w-96 bg-base-100 shadow-xl">
-            <div class="card-body">
-                <router-view v-slot="{ Component }">
-                    <component :is="Component" />
-                </router-view>
-            </div>
-        </div>
+    <div class="mt-10 mb-10 flex justify-center">
+        <ul class="steps">
+            <li class="step step-secondary">Stays</li>
+            <li class="step step-secondary">The Rooms</li>
+            <li class="step step-secondary">Services</li>
+            <li class="step step-secondary">Register</li>
+        </ul>
+    </div>
+    <div class="flex justify-center">
+        <router-view v-slot="{ Component }">
+            <component :is="Component" />
+        </router-view>
     </div>
 
 </template>
