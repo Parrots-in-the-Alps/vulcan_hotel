@@ -11,7 +11,9 @@ axios.defaults.headers.get['Accept-Language'] = userLocale;
 
 const pinia = createPinia()
 
-createApp(App)
-    .use(pinia)
-    .use(router)
-    .mount('#app')
+const app = createApp(App)
+app.config.unwrapInjectedRef = true
+
+app.use(pinia)
+app.use(router)
+app.mount('#app')
