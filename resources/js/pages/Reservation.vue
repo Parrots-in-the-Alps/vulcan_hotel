@@ -1,26 +1,27 @@
-
 <template>
 
-    <div class="mt-10 mb-10 flex justify-center">
-        <ul class="steps">
-            <li class="step step-secondary">Stays</li>
-            <li class="step step-secondary">The Rooms</li>
-            <li class="step step-secondary">Services</li>
-            <li class="step step-secondary">Register</li>
-        </ul>
-    </div>
+    <Steps :currentStep="currentStep"/>
     <div class="flex justify-center">
         <router-view v-slot="{ Component }">
-            <component :is="Component" />
+            <component v-on:update:currentStep="currentStep = $event" :is="Component" />
         </router-view>
     </div>
 
 </template>
 
 <script>
+import Steps from '../components/reservation/commons/Steps.vue';
 
 export default {
     name: "Reservation",
+    components: {
+        Steps
+    },
+    data() {
+        return {
+            currentStep: "stays"
+        }
+    }
 }
 </script>
 

@@ -11,7 +11,7 @@
                         <div class="label-text text-CadetBlue font-Philosopher">{{ service.price }} €$</div>
                     </div>
                 </div>
-                <PreviousNextButtonVue previousRoute="/reservation/therooms" nextRoute="/reservation/register"/>
+                <PreviousNextButtonVue previousRoute="/reservation/therooms" nextRoute="/reservation/register" nextStep="register" previousStep="therooms"/>
             </div>
         </div>
     </div>
@@ -27,6 +27,9 @@ export default {
     name: "Services",
     components: {
         PreviousNextButtonVue
+    },
+    props: {
+        currentStep: String,
     },
     inject: [
         'isFrench',

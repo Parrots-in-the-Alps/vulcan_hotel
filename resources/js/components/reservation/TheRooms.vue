@@ -11,7 +11,7 @@
                     </div>
                     <img class="w-32 h-32" src="../../../../public/images/rooms/standard_room.jpg" alt="Image d'une chambre standard">
                 </div>
-                <PreviousNextButtonVue previousRoute="/reservation/stays" nextRoute="/reservation/services"/>
+                <PreviousNextButtonVue previousRoute="/reservation/stays" nextRoute="/reservation/services" nextStep="services" previousStep="stays"/>
             </div>
         </div>
     </div>
@@ -25,6 +25,9 @@ export default {
     name: "TheRooms",
     components: {
         PreviousNextButtonVue
+    },
+    props: {
+        currentStep: String,
     },
     inject: [
         'isFrench',

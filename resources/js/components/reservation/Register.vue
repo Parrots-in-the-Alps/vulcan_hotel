@@ -1,4 +1,5 @@
 <template>
+
     <div class="w-full h-full md:w-3/4  lg:w-2/3 xl:w-1/2 2xl:w-1/2 rounded-2xl shadow-xl flex flex-col items-center">
         <div class="self-center mt-6 mb-12">
             <h1 class="text-secondary font-Cinzel ">register</h1>
@@ -22,11 +23,9 @@
                 </router-link>
             </div>
             <div>
-                <PreviousNextButton previousRoute="/reservation/services" nextRoute="/" />
+                <PreviousNextButton previousRoute="/reservation/services" nextRoute="/" previousStep="services"/>
             </div>
-            
         </div>
-        
     </div>
 
 </template>
@@ -39,6 +38,9 @@ import { useUserStore } from '../../stores/UserStore';
 export default {
     name: "Register",
     components: { PreviousNextButton },
+    props: {
+        currentStep: String,
+    },
     inject: [
         'isFrench',
     ],
