@@ -9,7 +9,7 @@
         </div>
     </div>
     
-    <PreviousNextButtonVue previousRoute="/reservation/stays" nextRoute="/reservation/register"/>
+    <PreviousNextButtonVue previousRoute="/reservation/therooms" nextRoute="/"/>
 
 </template>
     
