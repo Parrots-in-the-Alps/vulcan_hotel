@@ -38,6 +38,7 @@
 
 <script>
 import ContentSeparator from '../components/commons/ContentSeparator.vue';
+import Register from '../components/reservation/Register.vue';
 import Heroes from '../components/landing/Heroes.vue';
 import Services from '../components/landing/Services.vue';
 import Rooms from '../components/landing/Rooms.vue';
@@ -51,7 +52,7 @@ export default {
         'isFrench',
     ],
     components: {
-        ContentSeparator, Heroes, Services, Rooms, Videos, Reviews, Actualities 
+        ContentSeparator, Heroes, Services, Rooms, Videos, Reviews, Actualities, Register 
     },
 }
 </script>
