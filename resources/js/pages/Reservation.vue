@@ -19,14 +19,7 @@ export default {
     },
     data() {
         return {
-            stays: {
-                start_date: zeferf,
-                end
-            },
-            rooms: {
-
-            },
-            
+                       
             currentStep: "stays"
         }
     }

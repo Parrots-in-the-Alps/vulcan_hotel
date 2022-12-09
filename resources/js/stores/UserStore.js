@@ -16,7 +16,8 @@ export const useUserStore = defineStore('user',{
                 city: "",
                 country: "",
             },
-            pasword
+            password:"",
+            confirmPassword:""
         }
     }),
     
