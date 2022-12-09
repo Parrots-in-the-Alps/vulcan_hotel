@@ -18,7 +18,7 @@ export default {
         Steps
     },
     data() {
-        return {           
+        return {
             currentStep: "stays"
         }
     }

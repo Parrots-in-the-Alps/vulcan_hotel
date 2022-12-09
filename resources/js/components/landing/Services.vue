@@ -11,7 +11,7 @@
                 <p class="font-Philosopher text-primary">{{ service.description }}</p>
                 <p class="font-Philosopher text-primary">{{ service.price }} €$</p>
                 <div class="card-actions">
-                    <router-link to="/reservation">
+                    <router-link to="/reservation/stays">
                         <button v-if="isFrench" class="btn btn-secondary font-Cinzel text-base-100">Reserver</button>
                         <button v-else class="btn btn-secondary font-Cinzel text-base-100">Book</button>
                     </router-link>

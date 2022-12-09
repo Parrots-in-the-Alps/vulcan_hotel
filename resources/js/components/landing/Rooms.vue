@@ -13,7 +13,7 @@
             class="hover:text-primary-600 text-lg transition duration-500 font-medium text-white">{{ room.name }}</a>
           <h6 class="text-slate-400">{{ room.description }}</h6>
           <div class="self-center">
-            <router-link to="/reservation">
+            <router-link to="/reservation/stays">
               <button v-if="isFrench" class="btn btn-secondary font-Cinzel text-base-100">Reserver</button>
               <button v-else class="btn btn-secondary font-Cinzel text-base-100">Book</button>
             </router-link>
