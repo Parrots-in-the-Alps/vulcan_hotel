@@ -26,6 +26,20 @@ export const useUserStore = defineStore('user',{
     },
 
     actions: {
+        comparePasswords(){
+            if(this.user.password === this.user.confirmPassword){
+                return true;
+            }
+            alert('passwords did not match');
+            return false;
+        },
+
+        submit(){
+            // if(this.comparePasswords()){
+            //     axios.post(,this.user);
+            // }
+        }
+
 
         
     },

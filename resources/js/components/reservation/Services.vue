@@ -6,7 +6,7 @@
                 <div class="card-title self-center text-secondary font-Cinzel ">SERVICES</div>
                 <div class="flex flex-col justify-center items-center">
                     <div v-for="service in serviceStore.activeServices" :key="service.index" class="w-1/2 h-2/3 mt-2 flex flex-row justify-between">
-                        <input type="checkbox" checked="checked" class="checkbox checkbox-secondary cursor-pointer" />
+                        <input type="checkbox" :value="service.id" v-model="reservationStore.details.services.ids" class="checkbox checkbox-secondary cursor-pointer" />
                         <div class="label-text text-CadetBlue font-Philosopher">{{ service.title }} </div>
                         <div class="label-text text-CadetBlue font-Philosopher">{{ service.price }} €$</div>
                     </div>
@@ -21,6 +21,7 @@
 <script>
 import { mapStores } from 'pinia';
 import { useServiceStore } from '../../stores/ServiceStore';
+import { useReservationStore} from '../../stores/ReservationStore';
 import PreviousNextButtonVue from './commons/PreviousNextButton.vue';
 
 export default {
@@ -40,7 +41,7 @@ export default {
         }
     },
     computed: {
-        ...mapStores(useServiceStore)
+        ...mapStores(useServiceStore,useReservationStore)
     }
 }
 </script>

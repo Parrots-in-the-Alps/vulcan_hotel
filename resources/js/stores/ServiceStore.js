@@ -8,7 +8,7 @@ export const useServiceStore = defineStore('service',{
     }),
     
     getters:{
-
+        
     },
 
     actions: {
@@ -22,6 +22,10 @@ export const useServiceStore = defineStore('service',{
                   alert(error)
                   console.log(error)
               }
+        },
+
+        getService(id){
+            return this.activeServices.find(service.id === id);
         }
     },
     

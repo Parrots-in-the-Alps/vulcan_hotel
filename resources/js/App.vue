@@ -16,8 +16,8 @@
 
 import Header from './components/commons/Header.vue';
 import Footer from './components/commons/Footer.vue';
-import { useRoomStore } from './stores/RoomStore.js';
 import { useServiceStore } from './stores/ServiceStore.js';
+import {useRoomStore} from './stores/RoomStore.js';
 import { mapStores } from 'pinia';
 import { computed } from 'vue';
 
@@ -25,8 +25,8 @@ export default {
     name: "App.vue",
     components: { Header, Footer },
     beforeMount() {
-        this.roomStore.fetchActiveRooms();
         this.serviceStore.fetchActiveServices();
+        this.roomStore.fetchActiveRooms();
         this.fetchActualities();
         this.fetchHero();
         this.fetchFooter();
@@ -54,7 +54,7 @@ export default {
         }
     },
     computed: {
-        ...mapStores(useRoomStore, useServiceStore)
+        ...mapStores(useServiceStore, useRoomStore)
     },
     methods: {
 

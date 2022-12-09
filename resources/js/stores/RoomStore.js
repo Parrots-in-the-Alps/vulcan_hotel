@@ -22,6 +22,11 @@ export const useRoomStore = defineStore('room',{
                   alert(error)
                   console.log(error)
               }
+        },
+
+        getRoom(type){
+            console.log("coucou");
+            return this.activeRooms.find(room.type === type)
         }
     },
     
