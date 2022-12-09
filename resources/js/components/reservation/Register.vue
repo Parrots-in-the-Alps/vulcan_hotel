@@ -5,23 +5,23 @@
         </div>
         <div class="w-1/2 h-2/3 flex flex-col">
             <input type="text" placeholder="Name" v-model="userStore.user.name" class="input input-bordered input-secondary " />
-            <input type="text" placeholder="Last Name" v-model="user.lastName"
+            <input type="text" placeholder="Last Name" v-model="userStore.user.lastName"
                 class="input input-bordered input-secondary " />
-            <input type="email" placeholder="Email" v-model="user.email" class="input input-bordered input-secondary " />
+            <input type="email" placeholder="Email" v-model="userStore.user.email" class="input input-bordered input-secondary " />
             <div class="w-full flex-row ">
-                <input type="number" placeholder="Street Number" v-model="streetNumber"
+                <input type="number" placeholder="Street Number" v-model="userStore.user.address.streetNumber"
                     class="input input-bordered input-secondary w-1/3 " />
-                <input type="text" placeholder="Street Name" v-model="streetName"
+                <input type="text" placeholder="Street Name" v-model="userStore.user.address.streetName"
                     class="input input-bordered input-secondary w-2/3 " />
-                <input type="number" placeholder="Postal Code" v-model="postalCode"
+                <input type="number" placeholder="Postal Code" v-model="userStore.user.address.postalCode"
                     class="input input-bordered input-secondary w-1/3 " />
-                <input type="text" placeholder="City" v-model="city"
+                <input type="text" placeholder="City" v-model="userStore.user.address.city"
                     class="input input-bordered input-secondary w-2/3 " />
             </div>
-            <input type="text" placeholder="Country" v-model="country" class="input input-bordered input-secondary  " />
-            <input type="text" placeholder="Password" v-model="password"
+            <input type="text" placeholder="Country" v-model="userStore.user.address.country" class="input input-bordered input-secondary  " />
+            <input type="text" placeholder="Password" v-model="userStore.password"
                 class="input input-bordered input-secondary " />
-            <input type="text" placeholder="Confirm Password" v-model="confirmPassword"
+            <input type="text" placeholder="Confirm Password" v-model="userStore.confirmPassword"
                 class="input input-bordered input-secondary" />
             <div class="self-center mt-6 mb-12">
                 <router-link to="/">
@@ -30,7 +30,7 @@
             </div>
             <div>
                 <PreviousNextButton previousRoute="/reservation/services" nextRoute="/" previousStep="services"
-                    @saveFormInfo="" />
+                    />
             </div>
 
         </div>
@@ -60,9 +60,7 @@ export default {
         ...mapStores(useUserStore)
     },
     methods: {
-        saveForm() {
-            useUserStore.test(user)
-        }
+       
     }
 }
 </script>

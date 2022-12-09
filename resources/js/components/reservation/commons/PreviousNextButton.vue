@@ -10,7 +10,7 @@
         <router-link :to="nextRoute">
             <button v-if="isFrench" @click="this.$parent.$emit('update:currentStep', nextStep)"
                 class="btn btn-secondary w-28 font-Cinzel text-base-100">suivant</button>
-            <button v-else @click="(this.$parent.$emit('update:currentStep', nextStep),$emit('saveFormInfo'))"
+            <button v-else @click="(this.$parent.$emit('update:currentStep', nextStep),$emit())"
                 class="btn btn-secondary font-Cinzel w-28 text-base-100">next</button>
         </router-link>
     </div>
@@ -22,8 +22,7 @@
 export default {
     name: "PreviousNextButton",
     emits: [
-        'update:currentStep',
-        'saveFormInfo'
+        'update:currentStep'
     ],
     inject: [
         'isFrench',
