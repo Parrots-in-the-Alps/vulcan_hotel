@@ -38,17 +38,7 @@ export default {
                     title: 'Services',
                     className: 'services'
                 },
-                {
-                    title: 'Register',
-                    className: 'register'
-                },
             ]
-        }
-    },
-    watch: {
-    // Note: only simple paths. Expressions are not supported.
-        'currentStep' (newValue) {
-            console.log(newValue)
         }
     },
 }

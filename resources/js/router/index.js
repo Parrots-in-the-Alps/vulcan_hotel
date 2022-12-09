@@ -8,6 +8,23 @@ const router = createRouter({
             name: 'LandingPage',
             component: () => import('../pages/LandingPage.vue')
         },
+        // {
+        //     path: '/auth/',
+        //     name: 'Auth',
+        //     component: () => import('../components/reservation/Auth.vue'),
+        //     children: [
+        //         {
+        //             path: '/auth/register',
+        //             name: 'Register',
+        //             component: () => import('../components/reservation/Register.vue')
+        //         },
+        //         {
+        //             path: '/auth/login',
+        //             name: 'Register',
+        //             component: () => import('../components/reservation/Register.vue')
+        //         },
+        //     ]
+        // },
         {
             path: '/reservation',
             name: 'Reservation',
@@ -27,11 +44,6 @@ const router = createRouter({
                     path: '/reservation/services',
                     name: 'Services',
                     component: () => import('../components/reservation/Services.vue')
-                },
-                {
-                    path: '/reservation/register',
-                    name: 'Register',
-                    component: () => import('../components/reservation/Register.vue')
                 },
             ]
         },

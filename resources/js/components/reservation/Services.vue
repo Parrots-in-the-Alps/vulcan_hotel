@@ -11,7 +11,7 @@
                         <div class="label-text text-CadetBlue font-Philosopher">{{ service.price }} €$</div>
                     </div>
                 </div>
-                <PreviousNextButtonVue previousRoute="/reservation/therooms" nextRoute="/reservation/register" nextStep="register" previousStep="therooms"/>
+                <PreviousNextButtonVue previousRoute="/reservation/therooms" nextRoute="/" previousStep="therooms"/>
             </div>
         </div>
     </div>

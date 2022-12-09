@@ -7,8 +7,10 @@
     </div>
     <div class="flex flew-row justify-between">
         <div class="self-center">
-            <button v-if="isFrench" class="btn btn-secondary font-Cinzel text-base-100">Reserver</button>
-            <button v-else class="btn btn-secondary font-Cinzel text-base-100">Book Now</button>
+            <router-link to="/reservation/stays">
+                <button v-if="isFrench" class="btn btn-secondary font-Cinzel text-base-100">Reserver</button>
+                <button v-else class="btn btn-secondary font-Cinzel text-base-100">Book Now</button>
+            </router-link>
         </div>
         <svg class="self-stretch" xmlns="http://www.w3.org/2000/svg" width="300" height="270" viewBox="0 0 480 453"
             fill="none">
