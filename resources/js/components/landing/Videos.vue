@@ -10,8 +10,7 @@
                 <p class="font-Philosopher text-primary">{{ video.description }}</p>
                 <div class="card-actions justify-end">
                     <router-link to="/reservation/stays">
-                        <button v-if="isFrench" class="btn btn-secondary font-Cinzel text-base-100">Reserver</button>
-                        <button v-else class="btn btn-secondary font-Cinzel text-base-100">Book Now</button>
+                        <BookButton />
                     </router-link>
                 </div>
             </div>
@@ -21,9 +20,10 @@
 </template>
     
 <script>
-
+import BookButton from '../commons/BookButton.vue';
 export default {
     name: "Videos.vue",
+    components: { BookButton },
     inject: [
         'isFrench',
         'videos'

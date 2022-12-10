@@ -14,8 +14,7 @@
           <h6 class="text-slate-400">{{ room.description }}</h6>
           <div class="self-center">
             <router-link to="/reservation/stays">
-              <button v-if="isFrench" class="btn btn-secondary font-Cinzel text-base-100">Reserver</button>
-              <button v-else class="btn btn-secondary font-Cinzel text-base-100">Book</button>
+              <BookButton />
             </router-link>
           </div>
         </div>
@@ -26,11 +25,13 @@
 </template>
 
 <script>
+import BookButton from '../commons/BookButton.vue';
 import { useRoomStore } from '../../stores/RoomStore';
 import { mapStores } from 'pinia';
 
 export default {
   name: "Rooms.vue",
+  components: { BookButton },
   inject:[
         'isFrench',
     ],

@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { defineStore, mapStores } from 'pinia'
 import { useServiceStore } from './ServiceStore'
 import { useRoomStore } from './RoomStore';
 import { useUserStore } from './UserStore'
@@ -24,17 +24,15 @@ export const useReservationStore = defineStore('reservation',{
     }),
     
     getters:{
-
+        ...mapStores(useRoomStore,useServiceStore,useUserStore)
     },
 
     actions: {
         
 
-        getRoomDescription(){
-            const roomStore = useRoomStore;
-            const room =roomStore.getRoom(this.details.room.type);
-            console.log(room);
-
+        getSelectedRoom(){
+            const room_store= this.roomStore
+            return room_store.getRoom(this.details.room.type);
         }
     },
     

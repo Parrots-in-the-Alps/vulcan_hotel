@@ -8,8 +8,7 @@
     <div class="flex flew-row justify-between">
         <div class="self-center">
             <router-link to="/reservation/stays">
-                <button v-if="isFrench" class="btn btn-secondary font-Cinzel text-base-100">Reserver</button>
-                <button v-else class="btn btn-secondary font-Cinzel text-base-100">Book Now</button>
+                <BookButton />
             </router-link>
         </div>
         <svg class="self-stretch" xmlns="http://www.w3.org/2000/svg" width="300" height="270" viewBox="0 0 480 453"
@@ -23,8 +22,7 @@
         </svg>
         <div class="self-center">
             <router-link to="/reservation/stays">
-                <button v-if="isFrench" class="btn btn-secondary font-Cinzel text-base-100">Reserver</button>
-                <button v-else class="btn btn-secondary font-Cinzel text-base-100">Book Now</button>
+                <BookButton />
             </router-link>
         </div>
     </div>
@@ -33,9 +31,11 @@
 </template>
 
 <script>
+import BookButton from '../commons/BookButton.vue';
 
 export default {
     name: "Heroes.vue",
+    components: { BookButton },
     inject:[
     'isFrench',
     'hero'

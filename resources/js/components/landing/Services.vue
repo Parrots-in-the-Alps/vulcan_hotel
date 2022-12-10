@@ -12,8 +12,7 @@
                 <p class="font-Philosopher text-primary">{{ service.price }} €$</p>
                 <div class="card-actions">
                     <router-link to="/reservation/stays">
-                        <button v-if="isFrench" class="btn btn-secondary font-Cinzel text-base-100">Reserver</button>
-                        <button v-else class="btn btn-secondary font-Cinzel text-base-100">Book</button>
+                        <BookButton />
                     </router-link>
                 </div>
             </div>
@@ -26,9 +25,11 @@
 <script>
 import { mapStores } from 'pinia';
 import { useServiceStore } from '../../stores/ServiceStore';
+import BookButton from '../commons/BookButton.vue';
 
 export default {
     name: "Servicevue",
+    components: { BookButton },
     inject: [
         'isFrench'
     ],

@@ -8,7 +8,9 @@ export const useRoomStore = defineStore('room',{
     }),
     
     getters:{
-
+        getActiveRooms(state){
+            return state.activeRooms;
+        }
     },
 
     actions: {
@@ -25,8 +27,8 @@ export const useRoomStore = defineStore('room',{
         },
 
         getRoom(type){
-            console.log("coucou");
-            return this.activeRooms.find(room.type === type)
+            const rooms = this.getActiveRooms;
+            return rooms.find(room=>room.type === type);
         }
     },
     
