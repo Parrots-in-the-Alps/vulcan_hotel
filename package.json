@@ -19,9 +19,11 @@
         "vue-loader": "^16.8.3"
     },
     "dependencies": {
+        "@vuepic/vue-datepicker": "^3.6.3",
         "daisyui": "^2.42.1",
         "pinia": "^2.0.23",
         "vue": "^3.2.45",
-        "vue-router": "^4.1.6"
+        "vue-router": "^4.1.6",
+        "vuejs-datepicker": "^0.9.9"
     }
 }

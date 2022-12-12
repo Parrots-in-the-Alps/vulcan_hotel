@@ -79,6 +79,6 @@ class RoomController extends Controller
         ->setTranslations('status', $rooms_input['status'])
             ->save();
 
-        return new RoomResource($room);
+        return new RoomCollection($room);
     }
 }
