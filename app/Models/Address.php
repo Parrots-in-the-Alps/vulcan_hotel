@@ -22,5 +22,9 @@ class Address extends Model
     public function footer(){
         return $this->belongsTo(Footer::class);
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
     
 }

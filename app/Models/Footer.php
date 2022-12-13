@@ -9,7 +9,7 @@ class Footer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['phone_number', 'mail', 'logo', 'address_id','isActive'];
+    protected $fillable = ['phone_number', 'mail', 'logo','isActive'];
 
     public $casts = [
         'isActive' => 'boolean'
@@ -34,5 +34,7 @@ class Footer extends Model
     {
         return $this->hasMany(Link::class);
     }
+
+
     
 }

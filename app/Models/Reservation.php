@@ -27,12 +27,14 @@ class Reservation extends Model
 
     public function room(){
         return $this->belongsToMany(Room::class)
+        ->using(RoomReservation::class)
         ->withPivot('guest_number')
         ->withTimestamps();
     }
 
     public function service(){
         return $this->belongsToMany(Service::class)
+        ->using(ReservationService::class)
         ->withTimestamps();
     }
 }

@@ -19,8 +19,8 @@ class CreateFootersTable extends Migration
             $table->integer('phone_number');
             $table->string('mail');
             $table->string('logo');
+            $table->integer('address_id')->unsigned();
             $table->timestamps();
-            $table->unsignedInteger('address_id')->nullable()->constrained();
             $table->foreign('address_id')
                 ->references('id')
                 ->on('addresses')

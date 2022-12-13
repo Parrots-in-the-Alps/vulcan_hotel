@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Sample_Room;
+use App\Models\SampleRoom;
 use File;
 
 class SampleRoomSeeder extends Seeder
@@ -19,7 +19,7 @@ class SampleRoomSeeder extends Seeder
         $rooms = json_decode($json, JSON_OBJECT_AS_ARRAY);
   
         foreach ($rooms as $key => $value) {
-            $room = new Sample_Room();
+            $room = new SampleRoom();
             $room->capacity = $value["capacity"];
             $room->price = $value["price"];
             $room->image = $value["image"];
