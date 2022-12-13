@@ -10,6 +10,8 @@ class ReservationService extends Pivot
 {
     use HasFactory;
 
+    protected $fillable = ['service_id', 'reservation_id'];
+
     public function reservation()
     {
         return $this->hasOne(Reservation::class);
