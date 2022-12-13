@@ -15,6 +15,8 @@ class CreateReservationServicesTable extends Migration
     {
         Schema::create('reservation_services', function (Blueprint $table) {
             $table->id();
+            $table->integer('reservation_id')->unsigned();
+            $table->integer('service_id')->unsigned();
             $table->foreign('reservation_id')
                     ->references('id')
                     ->on('reservations')
