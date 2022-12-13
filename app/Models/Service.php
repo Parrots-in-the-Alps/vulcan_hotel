@@ -21,9 +21,10 @@ class Service extends Model
         'isActive' => false,
     ];
 
-    public function reservation(){
-        return $this->belongsToMany(Reservation::class)
-        ->withTimestamps();
+    public function reservation_service(){
+        
+        return $this->belongsToMany(ReservationService::class);
+      
     }
     
 }
