@@ -4,28 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Room;
-use App\Http\Resources\RoomCollection;
-use App\Http\Resources\RoomResource;
+use App\Models\Sample_room;
+use App\Http\Resources\SampleRoomCollection;
+use App\Http\Resources\SampleRoomResource;
 
-class RoomController extends Controller
+class SampleRoomController extends Controller
 {
     public function index()
     {
-        return new RoomCollection(Room::all());
+        return new SampleRoomCollection(Sample_room::all());
     }
 
     public function show($id)
     {
-        $room = Room::where(['id' => $id])
+        $room = Sample_room::where(['id' => $id])
             ->firstOrFail();
 
-        return new RoomResource($room);
+        return new SampleRoomResource($room);
     }
 
-    public function showActiveRooms()
+    public function showActiveSampleRooms()
     {
-        return new RoomCollection(Room::where('isActive',true)->get());
+        return new SampleRoomCollection(Sample_room::where('isActive',true)->get());
     }
 
     public function update(Request $request, $id)
@@ -42,7 +42,7 @@ class RoomController extends Controller
         // $room->updateOrFail($rooms_input);
 
         $input = $request->input();
-        Room::where('id', $id)->update(
+        Sample_room::where('id', $id)->update(
             $input
         );
         return response()->json(['message' => 'room updated successfully!'], 200);
@@ -50,14 +50,14 @@ class RoomController extends Controller
 
     public function deleteRooms()
     {
-        Room::truncate();
+        Sample_room::truncate();
 
         return response()->json(['description' => 'Rooms delete'], 200);
     }
 
     public function destroy($id)
     {
-        Room::where(['id' => $id])
+        Sample_room::where(['id' => $id])
             ->delete();
 
         return response()->json(['description' => 'Room delete'], 200);
@@ -67,8 +67,7 @@ class RoomController extends Controller
     {
         $rooms_input = $request->input();
 
-        $room = new Room();
-        $room->number = $rooms_input['number'];
+        $room = new Sample_room();
         $room->capacity = $rooms_input['capacity'];
         $room->price = $rooms_input['price'];
         $room->image = $rooms_input['image'];
@@ -78,6 +77,6 @@ class RoomController extends Controller
         ->setTranslations('type', $rooms_input['type'])
             ->save();
 
-        return new RoomResource($room);
+        return new SampleRoomResource($room);
     }
 }

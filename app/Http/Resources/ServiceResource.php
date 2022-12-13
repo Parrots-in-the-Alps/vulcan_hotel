@@ -22,6 +22,7 @@ class ServiceResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->getTranslation('title', App::getLocale()),
+            'billing_type' =>$this->billing_type,
             'image_icon' => $this->image_icon,
             'description' => $this->getTranslation('description', App::getLocale()),
             'price' => $this->price,

@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
-class Service extends Model
+class Sample_room extends Model
 {
     use HasFactory, HasTranslations;
 
-    protected $fillable = ['image_icon', 'price','isActive', 'billing_type'];
-    public $translatable = ['title', 'description'];
+    protected $fillable = [ 'capacity', 'price', 'image','isActive'];
+    public $translatable = ['description', 'name', 'type'];
 
     public $casts = [
         'isActive' => 'boolean'
@@ -20,10 +20,4 @@ class Service extends Model
     protected $attributes = [
         'isActive' => false,
     ];
-
-    public function reservation(){
-        return $this->belongsToMany(Reservation::class)
-        ->withTimestamps();
-    }
-    
 }

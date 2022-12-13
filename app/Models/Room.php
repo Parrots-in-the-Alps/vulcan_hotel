@@ -21,4 +21,9 @@ class Room extends Model
         'isActive' => false,
     ];
     
+    public function reservation(){
+        return $this->belongsToMany(Reservation::class)
+        ->withPivot('guest_number')
+        ->withTimestamps();
+    }
 }

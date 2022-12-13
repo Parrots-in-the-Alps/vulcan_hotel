@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRoomsTable extends Migration
+class CreateSampleRoomsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateRoomsTable extends Migration
      */
     public function up()
     {
-        Schema::create('rooms', function (Blueprint $table) {
+        Schema::create('sample_rooms', function (Blueprint $table) {
             $table->id();
             $table->json('name')->nullable();
-            $table->integer('number');
             $table->boolean('isActive')->default(false);
             $table->json('type')->nullable();
             $table->integer('capacity');
@@ -34,6 +33,6 @@ class CreateRoomsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rooms');
+        Schema::dropIfExists('sample_rooms');
     }
 }

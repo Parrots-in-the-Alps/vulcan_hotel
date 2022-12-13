@@ -2,14 +2,14 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Room;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\App;
+use App\Models\Sample_Room;
 
 /**
- * @mixin Room
+ * @mixin Sample_room
  */
-class RoomResource extends JsonResource
+class SampleRoomResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -26,7 +26,6 @@ class RoomResource extends JsonResource
             'description' => $this->getTranslation('description', App::getLocale()),
             'isActive' =>$this->isActive,
             'price' => $this->price,
-            'number' => $this->number,
             'capacity' => $this->capacity,
             'image' => $this->image
         ];

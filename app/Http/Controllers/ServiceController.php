@@ -58,6 +58,7 @@ class ServiceController extends Controller
         $service = new Service();
         $service->image_icon = $services_input['image_icon'];
         $service->price = $services_input['price'];
+        $service->billing_type = $services_input['billing_type'];
         $service->setTranslations('title', $services_input['title'])
                   ->setTranslations('description', $services_input['description'])
                   ->save();

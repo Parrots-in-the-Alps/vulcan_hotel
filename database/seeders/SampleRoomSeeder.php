@@ -3,10 +3,10 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Room;
+use App\Models\Sample_Room;
 use File;
 
-class RoomSeeder extends Seeder
+class SampleRoomSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,12 +15,11 @@ class RoomSeeder extends Seeder
      */
     public function run()
     {
-        $json = File::get("database/data/room.json");
+        $json = File::get("database/data/sample_room.json");
         $rooms = json_decode($json, JSON_OBJECT_AS_ARRAY);
   
         foreach ($rooms as $key => $value) {
-            $room = new Room();
-            $room->number = $value["number"];
+            $room = new Sample_Room();
             $room->capacity = $value["capacity"];
             $room->price = $value["price"];
             $room->image = $value["image"];
@@ -31,6 +30,5 @@ class RoomSeeder extends Seeder
             ->setTranslations('type', $value["type"])
                 ->save();
         }
-
     }
 }

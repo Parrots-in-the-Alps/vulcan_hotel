@@ -23,6 +23,7 @@ class ServiceSeeder extends Seeder
         $service = new Service();
         $service->price = $value["price"];
         $service->image_icon = $value["image_icon"];
+        $service->billing_type = $value["billing_type"];
         $service->isActive = true;
         $service
             ->setTranslations('title', $value["title"])
