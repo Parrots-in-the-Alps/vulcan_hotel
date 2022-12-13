@@ -10,15 +10,17 @@ class Room extends Model
 {
     use HasFactory, HasTranslations;
 
-    protected $fillable = ['number', 'capacity', 'price', 'image','isActive'];
+    protected $fillable = ['number', 'capacity', 'price', 'image','isQueued','isActive'];
     public $translatable = ['description', 'name', 'type', 'status'];
 
     public $casts = [
-        'isActive' => 'boolean'
+        'isActive' => 'boolean',
+        'isQueued' => 'boolean'
     ];
 
     protected $attributes = [
         'isActive' => false,
+        'isQueued' => false
     ];
     
     public function reservation(){
