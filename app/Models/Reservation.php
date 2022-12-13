@@ -31,8 +31,8 @@ class Reservation extends Model
         ->withTimestamps();
     }
 
-    public function service(){
-        return $this->belongsToMany(Service::class)
+    public function reservation_service(){
+        return $this->belongsToMany(ReservationService::class)
         ->withTimestamps();
     }
 }
