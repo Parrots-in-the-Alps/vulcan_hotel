@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             VideoSeeder::class,
             HeroSeeder::class,
             RoomSeeder::class,
+            SampleRoomSeeder::class,
             FooterSeeder::class,
             HeaderSeeder::class,
             ReviewSeeder::class,

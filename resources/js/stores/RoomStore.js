@@ -17,7 +17,7 @@ export const useRoomStore = defineStore('room',{
 
         async fetchActiveRooms(){
             try {
-                const data = await axios.get('api/rooms/active');
+                const data = await axios.get('api/sampleroom/active');
                   this.activeRooms = data.data['data'];
                 }
                 catch (error) {

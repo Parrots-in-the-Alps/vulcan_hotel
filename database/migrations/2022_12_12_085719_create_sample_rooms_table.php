@@ -16,7 +16,7 @@ class CreateSampleRoomsTable extends Migration
         Schema::create('sample_rooms', function (Blueprint $table) {
             $table->id();
             $table->json('name')->nullable();
-            $table->boolean('isActive')->default(false);
+            $table->boolean('isActive')->default(true);
             $table->json('type')->nullable();
             $table->integer('capacity');
             $table->float('price');

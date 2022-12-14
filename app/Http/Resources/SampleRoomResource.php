@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\App;
-use App\Models\Sample_Room;
+use App\Models\SampleRoom;
 
 /**
  * @mixin Sample_room

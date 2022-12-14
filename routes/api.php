@@ -11,8 +11,10 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\HeaderController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\MailingListController;
+use App\Http\Controllers\SampleRoomController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RoomController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +37,7 @@ Route::middleware('setLocale')->group(function() {
     Route::get('/mailinglists/active', [MailingListController::class, 'showActiveMailingList']);
     Route::get('/links/active', [LinkController::class, 'showActiveLinks']);
     Route::get('/headers/active', [HeaderController::class, 'showActiveHeaders']);
+    Route::get('/sampleroom/active', [SampleRoomController::class, 'showActiveSampleRooms']);
     Route::get('/services/active', [ServiceController::class, 'showActiveServices']);
     Route::get('/actualities/active', [ActualityController::class, 'showActiveActualities']);
     Route::get('/footers/active', [FooterController::class, 'showActiveFooters']);

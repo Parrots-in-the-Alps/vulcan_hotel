@@ -15,7 +15,7 @@ class SampleRoomSeeder extends Seeder
      */
     public function run()
     {
-        $json = File::get("database/data/sample_room.json");
+        $json = File::get("database/data/sampleRoom.json");
         $rooms = json_decode($json, JSON_OBJECT_AS_ARRAY);
   
         foreach ($rooms as $key => $value) {
