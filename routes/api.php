@@ -14,7 +14,7 @@ use App\Http\Controllers\MailingListController;
 use App\Http\Controllers\SampleRoomController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RoomController;
-
+use App\Http\Controllers\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,4 +54,5 @@ Route::middleware('setLocale')->group(function() {
     Route::apiResource("headers", HeaderController::class);
     Route::apiResource("footers", FooterController::class);
     Route::apiResource("mailinglists", MailingListController::class);
+    Route::apiResource("reservations", ReservationController::class);
 });

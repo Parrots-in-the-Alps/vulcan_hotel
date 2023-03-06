@@ -14,6 +14,8 @@ class Reservation extends Model
         'exitDate',
         'user_id',
         'isDue',
+        'room_id',
+        'services',
     ];
 
     public $casts = [
