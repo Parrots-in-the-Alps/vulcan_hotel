@@ -63,9 +63,9 @@ export default {
     name: 'Footer',
     components: {
     },
-    inject: [
-        'isFrench',
-        'footer'
-    ],
+    // inject: [
+    //     'isFrench',
+    //     'footer'
+    // ],
 }
 </script>

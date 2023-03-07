@@ -2,7 +2,7 @@
 <template>
 
     <div class="h-40">
-        <img class="object-cover w-full h-60 overflow-visible "
+        <img class="object-cover w-full h-60"
             src="https://external-preview.redd.it/Ic8UAMOkBRtsYZtc8MCKy0l0b8-92mcGtEa7ZuJmlvw.jpg?auto=webp&s=d2a9148cdecab0857a33fc1dbaf6901ee26f7cac" />
     </div>
     <div class="flex flew-row justify-between">
@@ -38,7 +38,7 @@ export default {
     components: { BookButton },
     inject:[
     'isFrench',
-    'hero'
+    // 'hero'
     ],
 }
 </script>

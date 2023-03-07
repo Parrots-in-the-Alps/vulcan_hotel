@@ -14,6 +14,8 @@ use App\Http\Controllers\MailingListController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RoomController;
 
+use App\Http\Controllers\API\AuthController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,11 +27,11 @@ use App\Http\Controllers\RoomController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('login', [AuthController::class, 'signin']);
+Route::post('register', [AuthController::class, 'signup']);
 
-Route::middleware('setLocale')->group(function() {
+Route::middleware(['auth:sanctum', 'setLocale'])->group(function() {
+ 
     Route::get('/rooms/active', [RoomController::class, 'showActiveRooms']);
     Route::get('/reviews/active', [ReviewController::class, 'showActiveReviews']);
     Route::get('/mailinglists/active', [MailingListController::class, 'showActiveMailingList']);
@@ -51,4 +53,7 @@ Route::middleware('setLocale')->group(function() {
     Route::apiResource("headers", HeaderController::class);
     Route::apiResource("footers", FooterController::class);
     Route::apiResource("mailinglists", MailingListController::class);
+
+    Route::get('logout', [AuthController::class, 'logout']);
+
 });

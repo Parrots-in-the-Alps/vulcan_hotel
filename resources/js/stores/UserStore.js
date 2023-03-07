@@ -1,10 +1,11 @@
-import { defineStore } from 'pinia'
-import axios from "axios"
+import axios from "axios";
+import { defineStore } from 'pinia';
+import router from '../router/index.js';
 
 
 export const useUserStore = defineStore('user',{
     state: () =>({
-        registeredUser:{},
+        logged: false,
         user: {
             name: "",
             lastName: "",
@@ -20,28 +21,23 @@ export const useUserStore = defineStore('user',{
             confirmPassword:""
         }
     }),
-    
-    getters:{
-
-    },
-
     actions: {
-        comparePasswords(){
-            if(this.user.password === this.user.confirmPassword){
-                return true;
-            }
-            alert('passwords did not match');
-            return false;
+        async register() {
+            await axios.post('/api/register', this.user);
+            this.login();
         },
-
-        submit(){
-            // if(this.comparePasswords()){
-            //     axios.post(,this.user);
-            // }
-        }
-
-
-        
+        async login() {
+            await axios.get('/sanctum/csrf-cookie');
+            this.logged = (await axios.post('/api/login', this.user)).data.token != null ? true : false;
+            if(this.logged === true) this.user = {};
+            console.log(await axios.get('/api/rooms/active'));
+            router.push({name: 'LandingPage'});
+        },
+        async logout() {
+            await axios.get('/api/logout');
+            this.logged = false;
+            this.user = {};
+            router.push({name: 'LandingPage'});
+        },
     },
-    
 })
