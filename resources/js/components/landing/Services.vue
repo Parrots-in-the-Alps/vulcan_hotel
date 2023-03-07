@@ -2,7 +2,7 @@
 <template>
 
     <div class="flex flex-wrap justify-center">
-        <div v-for="service in serviceStore.activeServices.slice(0,3)" :key="service.id" class="card w-96 bg-neutral shadow-xl flex-col mr-5 mt-5">
+        <div v-for="service in serviceStore.activeServices.slice(0,3)" :key="service.id" class="card w-96 bg-backGround shadow-xl flex-col mr-5 mt-5">
             <figure class="px-10 pt-10">
                 <img :src="('/images/services/' + service.image_icon)" :alt="service.title" class="rounded-xl" />
             </figure>
