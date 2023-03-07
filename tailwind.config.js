@@ -13,7 +13,7 @@ module.exports = {
       {
         mytheme: {
           "primary": "#a7a9be", //cadet blue
-          "secondary": "#df6426", //perismon
+          "secondary": "#7C3613", //perismon
           "accent": "#ff5c04", //callToaction-orange pétant
           "neutral": "#1b3235", //outerspace
           "base-100": "#2f2f2f", //backGround-jet
@@ -39,12 +39,13 @@ module.exports = {
       },
       colors: {
         'backGround': '#2f2f2f',
-        'callToAction': '#FF5C04',
+        'callToAction': '#7C3613',
         'outerSpace': '#1B3235',
         'cadetBlue': '#A7A9BE',
         'gunMetal': '#243236',
-        'persimmon': '#DF6426',
+        'persimmon': '#7C3613',
         'bistre': '#372B20',
+        'test':'#0A0A0B'
       },
       width: {
         '270': '270px' // w-default input with icons (look at Stays.vue)

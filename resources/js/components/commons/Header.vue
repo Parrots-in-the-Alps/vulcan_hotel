@@ -1,6 +1,6 @@
 <template>
 
-<nav class="shadow  bg-gunMetal">
+<nav class="shadow  bg-test">
 
 <div class="flex justify-between items-center py-6 px-10 container mx-auto">
 

@@ -7,9 +7,9 @@
                 <div class="flex justify-between">
                     <h2 v-if="isFrench" class="text-cadetBlue font-Philosopher">Votre chambre</h2>
                     <h2 v-else class="text-secondary font-Philosopher">Your Room</h2>
-                    <div>{{this.reservationStore.getSelectedRoom().type}}</div>
+                    <div>{{selectedRoom.type}}</div>
 
-
+                        <!--TODO-->
                     
                     
 

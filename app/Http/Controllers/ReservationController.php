@@ -64,6 +64,23 @@ class ReservationController extends Controller
         return response()->json(['description' => 'Reservation delete'], 200);
     }
 
+    public function showRoomAvailability(Request $request){
+        //validators--validate data : https://laravel.com/docs/8.x/validation#manually-creating-validators
+        //implement validator
+        //extract data from request
+        //implement availability algo
+            //ckeck entry/exitdates not in reservated intervals
+            //return array of  reservedroomIds
+            //return roomid in roomtable not in reserved roomIds array
+            //compare roomType requested by customer vs available roomIds (room objects)
+            //fill arrays
+        //response : 2 arrays 1-customer request: 2 -available other products (json)
+        $reservation_detail = $request->input();
+        return response()->json($reservation_detail);
+
+
+    }
+
 
 
 

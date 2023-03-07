@@ -34,6 +34,8 @@ export const useReservationStore = defineStore('reservation',{
             const room_store= this.roomStore
             return room_store.getRoom(this.details.room.type);
         }
+
+        
     },
     
 })

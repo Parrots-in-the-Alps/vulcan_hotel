@@ -56,3 +56,5 @@ Route::middleware('setLocale')->group(function() {
     Route::apiResource("mailinglists", MailingListController::class);
     Route::apiResource("reservations", ReservationController::class);
 });
+
+Route::post("/disponibilite",[ReservationController::class,'showRoomAvailability']);
