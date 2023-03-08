@@ -1,5 +1,5 @@
 <template>
-    <div class=" flex py-5 items-center">
+    <div class=" flex py-5 items-center my-12">
     <div class="flex-grow border-t border-persimmon"></div>
     <span v-if="menuTitle != null" class="font-Cinzel flex-shrink mx-4 text-persimmon">{{menuTitle}}</span>
     <div class="flex-grow border-t border-persimmon"></div>

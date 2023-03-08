@@ -18,7 +18,7 @@
   <div class="modal-box">
     <label :for="('my-modal' + i)" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
     <h3 class="font-bold text-lg">{{element.title}}</h3>
-    <p class="py-4 text-gunMetal">{{ element.description }} </p>
+    <p class="py-4 text-white">{{ element.description }} </p>
     <div class="modal-action">
 
     </div>
