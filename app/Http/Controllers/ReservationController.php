@@ -31,14 +31,10 @@ class ReservationController extends Controller
     {
         $reservation_input = $request->input();
 
-        $reservation = new Reservation();
-        $reservation->user = $reservation_input['user_id'];
-        $reservation->isDue = $reservation_input['isDue'];
-        $reservation->room = $reservation_input['room_id'];
-        $reservation->services = $reservation_input['services'];
-        $reservation->entryDate = $reservation_input['entry_date'];
-        $reservation->exitDate = $reservation_input['exit_date'];
-        return new ReservationResource($reservation);
+        $resa = new Reservation();
+        $resa->create($reservation_input);
+
+        return new ReservationResource($resa);
     }
 
     public function update(Request $request, $id)
@@ -92,7 +88,7 @@ class ReservationController extends Controller
         $bookedRooms = array();
 
         foreach($bookedReservations as $reservation){
-            $bookedRooms[$reservation['roomId']];
+            $bookedRooms[$reservation['room_id']];
         }
         
         $availableRooms= new RoomCollection(Room::whereNotIn('id',$bookedRooms));
@@ -101,11 +97,11 @@ class ReservationController extends Controller
         $availableSuggestedRoomType = array();
         
         foreach($availableRooms as $room){
-            if($room['roomType'] === $validated_details['roomType']){
+            if($room['type'] === $validated_details['type']){
                 $availableRequestedRoomType($room['id']);
             }
-            if(!array_search($room['roomType'], $availableSuggestedRoomType,true)){
-                $availableSuggestedRoomType($room['roomType']);
+            if(!array_search($room['type'], $availableSuggestedRoomType,true)){
+                $availableSuggestedRoomType($room['type']);
             }
         }
 

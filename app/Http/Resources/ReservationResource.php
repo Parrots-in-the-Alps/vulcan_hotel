@@ -1,9 +1,12 @@
 <?php
-
 namespace App\Http\Resources;
 
+use App\Models\Reservation;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin Reservation
+ */
 class ReservationResource extends JsonResource
 {
     /**
@@ -14,6 +17,15 @@ class ReservationResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        
+        return [
+            'id' => $this->id,
+            'entryDate' => $this->entryDate,
+            'exitDate' => $this->exitDate,
+            'user_id' => $this->user_id,
+            'isDue' => $this->isDue,
+            'room_id' => $this->room_id,
+            'services' => $this->services
+        ];
     }
 }
