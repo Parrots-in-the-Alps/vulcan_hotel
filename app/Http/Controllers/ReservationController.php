@@ -9,6 +9,8 @@ use App\Models\Service;
 use App\Models\Room;
 use App\Http\Resources\ReservationCollection;
 use App\Http\Resources\ReservationResource;
+use App\Http\Resources\RoomCollection;
+use Illuminate\Support\Facades\Validator;
 
 class ReservationController extends Controller
 {
@@ -75,10 +77,39 @@ class ReservationController extends Controller
             //compare roomType requested by customer vs available roomIds (room objects)
             //fill arrays
         //response : 2 arrays 1-customer request: 2 -available other products (json)
-        $reservation_detail = $request->input();
-        return response()->json($reservation_detail);
 
+        $validator = Validator::make($request->all(),[
+            'entryDate' => 'required',
+            'exitDate' => 'required',
+            'roomType' => 'required'
+        ]);
 
+        $validated_details = $validator->validated();
+
+       $bookedReservations = Reservation::whereBetween('entryDate',[$validated_details['entryDate'],$validated_details['exitDate']])
+       ->orWhereBetween('exitDate',[$validated_details['entryDate'],$validated_details['exitDate']]);
+        
+        $bookedRooms = array();
+
+        foreach($bookedReservations as $reservation){
+            $bookedRooms[$reservation['roomId']];
+        }
+        
+        $availableRooms= new RoomCollection(Room::whereNotIn('id',$bookedRooms));
+            
+        $availableRequestedRoomType = array();
+        $availableSuggestedRoomType = array();
+        
+        foreach($availableRooms as $room){
+            if($room['roomType'] === $validated_details['roomType']){
+                $availableRequestedRoomType($room['id']);
+            }
+            if(!array_search($room['roomType'], $availableSuggestedRoomType,true)){
+                $availableSuggestedRoomType($room['roomType']);
+            }
+        }
+
+        return response()->json($availableRequestedRoomType, $availableSuggestedRoomType);
     }
 
 
