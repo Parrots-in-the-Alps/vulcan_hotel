@@ -28,7 +28,7 @@
     <Reviews />
 
    <ContentSeparator 
-   v-if="isFrench" menuTitle="Actualities" />
+   v-if="isFrench" menuTitle="Actualitées" />
 
    <ContentSeparator 
    v-else menuTitle="Actualities" />
