@@ -77,7 +77,7 @@ class ReservationController extends Controller
         $validator = Validator::make($request->all(),[
             'entryDate' => 'required',
             'exitDate' => 'required',
-            'roomType' => 'required'
+            'type' => 'required'
         ]);
 
         $validated_details = $validator->validated();
@@ -90,22 +90,22 @@ class ReservationController extends Controller
         foreach($bookedReservations as $reservation){
             $bookedRooms[$reservation['room_id']];
         }
-        
-        $availableRooms= new RoomCollection(Room::whereNotIn('id',$bookedRooms));
-            
+        //dd($bookedRooms);
+        $availableRooms= Room::all()->whereNotIn('id',$bookedRooms);
+        //dd($availableRooms);
         $availableRequestedRoomType = array();
         $availableSuggestedRoomType = array();
-        
+        //dd($validated_details['type']);
         foreach($availableRooms as $room){
+            //dd($room->attributes);
             if($room['type'] === $validated_details['type']){
-                $availableRequestedRoomType($room['id']);
-            }
-            if(!array_search($room['type'], $availableSuggestedRoomType,true)){
-                $availableSuggestedRoomType($room['type']);
+                array_push($availableRequestedRoomType,$room);
+            }else if(!array_search($room, $availableSuggestedRoomType)){
+                array_push($availableSuggestedRoomType,$room);
             }
         }
 
-        return response()->json($availableRequestedRoomType, $availableSuggestedRoomType);
+        return response()->json([$availableRequestedRoomType, $availableSuggestedRoomType]);
     }
 
 
