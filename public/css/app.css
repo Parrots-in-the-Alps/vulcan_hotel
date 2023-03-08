@@ -690,6 +690,9 @@ html{
     transform: rotate(360deg);
   }
 }
+.btn-group{
+  display: inline-flex;
+}
 .btn-group > input[type="radio"].btn{
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -1842,6 +1845,27 @@ html{
   margin-left: 1rem;
   margin-right: 1rem;
 }
+.mb-5{
+  margin-bottom: 1.25rem;
+}
+.mb-0{
+  margin-bottom: 0px;
+}
+.ml-3{
+  margin-left: 0.75rem;
+}
+.ml-auto{
+  margin-left: auto;
+}
+.mr-3{
+  margin-right: 0.75rem;
+}
+.mt-4{
+  margin-top: 1rem;
+}
+.mt-3{
+  margin-top: 0.75rem;
+}
 .ml-1{
   margin-left: 0.25rem;
 }
@@ -1853,9 +1877,6 @@ html{
 }
 .ml-2{
   margin-left: 0.5rem;
-}
-.mt-4{
-  margin-top: 1rem;
 }
 .ml-4{
   margin-left: 1rem;
@@ -2184,6 +2205,9 @@ html{
 .bg-no-repeat{
   background-repeat: no-repeat;
 }
+.fill-primary{
+  fill: hsl(var(--p));
+}
 .object-cover{
   -o-object-fit: cover;
      object-fit: cover;
@@ -2233,6 +2257,9 @@ html{
 .px-10{
   padding-left: 2.5rem;
   padding-right: 2.5rem;
+}
+.pt-0{
+  padding-top: 0px;
 }
 .pt-8{
   padding-top: 2rem;

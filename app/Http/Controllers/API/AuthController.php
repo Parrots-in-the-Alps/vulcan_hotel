@@ -52,7 +52,10 @@ class AuthController
 
     public function logout()
     {
-        Auth::logout();
+        $authUser = Auth::user(); 
+        $authUser->tokens()->delete();
+        Auth::guard("web")->logout();
+
     }
    
 }

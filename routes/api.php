@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HeroController;
 use App\Http\Controllers\VideoController;
@@ -13,7 +12,7 @@ use App\Http\Controllers\LinkController;
 use App\Http\Controllers\MailingListController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RoomController;
-
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\API\AuthController;
 
 /*
@@ -30,19 +29,25 @@ use App\Http\Controllers\API\AuthController;
 Route::post('login', [AuthController::class, 'signin']);
 Route::post('register', [AuthController::class, 'signup']);
 
+
+Route::get('/reviews/active', [ReviewController::class, 'showActiveReviews']);
+Route::get('/mailinglists/active', [MailingListController::class, 'showActiveMailingList']);
+Route::get('/links/active', [LinkController::class, 'showActiveLinks']);
+Route::get('/headers/active', [HeaderController::class, 'showActiveHeaders']);
+Route::get('/services/active', [ServiceController::class, 'showActiveServices']);
+Route::get('/actualities/active', [ActualityController::class, 'showActiveActualities']);
+Route::get('/footers/active', [FooterController::class, 'showActiveFooters']);
+Route::get('/addresses/active', [AddressController::class, 'showActiveAddresses']);
+Route::get('/heroes/active', [HeroController::class, 'showActiveHeroes']);
+Route::get('/videos/active', [VideoController::class, 'showActiveVideos']);
+
 Route::middleware(['auth:sanctum', 'setLocale'])->group(function() {
- 
+
+    Route::get('logout', [AuthController::class, 'logout']);
+    Route::get('user/info', [UserController::class, 'info']);
+    
     Route::get('/rooms/active', [RoomController::class, 'showActiveRooms']);
-    Route::get('/reviews/active', [ReviewController::class, 'showActiveReviews']);
-    Route::get('/mailinglists/active', [MailingListController::class, 'showActiveMailingList']);
-    Route::get('/links/active', [LinkController::class, 'showActiveLinks']);
-    Route::get('/headers/active', [HeaderController::class, 'showActiveHeaders']);
-    Route::get('/services/active', [ServiceController::class, 'showActiveServices']);
-    Route::get('/actualities/active', [ActualityController::class, 'showActiveActualities']);
-    Route::get('/footers/active', [FooterController::class, 'showActiveFooters']);
-    Route::get('/addresses/active', [AddressController::class, 'showActiveAddresses']);
-    Route::get('/heroes/active', [HeroController::class, 'showActiveHeroes']);
-    Route::get('/videos/active', [VideoController::class, 'showActiveVideos']);
+
     Route::apiResource("rooms", RoomController::class);
     Route::apiResource("actualities", ActualityController::class);
     Route::apiResource("heroes", HeroController::class);
@@ -53,7 +58,4 @@ Route::middleware(['auth:sanctum', 'setLocale'])->group(function() {
     Route::apiResource("headers", HeaderController::class);
     Route::apiResource("footers", FooterController::class);
     Route::apiResource("mailinglists", MailingListController::class);
-
-    Route::get('logout', [AuthController::class, 'logout']);
-
 });

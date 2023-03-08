@@ -45,6 +45,7 @@ import Rooms from '../components/landing/Rooms.vue';
 import Videos from '../components/landing/Videos.vue';
 import Reviews from '../components/landing/Reviews.vue';
 import Actualities from '../components/landing/Actualities.vue';
+import { useUserStore } from '../stores/UserStore';
 
 export default {
     name: 'LandingPage',
@@ -54,5 +55,9 @@ export default {
     components: {
         ContentSeparator, Heroes, Services, Rooms, Videos, Reviews, Actualities, Register 
     },
+    mounted () {
+        const userStore = useUserStore()
+        userStore.info();
+    }
 }
 </script>

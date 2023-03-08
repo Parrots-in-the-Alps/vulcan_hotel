@@ -28,10 +28,22 @@ export const useUserStore = defineStore('user',{
         },
         async login() {
             await axios.get('/sanctum/csrf-cookie');
-            this.logged = (await axios.post('/api/login', this.user)).data.token != null ? true : false;
+            await axios.post('/api/login', this.user).then((response) => {
+                if(response.status == 200) {
+                    this.logged = true;
+                }
+            });
             if(this.logged === true) this.user = {};
-            console.log(await axios.get('/api/rooms/active'));
             router.push({name: 'LandingPage'});
+        },
+        async info() {
+            axios.get('/api/user/info').then((response) => {
+                if(response.status == 200) {
+                    this.logged = true;
+                } else {
+                    this.logged = false;
+                }
+            });
         },
         async logout() {
             await axios.get('/api/logout');

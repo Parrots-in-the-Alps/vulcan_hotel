@@ -20505,31 +20505,17 @@ var useUserStore = (0,pinia__WEBPACK_IMPORTED_MODULE_2__.defineStore)('user', {
                 return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/sanctum/csrf-cookie');
               case 2:
                 _context2.next = 4;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/login', _this2.user);
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/login', _this2.user).then(function (response) {
+                  if (response.status == 200) {
+                    _this2.logged = true;
+                  }
+                });
               case 4:
-                _context2.t0 = _context2.sent.data.token;
-                if (!(_context2.t0 != null)) {
-                  _context2.next = 9;
-                  break;
-                }
-                _context2.t1 = true;
-                _context2.next = 10;
-                break;
-              case 9:
-                _context2.t1 = false;
-              case 10:
-                _this2.logged = _context2.t1;
                 if (_this2.logged === true) _this2.user = {};
-                _context2.t2 = console;
-                _context2.next = 15;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/rooms/active');
-              case 15:
-                _context2.t3 = _context2.sent;
-                _context2.t2.log.call(_context2.t2, _context2.t3);
                 _router_index_js__WEBPACK_IMPORTED_MODULE_1__["default"].push({
                   name: 'LandingPage'
                 });
-              case 18:
+              case 6:
               case "end":
                 return _context2.stop();
             }
@@ -20537,27 +20523,49 @@ var useUserStore = (0,pinia__WEBPACK_IMPORTED_MODULE_2__.defineStore)('user', {
         }, _callee2);
       }))();
     },
-    logout: function logout() {
+    info: function info() {
       var _this3 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/logout');
-              case 2:
-                _this3.logged = false;
-                _this3.user = {};
-                _router_index_js__WEBPACK_IMPORTED_MODULE_1__["default"].push({
-                  name: 'LandingPage'
+                axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/user/info').then(function (response) {
+                  if (response.status == 200) {
+                    _this3.logged = true;
+                  } else {
+                    _this3.logged = false;
+                  }
                 });
-              case 5:
+              case 1:
               case "end":
                 return _context3.stop();
             }
           }
         }, _callee3);
+      }))();
+    },
+    logout: function logout() {
+      var _this4 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/logout');
+              case 2:
+                _this4.logged = false;
+                _this4.user = {};
+                _router_index_js__WEBPACK_IMPORTED_MODULE_1__["default"].push({
+                  name: 'LandingPage'
+                });
+              case 5:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
       }))();
     }
   }
