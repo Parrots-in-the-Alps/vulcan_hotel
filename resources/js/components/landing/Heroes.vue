@@ -38,7 +38,7 @@ export default {
     components: { BookButton },
     inject:[
     'isFrench',
-    'hero'
+    // 'hero'
     ],
 }
 </script>

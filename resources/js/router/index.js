@@ -8,23 +8,23 @@ const router = createRouter({
             name: 'LandingPage',
             component: () => import('../pages/LandingPage.vue')
         },
-        // {
-        //     path: '/auth/',
-        //     name: 'Auth',
-        //     component: () => import('../components/reservation/Auth.vue'),
-        //     children: [
-        //         {
-        //             path: '/auth/register',
-        //             name: 'Register',
-        //             component: () => import('../components/reservation/Register.vue')
-        //         },
-        //         {
-        //             path: '/auth/login',
-        //             name: 'Register',
-        //             component: () => import('../components/reservation/Register.vue')
-        //         },
-        //     ]
-        // },
+        {
+            path: '/auth',
+            name: 'Auth',
+            component: () => import('../pages/Auth.vue'),
+            children: [
+                {
+                    path: '/auth/register',
+                    name: 'Register',
+                    component: () => import('../components/auth/Register.vue')
+                },
+                {
+                    path: '/auth/login',
+                    name: 'Login',
+                    component: () => import('../components/auth/Login.vue')
+                },
+            ]
+        },
         {
             path: '/reservation',
             name: 'Reservation',

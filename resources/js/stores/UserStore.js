@@ -1,10 +1,11 @@
-import { defineStore } from 'pinia'
-import axios from "axios"
+import axios from "axios";
+import { defineStore } from 'pinia';
+import router from '../router/index.js';
 
 
 export const useUserStore = defineStore('user',{
     state: () =>({
-        registeredUser:{},
+        logged: false,
         user: {
             name: "",
             lastName: "",
@@ -20,28 +21,63 @@ export const useUserStore = defineStore('user',{
             confirmPassword:""
         }
     }),
-    
-    getters:{
-
-    },
-
     actions: {
-        comparePasswords(){
-            if(this.user.password === this.user.confirmPassword){
-                return true;
-            }
-            alert('passwords did not match');
-            return false;
+        async register() {
+            await axios.post('/api/register', this.user);
+            this.login();
         },
-
-        submit(){
-            // if(this.comparePasswords()){
-            //     axios.post(,this.user);
-            // }
-        }
-
-
-        
+        async login() {
+            await axios.get('/sanctum/csrf-cookie');
+            await axios.post('/api/login', this.user).then((response) => {
+                if(response.status == 200) {
+                    this.logged = true;
+                }
+            });
+            if(this.logged === true) {
+                this.user = {
+                    name: "",
+                    lastName: "",
+                    email: "",
+                    address: {
+                        streetNumber: 0,
+                        steetName: "",
+                        postalCode: 0,
+                        city: "",
+                        country: "",
+                    },
+                    password:"",
+                    confirmPassword:""
+                };
+            }
+            router.push({name: 'LandingPage'});
+        },
+        async info() {
+            axios.get('/api/user/info')
+            .then((response) => {
+                if(response.status == 200) this.logged = true;
+            })
+            .catch((error) => {
+                this.logged = false;
+            });
+        },
+        async logout() {
+            await axios.get('/api/logout');
+            this.logged = false;
+            this.user = {
+                name: "",
+                lastName: "",
+                email: "",
+                address: {
+                    streetNumber: 0,
+                    steetName: "",
+                    postalCode: 0,
+                    city: "",
+                    country: "",
+                },
+                password:"",
+                confirmPassword:""
+            };
+            router.push({name: 'LandingPage'});
+        },
     },
-    
 })
