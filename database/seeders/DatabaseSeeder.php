@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
             HeaderSeeder::class,
             ReviewSeeder::class,
             LinkSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            ReservationSeeder::class
         ]);
     }
 }
