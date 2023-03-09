@@ -50,11 +50,6 @@ export default {
     // inject: [
     //     'isFrench',
     // ],
-    data() {
-        return {
-
-        }
-    },
     computed: {
         ...mapStores(useUserStore)
     },

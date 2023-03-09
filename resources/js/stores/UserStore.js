@@ -1,24 +1,24 @@
 import axios from "axios";
 import { defineStore } from 'pinia';
 import router from '../router/index.js';
-
+// import CryptoJS from 'crypto-js';
 
 export const useUserStore = defineStore('user',{
     state: () =>({
         logged: false,
         user: {
-            name: "",
-            lastName: "",
-            email: "",
+            name: "toto",
+            lastName: "toto lastname",
+            email: "toto@gmail.com",
             address: {
-                streetNumber: 0,
-                steetName: "",
-                postalCode: 0,
-                city: "",
-                country: "",
+                streetNumber: 10,
+                steetName: "toto street",
+                postalCode: 10,
+                city: "toto city",
+                country: "toto country",
             },
-            password:"",
-            confirmPassword:""
+            password:"toto",
+            confirmPassword:"toto"
         }
     }),
     actions: {
@@ -29,25 +29,10 @@ export const useUserStore = defineStore('user',{
         async login() {
             await axios.get('/sanctum/csrf-cookie');
             await axios.post('/api/login', this.user).then((response) => {
-                if(response.status == 200) {
-                    this.logged = true;
-                }
+                if(response.status == 200) this.logged = true;
             });
             if(this.logged === true) {
-                this.user = {
-                    name: "",
-                    lastName: "",
-                    email: "",
-                    address: {
-                        streetNumber: 0,
-                        steetName: "",
-                        postalCode: 0,
-                        city: "",
-                        country: "",
-                    },
-                    password:"",
-                    confirmPassword:""
-                };
+                this.resetUser();
             }
             router.push({name: 'LandingPage'});
         },
@@ -63,6 +48,10 @@ export const useUserStore = defineStore('user',{
         async logout() {
             await axios.get('/api/logout');
             this.logged = false;
+            this.resetUser();
+            router.push({name: 'LandingPage'});
+        },
+        resetUser() {
             this.user = {
                 name: "",
                 lastName: "",
@@ -77,7 +66,16 @@ export const useUserStore = defineStore('user',{
                 password:"",
                 confirmPassword:""
             };
-            router.push({name: 'LandingPage'});
         },
+        //https://stackoverflow.com/questions/70094816/encrypt-password-in-front-with-vue-js
+        // encrypt (pass) {
+        //     return CryptoJS.SHA512(pass).toString();
+        // },
+        //   decrypt (src) {
+        //     const passphrase = '123456'
+        //     const bytes = CryptoJS.AES.decrypt(src, passphrase)
+        //     const originalText = bytes.toString(CryptoJS.enc.Utf8)
+        //     return originalText
+        //   }
     },
 })

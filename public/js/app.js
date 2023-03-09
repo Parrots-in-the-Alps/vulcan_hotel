@@ -20454,23 +20454,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+// import CryptoJS from 'crypto-js';
+
 var useUserStore = (0,pinia__WEBPACK_IMPORTED_MODULE_2__.defineStore)('user', {
   state: function state() {
     return {
       logged: false,
       user: {
-        name: "",
-        lastName: "",
-        email: "",
+        name: "toto",
+        lastName: "toto lastname",
+        email: "toto@gmail.com",
         address: {
-          streetNumber: 0,
-          steetName: "",
-          postalCode: 0,
-          city: "",
-          country: ""
+          streetNumber: 10,
+          steetName: "toto street",
+          postalCode: 10,
+          city: "toto city",
+          country: "toto country"
         },
-        password: "",
-        confirmPassword: ""
+        password: "toto",
+        confirmPassword: "toto"
       }
     };
   },
@@ -20506,26 +20508,11 @@ var useUserStore = (0,pinia__WEBPACK_IMPORTED_MODULE_2__.defineStore)('user', {
               case 2:
                 _context2.next = 4;
                 return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/login', _this2.user).then(function (response) {
-                  if (response.status == 200) {
-                    _this2.logged = true;
-                  }
+                  if (response.status == 200) _this2.logged = true;
                 });
               case 4:
                 if (_this2.logged === true) {
-                  _this2.user = {
-                    name: "",
-                    lastName: "",
-                    email: "",
-                    address: {
-                      streetNumber: 0,
-                      steetName: "",
-                      postalCode: 0,
-                      city: "",
-                      country: ""
-                    },
-                    password: "",
-                    confirmPassword: ""
-                  };
+                  _this2.resetUser();
                 }
                 _router_index_js__WEBPACK_IMPORTED_MODULE_1__["default"].push({
                   name: 'LandingPage'
@@ -20569,20 +20556,7 @@ var useUserStore = (0,pinia__WEBPACK_IMPORTED_MODULE_2__.defineStore)('user', {
                 return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/logout');
               case 2:
                 _this4.logged = false;
-                _this4.user = {
-                  name: "",
-                  lastName: "",
-                  email: "",
-                  address: {
-                    streetNumber: 0,
-                    steetName: "",
-                    postalCode: 0,
-                    city: "",
-                    country: ""
-                  },
-                  password: "",
-                  confirmPassword: ""
-                };
+                _this4.resetUser();
                 _router_index_js__WEBPACK_IMPORTED_MODULE_1__["default"].push({
                   name: 'LandingPage'
                 });
@@ -20593,7 +20567,32 @@ var useUserStore = (0,pinia__WEBPACK_IMPORTED_MODULE_2__.defineStore)('user', {
           }
         }, _callee4);
       }))();
-    }
+    },
+    resetUser: function resetUser() {
+      this.user = {
+        name: "",
+        lastName: "",
+        email: "",
+        address: {
+          streetNumber: 0,
+          steetName: "",
+          postalCode: 0,
+          city: "",
+          country: ""
+        },
+        password: "",
+        confirmPassword: ""
+      };
+    } //https://stackoverflow.com/questions/70094816/encrypt-password-in-front-with-vue-js
+    // encrypt (pass) {
+    //     return CryptoJS.SHA512(pass).toString();
+    // },
+    //   decrypt (src) {
+    //     const passphrase = '123456'
+    //     const bytes = CryptoJS.AES.decrypt(src, passphrase)
+    //     const originalText = bytes.toString(CryptoJS.enc.Utf8)
+    //     return originalText
+    //   }
   }
 });
 
