@@ -2181,6 +2181,10 @@ html{
   --tw-bg-opacity: 1;
   background-color: rgb(36 50 54 / var(--tw-bg-opacity));
 }
+.bg-test{
+  --tw-bg-opacity: 1;
+  background-color: rgb(10 10 11 / var(--tw-bg-opacity));
+}
 .bg-gradient-to-tr{
   background-image: linear-gradient(to top right, var(--tw-gradient-stops));
 }

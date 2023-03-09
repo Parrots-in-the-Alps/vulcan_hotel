@@ -1,5 +1,5 @@
 <template>
-    <nav class="mb-10 shadow bg-gunMetal">
+    <nav class="mb-10 shadow bg-test">
         <div class="flex justify-between items-center py-6 px-10 container mx-auto">
             <div>
                 <h1 class="text-2xl font-bold bg-gradient-to-tr from-gunMetal to-persimmon bg-clip-text text-transparent hover:cursor-pointer"><a href="/">Vulcan</a></h1>

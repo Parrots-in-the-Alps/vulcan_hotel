@@ -20209,7 +20209,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "mb-10 shadow bg-gunMetal"
+  "class": "mb-10 shadow bg-test"
 };
 var _hoisted_2 = {
   "class": "flex justify-between items-center py-6 px-10 container mx-auto"
