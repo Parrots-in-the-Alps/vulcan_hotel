@@ -1,5 +1,5 @@
 <template>
-    <!-- <div class="flex justify-center" v-for="video in videos" :key="video.id">
+    <div class="flex justify-center" v-for="video in videos" :key="video.id">
         <div class="card card-compact w-full bg-base-100 shadow-xl">
             <iframe  height="315" :src="video.video_link"
                 :title="video.title" frameborder="0"
@@ -15,20 +15,20 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
 </template>
     
 <script>
-// import BookButton from '../commons/BookButton.vue';
-// export default {
-//     name: "Videos.vue",
-//     components: { BookButton },
-//     inject: [
-//         'isFrench',
-//         // 'videos'
-//     ],
-// }
+import BookButton from '../commons/BookButton.vue';
+export default {
+    name: "Videos.vue",
+    components: { BookButton },
+    inject: [
+        'isFrench',
+         'videos'
+    ],
+}
 </script>
     
     
