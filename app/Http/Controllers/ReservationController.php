@@ -100,12 +100,12 @@ class ReservationController extends Controller
             //dd($room->attributes);
             if($room['type'] === $validated_details['type']){
                 array_push($availableRequestedRoomType,$room);
-            }else if(!array_search($room, $availableSuggestedRoomType)){
+            }else if(!in_array($room['type'], $availableSuggestedRoomType)){
                 array_push($availableSuggestedRoomType,$room);
             }
         }
 
-        return response()->json([$availableRequestedRoomType, $availableSuggestedRoomType]);
+        return response()->json(["type" => $availableRequestedRoomType,"suggested" => $availableSuggestedRoomType]);
     }
 
 

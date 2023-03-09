@@ -3,11 +3,10 @@
     <div class="flex justify-center">
         <div class="card w-96 bg-base-100 shadow-xl">
             <div class="card-body">
-                <div class="card-title self-center text-secondary font-Cinzel">booking summary</div>
+                <div class="card-title self-center text-secondary font-Cinzel">{{isFrench ? "Résumé de vote réservation":"booking summary"}}</div>
                 <div class="flex justify-between">
-                    <h2 v-if="isFrench" class="text-cadetBlue font-Philosopher">Votre chambre</h2>
-                    <h2 v-else class="text-secondary font-Philosopher">Your Room</h2>
-                    <div>{{selectedRoom.type}}</div>
+                    <h2 class="text-cadetBlue font-Philosopher">{{isFrench ? "Résumé de vote réservation":"booking summary"}}</h2>
+                    <div>{{this.selectedRoom.type}}</div>
 
                         <!--TODO-->
                     
@@ -38,9 +37,19 @@ import { useReservationStore } from '../../stores/ReservationStore';
 
 export default {
     mounted(){
-       const selectedRoom = this.reservationStore.getSelectedRoom();
+       const room = this.reservationStore.getSelectedRoom();
+       this.selectedRoom = room;
+       const availableRooms = this.reservationStore.checkAvailability();
+       this.availableType = availableRooms;
     },
     name: "TheRooms",
+    data(){
+        return{
+            selectedRoom : "",
+            availableType: []
+        }
+    },
+
     components: {
         PreviousNextButtonVue
     },
