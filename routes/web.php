@@ -1,6 +1,10 @@
 <?php
 
+
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
+use App\Mail\HelloEmail;
+use App\Http\Controllers\EmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +24,6 @@ Route::get('/', function () {
 Route::get('/hew/{test}', function ($test = null) {
     return $test;
 });
+
+Route::get('send/email', [EmailController::class, 'mail']);
+
