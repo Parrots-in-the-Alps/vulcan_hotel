@@ -2,7 +2,7 @@
     <nav class="mb-10 shadow bg-test">
         <div class="flex justify-between items-center py-6 px-10 container mx-auto">
             <div>
-                <h1 class="text-2xl font-bold bg-gradient-to-tr from-gunMetal to-persimmon bg-clip-text text-transparent hover:cursor-pointer"><a href="/">Vulcan</a></h1>
+                <h1 class="text-2xl font-bold bg-gradient-to-tr from-gunMetal to-persimmon bg-clip-text text-transparent hover:cursor-pointer"> <router-link to="/">Vulcan</router-link></h1>
             </div>
             <div>
                 <div class="hover:cursor-pointer sm:hidden">
@@ -12,11 +12,6 @@
                 </div>
                 <div class="flex items-center">
                     <ul class="sm:flex space-x-4 max-sm:hidden items-center">
-                        <li><a href="#" class="text-gray-700 hover:text-persimmon text-md ">Services</a></li>
-                        <li><a href="#" class="text-gray-700 hover:text-persimmon  text-md ">Rooms</a></li>
-                        <li><a href="#" class="text-gray-700 hover:text-persimmon  text-md ">Actualities</a></li>
-                        <li><a href="#" class="text-gray-700 hover:text-persimmon  text-md ">Reviews</a></li>
-                        <li><a href="#" class="text-gray-700 hover:text-persimmon  text-md ">Contact</a></li>
                         <li v-if="this.logged !== true">
                             <router-link to="/auth/register">
                                 <a class="text-gray-700 hover:text-persimmon text-md ">Register</a>
