@@ -9,6 +9,8 @@ use App\Models\Service;
 use App\Models\Room;
 use App\Http\Resources\ReservationCollection;
 use App\Http\Resources\ReservationResource;
+use App\Http\Resources\RoomCollection;
+use Illuminate\Support\Facades\Validator;
 
 class ReservationController extends Controller
 {
@@ -29,14 +31,10 @@ class ReservationController extends Controller
     {
         $reservation_input = $request->input();
 
-        $reservation = new Reservation();
-        $reservation->user = $reservation_input['user_id'];
-        $reservation->isDue = $reservation_input['isDue'];
-        $reservation->room = $reservation_input['room_id'];
-        $reservation->services = $reservation_input['services'];
-        $reservation->entryDate = $reservation_input['entry_date'];
-        $reservation->exitDate = $reservation_input['exit_date'];
-        return new ReservationResource($reservation);
+        $resa = new Reservation();
+        $resa->create($reservation_input);
+
+        return new ReservationResource($resa);
     }
 
     public function update(Request $request, $id)
@@ -75,10 +73,39 @@ class ReservationController extends Controller
             //compare roomType requested by customer vs available roomIds (room objects)
             //fill arrays
         //response : 2 arrays 1-customer request: 2 -available other products (json)
-        $reservation_detail = $request->input();
-        return response()->json($reservation_detail);
 
+        $validator = Validator::make($request->all(),[
+            'entryDate' => 'required',
+            'exitDate' => 'required',
+            'type' => 'required'
+        ]);
 
+        $validated_details = $validator->validated();
+
+       $bookedReservations = Reservation::whereBetween('entryDate',[$validated_details['entryDate'],$validated_details['exitDate']])
+       ->orWhereBetween('exitDate',[$validated_details['entryDate'],$validated_details['exitDate']]);
+        
+        $bookedRooms = array();
+
+        foreach($bookedReservations as $reservation){
+            $bookedRooms[$reservation['room_id']];
+        }
+        //dd($bookedRooms);
+        $availableRooms= Room::all()->whereNotIn('id',$bookedRooms);
+        //dd($availableRooms);
+        $availableRequestedRoomType = array();
+        $availableSuggestedRoomType = array();
+        //dd($validated_details['type']);
+        foreach($availableRooms as $room){
+            //dd($room->attributes);
+            if($room['type'] === $validated_details['type']){
+                array_push($availableRequestedRoomType,$room);
+            }else if(!array_search($room, $availableSuggestedRoomType)){
+                array_push($availableSuggestedRoomType,$room);
+            }
+        }
+
+        return response()->json([$availableRequestedRoomType, $availableSuggestedRoomType]);
     }
 
 

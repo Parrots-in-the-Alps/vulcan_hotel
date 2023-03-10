@@ -7,9 +7,9 @@
     </div>
     <div class="flex flew-row justify-between">
         <div class="self-center">
-            <router-link to="/reservation/stays">
+           
                 <BookButton />
-            </router-link>
+        
         </div>
         <svg class="self-stretch" xmlns="http://www.w3.org/2000/svg" width="300" height="270" viewBox="0 0 480 453"
             fill="none">
@@ -21,9 +21,9 @@
                 stroke="#A7A9BE" stroke-width="5" />
         </svg>
         <div class="self-center">
-            <router-link to="/reservation/stays">
+           
                 <BookButton />
-            </router-link>
+            
         </div>
     </div>
 
@@ -38,7 +38,7 @@ export default {
     components: { BookButton },
     inject:[
     'isFrench',
-    'hero'
+    // 'hero'
     ],
 }
 </script>

@@ -14,6 +14,9 @@ class ReservationCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'data' => $this->collection,
+            'description' => __('OK')
+        ];
     }
 }

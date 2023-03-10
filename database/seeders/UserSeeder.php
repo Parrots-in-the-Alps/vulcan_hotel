@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class ReservationSeeder extends Seeder
+class userSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +13,6 @@ class ReservationSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Reservation::factory(10)->create();
+        \App\Models\User::factory(10)->create();
     }
 }

@@ -419,7 +419,7 @@
 export default {
     name: "reviews.vue", inject: [
         'isFrench',
-        'reviews'
+        // 'reviews'
     ],
 }
 </script>
