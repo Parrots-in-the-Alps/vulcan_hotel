@@ -28,6 +28,15 @@ export const useReservationStore = defineStore('reservation',{
     getters:{
         ...mapStores(useRoomStore,useServiceStore,useUserStore),
 
+        
+    },
+
+    actions: {
+        getSelectedRoom(){
+            const room_store= this.roomStore;
+            return room_store.getRoom(this.details.room.type);
+        },
+
         async checkAvailability(){
             console.log("coucou toto");
 
@@ -37,27 +46,14 @@ export const useReservationStore = defineStore('reservation',{
 
             let requestedRooms = response.data['type'];
             let suggestedRooms = response.data['suggested'];
-
-            console.log(requestedRooms);
-            console.log(suggestedRooms);
-
+            
             return {"requested":requestedRooms,"suggested":suggestedRooms};
         }
-    },
 
-    actions: {
-        getSelectedRoom(){
-            const room_store= this.roomStore;
-            return room_store.getRoom(this.details.room.type);
-        },
-
-        getAvailabilities(){
-            const availableRooms = this.checkAvailability();
-
+        // getAvailabilities(){
+        //     const availableRooms = this.checkAvailability();
             
-
-            
-        }
+        // }
     },
     
 })

@@ -90,18 +90,26 @@ class ReservationController extends Controller
         foreach($bookedReservations as $reservation){
             $bookedRooms[$reservation['room_id']];
         }
-        //dd($bookedRooms);
+        
         $availableRooms= Room::all()->whereNotIn('id',$bookedRooms);
-        //dd($availableRooms);
+        
         $availableRequestedRoomType = array();
         $availableSuggestedRoomType = array();
-        //dd($validated_details['type']);
+        
         foreach($availableRooms as $room){
-            //dd($room->attributes);
+           
             if($room['type'] === $validated_details['type']){
                 array_push($availableRequestedRoomType,$room);
-            }else if(!in_array($room['type'], $availableSuggestedRoomType)){
+            }else{
+                $count = 0;
+               foreach($availableSuggestedRoomType as $suggested){
+                if($room['type'] === $suggested['type']){
+                    $count++;
+                }
+               }
+               if($count == 0){
                 array_push($availableSuggestedRoomType,$room);
+               }    
             }
         }
 

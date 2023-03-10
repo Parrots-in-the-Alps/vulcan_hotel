@@ -31,8 +31,8 @@ export default {
                     className: 'stays'
                 },
                 {
-                    title: 'The Rooms',
-                    className: 'therooms'
+                    title: 'Availability',
+                    className: 'availability'
                 },
                 {
                     title: 'Services',

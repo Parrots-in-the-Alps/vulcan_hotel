@@ -36,9 +36,9 @@ const router = createRouter({
                     component: () => import('../components/reservation/Stays.vue')
                 },
                 {
-                    path: '/reservation/therooms',
-                    name: 'TheRooms',
-                    component: () => import('../components/reservation/TheRooms.vue')
+                    path: '/reservation/availability',
+                    name: 'Availability',
+                    component: () => import('../components/reservation/Availability.vue')
                 },
                 {
                     path: '/reservation/services',
