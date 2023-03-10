@@ -24,10 +24,11 @@ class Reservation extends Model
 
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function room(){
-        return $this->hasOne(Room::class);
+        return $this->belongsTo(Room::class);
     }
+    
 }

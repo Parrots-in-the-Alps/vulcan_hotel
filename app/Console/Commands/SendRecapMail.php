@@ -41,7 +41,7 @@ class SendRecapMail extends Command
         $reservations = Reservation::all();
         echo("coucou");
         foreach($reservations as $reservation){
-            if(Carbon::parse($reservation->entryDate)->diffInDays(Carbon::now()) == 7){ //Or however your date field on user is called
+            if(Carbon::parse($reservation->entryDate)->diffInDays(Carbon::now()->format('m/d/Y')) == 7){ //Or however your date field on user is called
                 Mail::to($reservation->user->email)->send(new RecapMail($reservation));
             }
     }
