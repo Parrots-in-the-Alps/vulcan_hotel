@@ -2,12 +2,13 @@
    
 namespace App\Http\Controllers\API;
    
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\InscriptionMail;
 use Validator;
 use App\Models\User;
+use App\Event\UserCreated;
+use Illuminate\Http\Request;
+use App\Mail\InscriptionMail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
    
 class AuthController
 {
@@ -49,7 +50,8 @@ class AuthController
         $success['token'] =  $user->createToken('MyAuthApp')->plainTextToken;
         $success['name'] =  $user->name;
         $success['message'] = 'User created successfully.';
-        Mail::to($user->email)->send(new InscriptionMail($user));
+        // Mail::to($user->email)->send(new InscriptionMail($user));
+        event(new UserCreated($user));
    
         return response()->json($success, 200);
     }
