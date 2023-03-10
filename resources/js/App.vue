@@ -1,14 +1,14 @@
 <template>
 
+    <Header />
     <div class="w-full h-full flex justify-center">
         <div class="w-full h-full md:max-w-lg lg:max-w-2xl xl:max-w-5xl 2xl:max-w-7xl">
-            <Header />
-                <router-view v-slot="{ Component }">
-                    <component :is="Component" />
-                </router-view>
-            <Footer />
+            <router-view v-slot="{ Component }">
+                <component :is="Component" />
+            </router-view>
         </div>
     </div>
+    <Footer />
 
 </template>
 
