@@ -2,11 +2,12 @@
 
 namespace App\Mail;
 
+use GuzzleHttp\Client;
+use App\Models\Reservation;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Reservation;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class RecapMail extends Mailable
 {
@@ -31,10 +32,15 @@ class RecapMail extends Mailable
      */
     public function build()
     {
+
+        $client = new Client();
+        $weather = $client->get('https://api.open-meteo.com/v1/forecast?latitude=45.91&longitude=6.13&current_weather=true');
+        $response = json_decode($weather->getBody());
         return $this->view('email.recapmail')
                     ->subject('séjour dans 1 semaine')
                     ->with([
-                        'reservation' => $this->reservation
+                        'reservation' => $this->reservation,
+                        'temperature' => $response
         ]);
     }
 }
