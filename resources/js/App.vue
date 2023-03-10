@@ -16,8 +16,9 @@
 
 import Header from './components/commons/Header.vue';
 import Footer from './components/commons/Footer.vue';
+import { useWeatherStore } from './stores/WeatherStore';
 import { useServiceStore } from './stores/ServiceStore.js';
-import {useRoomStore} from './stores/RoomStore.js';
+import { useRoomStore } from './stores/RoomStore.js';
 import { mapStores } from 'pinia';
 import { computed } from 'vue';
 
@@ -87,6 +88,10 @@ export default {
             console.log(response.data)
             this.videos = response.data['data'];
         }
+    },
+    mounted() {
+        const wStore = useWeatherStore();
+        wStore.weatherOfTheStay("2023-03-10", "2023-03-11");
     }
 }
 </script>

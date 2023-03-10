@@ -1,7 +1,6 @@
 import axios from "axios";
 import { defineStore } from 'pinia';
 import router from '../router/index.js';
-// import CryptoJS from 'crypto-js';
 
 export const useUserStore = defineStore('user',{
     state: () =>({
@@ -67,15 +66,5 @@ export const useUserStore = defineStore('user',{
                 confirmPassword:""
             };
         },
-        //https://stackoverflow.com/questions/70094816/encrypt-password-in-front-with-vue-js
-        // encrypt (pass) {
-        //     return CryptoJS.SHA512(pass).toString();
-        // },
-        //   decrypt (src) {
-        //     const passphrase = '123456'
-        //     const bytes = CryptoJS.AES.decrypt(src, passphrase)
-        //     const originalText = bytes.toString(CryptoJS.enc.Utf8)
-        //     return originalText
-        //   }
     },
 })
