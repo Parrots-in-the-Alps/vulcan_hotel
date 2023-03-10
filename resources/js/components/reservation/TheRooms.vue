@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import PreviousNextButtonVue from './commons/PreviousNextButton.vue';
+import PreviousNextButtonVue from '../commons/PreviousNextButton.vue';
 import { mapStores } from 'pinia';
 import { useReservationStore } from '../../stores/ReservationStore';
 

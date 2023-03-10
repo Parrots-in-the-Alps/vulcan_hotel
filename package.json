@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "@vuepic/vue-datepicker": "^4.2.0",
+        "crypto-js": "^4.1.1",
         "daisyui": "^2.42.1",
         "pinia": "^2.0.23",
         "vue": "^3.2.45",

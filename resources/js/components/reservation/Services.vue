@@ -22,7 +22,7 @@
 import { mapStores } from 'pinia';
 import { useServiceStore } from '../../stores/ServiceStore';
 import { useReservationStore} from '../../stores/ReservationStore';
-import PreviousNextButtonVue from './commons/PreviousNextButton.vue';
+import PreviousNextButtonVue from '../commons/PreviousNextButton.vue';
 
 export default {
     name: "Services",

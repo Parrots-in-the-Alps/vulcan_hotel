@@ -8,12 +8,10 @@
                 class="input input-bordered input-secondary " />
             <input type="text" placeholder="Last Name" v-model="userStore.user.lastName"
                 class="input input-bordered input-secondary " />
-            <input type="email" placeholder="Email" v-model="userStore.user.email"
-                class="input input-bordered input-secondary " />
             <div class="w-full flex-row ">
                 <input type="number" placeholder="Street Number" v-model="userStore.user.address.streetNumber"
                     class="input input-bordered input-secondary w-1/3 " />
-                <input type="text" placeholder="Street Name" v-model="userStore.user.address.streetName"
+                <input type="text" placeholder="Street Name" v-model="userStore.user.address.steetName"
                     class="input input-bordered input-secondary w-2/3 " />
                 <input type="number" placeholder="Postal Code" v-model="userStore.user.address.postalCode"
                     class="input input-bordered input-secondary w-1/3 " />
@@ -22,47 +20,41 @@
             </div>
             <input type="text" placeholder="Country" v-model="userStore.user.address.country"
                 class="input input-bordered input-secondary  " />
-            <input type="text" placeholder="Password" v-model="userStore.password"
+                <input type="email" placeholder="Email" v-model="userStore.user.email"
+                class="input input-bordered input-secondary " />
+            <input type="password" placeholder="Password" v-model="userStore.user.password"
                 class="input input-bordered input-secondary " passwordrules="required: upper; required: lower; required: digit; 
                  minlength: 25; allowed: [-().&@?'#,/&quot;+];" />
-            <input type="text" placeholder="Confirm Password" v-model="userStore.confirmPassword"
+            <input type="password" placeholder="Confirm Password" v-model="userStore.user.confirmPassword"
                 class="input input-bordered input-secondary" />
+                <button @click="register()" class="btn btn-secondary w-24 self-center">
+                    Register
+                </button>
+
             <div class="self-center mt-6 mb-12">
-                <router-link to="/">
+                <router-link to="/auth/login">
                     <p class="text-cadetBlue font-Philosopher ">Already registered?</p>
                 </router-link>
             </div>
-            <div>
-                <PreviousNextButton previousRoute="/reservation/services" nextRoute="/" previousStep="services" />
-            </div>
-
         </div>
-
     </div>
 
 </template>
     
 <script>
-import PreviousNextButton from '../commons/PreviousNextButton.vue';
-import { mapStores } from 'pinia';
+import { mapStores, mapActions } from 'pinia';
 import { useUserStore } from '../../stores/UserStore';
 
 export default {
     name: "Register",
-    components: { PreviousNextButton },
-    inject: [
-        'isFrench',
-    ],
-    data() {
-        return {
-
-        }
-    },
+    // inject: [
+    //     'isFrench',
+    // ],
     computed: {
         ...mapStores(useUserStore)
     },
     methods: {
-        
+        ...mapActions(useUserStore, ['register']),
     }
 }
 </script>

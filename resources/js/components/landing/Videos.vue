@@ -26,7 +26,7 @@ export default {
     components: { BookButton },
     inject: [
         'isFrench',
-        'videos'
+         'videos'
     ],
 }
 </script>

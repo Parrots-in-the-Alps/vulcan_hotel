@@ -30,17 +30,6 @@ class RoomController extends Controller
 
     public function update(Request $request, $id)
     {
-        // $rooms_input = $request->input();
-        // $room = Room::where(['id' => $id])
-        //     ->firstOrFail();
-        // $room
-        //     ->setTranslations('name', $rooms_input['name'])
-        //     ->setTranslations('description', $rooms_input['description'])
-        //     ->setTranslations('type', $rooms_input['type'])
-        //     ->setTranslations('status', $rooms_input['status'])
-        //     ->save();
-        // $room->updateOrFail($rooms_input);
-
         $input = $request->input();
         Room::where('id', $id)->update(
             $input

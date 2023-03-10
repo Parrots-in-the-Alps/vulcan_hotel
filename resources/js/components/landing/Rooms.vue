@@ -1,9 +1,9 @@
 
 <template>
-  <div class=" flex justify-center items-center">
+  <div class=" flex flex-wrap justify-center">
 
-    <div v-for="room in roomStore.activeRooms" :key="room.id" class="p-1">
-      <div class="group relative block overflow-hidden rounded-md transition-all duration-500">
+    <div v-for="room in roomStore.activeRooms" :key="room.id" class="p-1 flex-col card w-96">
+      <div class="group relative  overflow-hidden rounded-md transition-all duration-500 ">
         <a href="#" class="lightbox transition-all duration-500 group-hover:scale-105 tobii-zoom" title="">
           <img class="object-cover" :src="'/images/rooms/' + room.image">
         </a>

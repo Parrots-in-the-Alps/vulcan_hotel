@@ -12,8 +12,11 @@ module.exports = {
     themes: [
       {
         mytheme: {
-          "primary": "#a7a9be", //cadet blue
-          "secondary": "#7C3613", //perismon
+          "primary": "#FBFFFE", //White
+          "secondary": "#FF7D63", //Bittersweet
+          "background": "#2F2F2F", //Jet
+          "aquamarine": "#68D9AC",
+
           "accent": "#ff5c04", //callToaction-orange pétant
           "neutral": "#1b3235", //outerspace
           "base-100": "#2f2f2f", //backGround-jet
