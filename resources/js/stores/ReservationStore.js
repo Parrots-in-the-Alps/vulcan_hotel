@@ -46,8 +46,12 @@ export const useReservationStore = defineStore('reservation',{
 
             let requestedRooms = response.data['type'];
             let suggestedRooms = response.data['suggested'];
-            
+
             return {"requested":requestedRooms,"suggested":suggestedRooms};
+        },
+
+        setRoomType(epyt){
+            this.$patch({details:{room:{type : epyt}}});;
         }
 
         // getAvailabilities(){

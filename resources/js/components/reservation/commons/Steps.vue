@@ -38,6 +38,10 @@ export default {
                     title: 'Services',
                     className: 'services'
                 },
+                {
+                    title: 'Booking Summary',
+                    className: 'bookingSummary'
+                }
             ]
         }
     },
