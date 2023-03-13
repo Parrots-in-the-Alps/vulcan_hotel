@@ -1,19 +1,19 @@
 import axios from "axios";
 import { defineStore } from 'pinia';
 import router from '../router/index.js';
-// import CryptoJS from 'crypto-js';
 
 export const useUserStore = defineStore('user',{
     state: () =>({
         logged: false,
         user: {
+            id: null,
             avatarUrl: "https://daisyui.com/tailwind-css-component-profile-1@94w.jpg",
             name: "Betsy",
             lastName: "Mougnagna",
-            email: "toto@gmail.com",
+            email: "betsy.mougnagna@vulcan-hotel.mom",
             address: {
                 streetNumber: 10,
-                steetName: "toto street",
+                streetName: "toto street",
                 postalCode: 10,
                 city: "toto city",
                 country: "toto country",
@@ -37,6 +37,12 @@ export const useUserStore = defineStore('user',{
             }
             router.push({name: 'LandingPage'});
         },
+        async logout() {
+            await axios.get('/api/logout');
+            this.logged = false;
+            this.resetUser();
+            router.push({name: 'LandingPage'});
+        },
         async info() {
             axios.get('/api/user/info')
             .then((response) => {
@@ -46,20 +52,29 @@ export const useUserStore = defineStore('user',{
                 this.logged = false;
             });
         },
-        async logout() {
-            await axios.get('/api/logout');
-            this.logged = false;
-            this.resetUser();
-            router.push({name: 'LandingPage'});
+        async getCurrentUser(userID) {
+            //TODO
+            axios.get('/api/users/' + userID)
+            .then((response) => {
+                console.log(response.data.data);
+                this.user.name = response.data.data.name; 
+                this.user.email = response.data.data.email;
+                // this.user = response.data.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         },
         resetUser() {
             this.user = {
+                id: null,
+                avatarUrl: "https://daisyui.com/tailwind-css-component-profile-1@94w.jpg",
                 name: "",
                 lastName: "",
                 email: "",
                 address: {
                     streetNumber: 0,
-                    steetName: "",
+                    streetName: "",
                     postalCode: 0,
                     city: "",
                     country: "",
@@ -68,15 +83,5 @@ export const useUserStore = defineStore('user',{
                 confirmPassword:""
             };
         },
-        //https://stackoverflow.com/questions/70094816/encrypt-password-in-front-with-vue-js
-        // encrypt (pass) {
-        //     return CryptoJS.SHA512(pass).toString();
-        // },
-        //   decrypt (src) {
-        //     const passphrase = '123456'
-        //     const bytes = CryptoJS.AES.decrypt(src, passphrase)
-        //     const originalText = bytes.toString(CryptoJS.enc.Utf8)
-        //     return originalText
-        //   }
     },
 })
