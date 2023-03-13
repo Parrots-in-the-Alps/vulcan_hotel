@@ -7,8 +7,9 @@ export const useUserStore = defineStore('user',{
     state: () =>({
         logged: false,
         user: {
-            name: "toto",
-            lastName: "toto lastname",
+            avatarUrl: "https://daisyui.com/tailwind-css-component-profile-1@94w.jpg",
+            name: "Betsy",
+            lastName: "Mougnagna",
             email: "toto@gmail.com",
             address: {
                 streetNumber: 10,

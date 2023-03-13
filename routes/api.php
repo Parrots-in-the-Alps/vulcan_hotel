@@ -50,6 +50,7 @@ Route::middleware(['auth:sanctum', 'setLocale'])->group(function() {
     Route::get('logout', [AuthController::class, 'logout']);
     Route::get('user/info', [UserController::class, 'info']);
 
+    Route::apiResource('user/info', [UserController::class, 'info']);
     Route::apiResource("rooms", RoomController::class);
     Route::apiResource("actualities", ActualityController::class);
     Route::apiResource("heroes", HeroController::class);

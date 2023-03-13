@@ -49,8 +49,5 @@ export default {
     methods: {
         ...mapActions(useUserStore, ['logout'])
     },
-    mounted() {
-        // console.log(this.user);
-    }
 }
 </script>
