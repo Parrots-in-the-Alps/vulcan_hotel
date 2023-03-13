@@ -10,7 +10,7 @@
                     {{ isFrench ? "Les chambres suivantes sont disponibles:" : "Following rooms are available:" }}
                 </div>
                 <div class="flex flex-row space-between space-x-8">
-                    <div class="flex-col justify-center" v-for="room in this.availableType" :key="room.id">
+                    <div class="flex flex-col justify-center items-center" v-for="room in this.availableType" :key="room.id">
                         
                         <div class="text-center font-Philosopher text-cadetblue">
                             {{ isFrench ? room.name.fr : room.name.en }}
@@ -22,13 +22,14 @@
                         </div>
                         <div class="text-center font-Philosopher text-cadetblue">
                             {{isFrench ? room.description.fr : room.description.en }}
+                            
                         </div>
-                        <div class ="justify-self-center">
-                            <button class="btn btn-secondary font-Cinzel text-base-100" @click="this.emitFunction(room)">{{isFrench ? "Réserver" : "Book Now" }}</button>
-                        </div>
+                        
+                        <button class="btn btn-secondary font-Cinzel text-base-100" @click="this.emitFunction(room)">{{isFrench ? "Réserver" : "Book Now" }}</button>
+                        
                     </div> 
                 </div>
-                <PreviousNextButtonVue customEventBack="" previousRoute="/reservation/Stays" previousStep="stays" customEventNext="isAvailable" nextRoute="/reservation/Services" nextStep="services" />
+                <PreviousNextButtonVue v-if=this.changedType customEventBack="" previousRoute="/reservation/Stays" previousStep="stays" customEventNext="isAvailable" nextRoute="/reservation/Services" nextStep="services" />
             </div>
         </div>
     </div>
@@ -56,7 +57,8 @@ export default {
             selectedRoom : {},
             availableType: {},
             selectedRoomType : "",
-            suggestedType : ""
+            suggestedType : "",
+            changedType:false
         }
     },
 
@@ -127,7 +129,10 @@ export default {
             
             //this.$parent.$emit('update:currentStep', );
             this.reservationStore.setRoomType(epyt);
+            this.changedType = true;
         },
+
+        
     },
 }
 </script>

@@ -45,6 +45,16 @@ const router = createRouter({
                     name: 'Services',
                     component: () => import('../components/reservation/Services.vue')
                 },
+                {
+                    path: '/reservation/check',
+                    name: 'Check',
+                    component: () => import('../components/reservation/Check.vue')
+                },
+                {
+                    path: '/reservation/summary',
+                    name: 'Summary',
+                    component: () => import('../components/reservation/Summary.vue')
+                },
             ]
         },
     ],

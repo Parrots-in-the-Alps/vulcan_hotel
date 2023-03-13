@@ -11,7 +11,7 @@
                         <div class="label-text text-CadetBlue font-Philosopher">{{ service.price }} €$</div>
                     </div>
                 </div>
-                <PreviousNextButtonVue previousRoute="/reservation/Availability" nextRoute="/" previousStep="availability"/>
+                <PreviousNextButtonVue previousRoute="/reservation/Stays" nextRoute="/reservation/Summary" nextStep = "summary" previousStep="stays"/>
             </div>
         </div>
     </div>
@@ -22,7 +22,7 @@
 import { mapStores } from 'pinia';
 import { useServiceStore } from '../../stores/ServiceStore';
 import { useReservationStore} from '../../stores/ReservationStore';
-import PreviousNextButtonVue from '../commons/PreviousNextButton.vue';
+import PreviousNextButtonVue from './commons/PreviousNextButton.vue';
 
 export default {
     name: "Services",

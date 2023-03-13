@@ -31,16 +31,13 @@ export default {
                     className: 'stays'
                 },
                 {
-                    title: 'Availability',
-                    className: 'availability'
+                    title: 'Check',
+                    className: 'check'
                 },
-                {
-                    title: 'Services',
-                    className: 'services'
-                },
+                
                 {
                     title: 'Booking Summary',
-                    className: 'bookingSummary'
+                    className: 'summary'
                 }
             ]
         }
