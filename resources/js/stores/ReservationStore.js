@@ -60,7 +60,7 @@ export const useReservationStore = defineStore('reservation',{
             
             if(requested.length > 0){
                 let room = requested.pop();
-                //let userId = this.userStore.
+                let userId = this.userStore.user.id;
                 const response = await axios.post()
             }
         }

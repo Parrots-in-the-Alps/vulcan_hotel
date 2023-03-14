@@ -15,7 +15,7 @@
 
 <script>
 export default {
-    name: "PreviousNextButton",
+    name: "ButtonResa",
     emits: [
         'update:currentStep',
     ],
