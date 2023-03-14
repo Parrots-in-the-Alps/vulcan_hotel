@@ -114,18 +114,19 @@ j'envoie un mail à l'utilisateur qui à fait la réservation et je lui envoie d
 > `use Illuminate\Support\Facades\Storage;`  
 >4. à l'aide d'une boucle je recupère le chemin de chacun de mes fichiers , et à l'aide de ces chemins je vais créer une URL avec un token expirable grace à la méthode `temporaryUrl()` dont voici un exemple  
 
-    `$urls = [];  
+    $urls = [];  
      foreach ($files as $file) {  
             $path = Storage::disk('s3')->path($file);  
             $url = Storage::disk('s3')->temporaryUrl($path, now()->addHour(72));  
             array_push($urls, $url);  
-     }`
+     }
 
 >5. je peux maintenant envoyé des images dans un mail en rajoutant mon tableau $urls comme paramètre de mon mail avec la méthode `with()` exemple :  
-> `return $this->view('email.recapmail')
-                    ->subject('séjour dans 1 semaine')
-                    ->with([
-                        'reservation' => $this->reservation,
-                        'urls' => $urls,
-                        
-        ]);`
+
+        return $this->view('email.recapmail')  
+                            ->subject('séjour dans 1 semaine')  
+                            ->with([  
+                                'reservation' => $this->reservation,  
+                                'urls' => $urls,  
+                                
+                ]);
