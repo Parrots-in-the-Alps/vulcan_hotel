@@ -30,6 +30,11 @@
                                 <a @click="logout()" class="text-gray-700 hover:text-persimmon text-md">Logout</a>
                             </router-link>
                         </li>
+                        <li>
+                            <router-link v-if="this.logged == true" to="/profile">
+                                <a class="text-gray-700 hover:text-persimmon text-md">Profile</a>
+                            </router-link>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -49,8 +54,5 @@ export default {
     methods: {
         ...mapActions(useUserStore, ['logout'])
     },
-    mounted() {
-        // console.log(this.user);
-    }
 }
 </script>

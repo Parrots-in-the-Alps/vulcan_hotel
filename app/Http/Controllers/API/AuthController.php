@@ -15,7 +15,8 @@ class AuthController
     public function signin(Request $request)
     {
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
-            $authUser = Auth::user(); 
+            $authUser = Auth::user();
+            $success['id'] =  $authUser->id;
             $success['token'] =  $authUser->createToken('MyAuthApp')->plainTextToken;
             $success['name'] =  $authUser->name;
             $success['message'] = 'User signed in';
