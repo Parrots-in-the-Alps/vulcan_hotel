@@ -49,7 +49,7 @@
                         <p>{{ this.getTotalPrice() }}</p>
                         <p>€</p>
                     </div>
-                    <ButtonResa previousRoute="/reservation/Services" nextRoute="/" nextStep = "" customEventNext="submit" previousStep="services" @submit=""/>
+                    <!-- <ButtonResa previousRoute="/reservation/Services" nextRoute="/reservation/Final" nextStep = "final" customEventNext="submit" previousStep="services" @submit="this.book()"/> -->
                 </div>
             </div>
         </div>
@@ -163,7 +163,13 @@ export default {
             let servicesPrice = this.getServiceTotalPrice();
 
             return roomPrice + servicesPrice;
+        },
+
+        book(){
+            this.reservationStore.book();
         }
+
+        
     },
 }
 </script>

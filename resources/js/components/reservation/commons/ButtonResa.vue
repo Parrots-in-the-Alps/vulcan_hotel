@@ -1,5 +1,4 @@
 <template>
-
     <div class="flex flex-row justify-between gap-x-12 mt-12 mb-6">
         <router-link :to="previousRoute">
             <button @click="this.emitFunctionBack()"
@@ -15,6 +14,9 @@
 
 <script>
 export default {
+    mounted(){
+        console.log(this.customEventNext);  
+    },
     name: "ButtonResa",
     emits: [
         'update:currentStep',
@@ -42,8 +44,11 @@ export default {
         },
 
         emitFunctionNext(){
+            console.log("ici");
+            console.log(this.customEventNext);
             let nexStep = this.nextStep;
             let customNext = this.customEventNext;
+            console.log(customNext);
             this.$parent.$emit('update:currentStep', nexStep);
             this.$emit(customNext);
         },

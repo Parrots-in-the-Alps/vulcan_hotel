@@ -57,9 +57,14 @@ const router = createRouter({
                 },
                 {
                     path: '/reservation/summary',
-                    name: 'Sumnew',
+                    name: 'Sumnmary',
                     component: () => import('../components/reservation/Summary.vue')
                 },
+                {
+                    path: '/reservation/final',
+                    name: 'Final',
+                    component: () => import('../components/reservation/Final.vue')
+                }
             ]
         },
     ],

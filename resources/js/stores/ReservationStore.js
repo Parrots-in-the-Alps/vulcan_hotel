@@ -21,6 +21,7 @@ export const useReservationStore = defineStore('reservation',{
 
             }
         },
+        resaStatus:false
         
 
     }),
@@ -53,15 +54,30 @@ export const useReservationStore = defineStore('reservation',{
             this.$patch({details:{room:{type : epyt}}});;
         },
 
-        async createReservation(){
+        async book(){
+            console.log("tototototototo");
             let available = await this.checkAvailability();
 
             let requested = available.requested;
             
             if(requested.length > 0){
                 let room = requested.pop();
+                let roomId = room.id;
                 let userId = this.userStore.user.id;
-                const response = await axios.post()
+
+                const response = await axios.post('api/reservations',{
+                    "entryDate":this.details.entryDate,
+                    "exitDate":this.details.exitDate,
+                    "user_id":userId,
+                    "room_id":roomId,
+                    "service_id":JSON.stringify(this.details.services.ids)
+                });
+
+                console.log("totoreserve");
+
+                if(response.status == 200){
+                    this.resaStatus = true;
+                }
             }
         }
 

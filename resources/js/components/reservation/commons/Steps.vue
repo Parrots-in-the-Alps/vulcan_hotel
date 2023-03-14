@@ -38,6 +38,11 @@ export default {
                 {
                     title: 'Summary',
                     className: 'summary'
+                },
+
+                {
+                    title: 'Final',
+                    className: 'final'
                 }
             ]
         }
