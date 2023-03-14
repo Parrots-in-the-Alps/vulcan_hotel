@@ -11,7 +11,7 @@
             <div class="w-full flex-row ">
                 <input type="number" placeholder="Street Number" v-model="userStore.user.address.streetNumber"
                     class="input input-bordered input-secondary w-1/3 " />
-                <input type="text" placeholder="Street Name" v-model="userStore.user.address.steetName"
+                <input type="text" placeholder="Street Name" v-model="userStore.user.address.streetName"
                     class="input input-bordered input-secondary w-2/3 " />
                 <input type="number" placeholder="Postal Code" v-model="userStore.user.address.postalCode"
                     class="input input-bordered input-secondary w-1/3 " />
