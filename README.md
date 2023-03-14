@@ -79,11 +79,11 @@ dans le fichier `.env`
 >3. dans la fonction build de notre entité de mail on décide quelle vue notre mail va renvoyé avec la fonction view() qui vient rechercher une vue dans le dossier `/vulcan_hotel/resources/views/`. ont peu ici (toujours dans la fonction build()) donner plus d'informations au mail comme son sujet , ses paramètres des pièces jointes etc.
 >voici un exemple:
 
- return $this->view('email.recapmail')
+ `return $this->view('email.recapmail')
                     ->subject('séjour dans 1 semaine')
                     ->with([
                         'reservation' => $this->reservation,
-                    ])
+                    ])`
 
 >4. ecrire le mail (la vue ) qui se trouve ici `vulcan_hotel/resources/views/email/` dans notre cas ont créer la vue recapmail.blade.php (ne pas oublier les extensions IDIOT !)
 >5.  dans cette vue tout les paramètres que nous avons donné dans notre entité de mail sont utilisable, je peux donc ecrire ceci dans mon mail :
