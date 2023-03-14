@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-//TODO
 use App\Http\Resources\UserResource;
-// use Illuminate\Http\Request;
+use Illuminate\Http\Request;
+use Hash;
 
 class UserController extends Controller
 {
@@ -16,6 +16,33 @@ class UserController extends Controller
         $user = Auth::user();
         return response()->json($user);
     }
+
+    public function updatePassword(Request $request)
+    {
+
+        // dd($request);
+
+        # Validation
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed',
+        ]);
+
+
+        #Match The Old Password
+        if(!Hash::check($request->old_password, auth()->user()->password)){
+            return response()->json(['error' => "Old Password Doesn't match!"], 1000);
+        }
+
+
+        #Update the new Password
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return response()->json(['status' => 'Password changed successfully!'], 200);
+    }
+
 
     // /**
     //  * Display a listing of the resource.
@@ -38,7 +65,6 @@ class UserController extends Controller
     //     //
     // }
 
-    //TODO
     /**
      * Display the specified resource.
      *

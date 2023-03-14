@@ -22,12 +22,32 @@
                         <!-- <p class="capitalize">{{ this.user.address.streetNumber + " " + this.user.address.streetName }}</p> -->
                     </div>
 
-                    <div class="card-actions justify-center">
+                    <div v-if="this.passChange == false" class="card-actions justify-center">
                         <!-- //TODO -->
                         <!-- <button @click="editProfile" class="btn btn-secondary font-Cinzel text-base-100">{{isFrench ? "Modifier le profil" : "Edit profile" }}</button> -->
                         <!-- //TODO mettre en place la modification du le mot de passe -->
                         <button @click="changePassword" class="btn btn-secondary font-Cinzel text-base-100">{{isFrench ? "Modifier le mot de passe" : "Edit password" }}</button>
                         <button @click="deleteAccount" class="btn btn-secondary font-Cinzel text-base-100">{{isFrench ? "Supprimer le compte" : "Delete account" }}</button>
+                    </div>
+
+                    <div v-else class="card-actions justify-center">
+                        <div class="form-control">
+                            <label class="input-group">
+                                <span>Old Password</span>
+                                <input type="password" class="input input-bordered" v-model="userStore.pass.old_password"/>
+                            </label>
+                            <label class="input-group">
+                                <span>New Password</span>
+                                <input type="password" class="input input-bordered" v-model="userStore.pass.new_password"/>
+                            </label>
+                            <label class="input-group">
+                                <span>Confirm Password</span>
+                                <input type="password" class="input input-bordered" v-model="userStore.pass.new_password_confirmation"/>
+                            </label>
+                        </div>
+                        <button @click="updatePassword();changePassword()" class="btn bg-secondary hover:bg-accent text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline self-center" type="button">
+                            Submit
+                        </button>
                     </div>
             </div>
         </div>
@@ -37,26 +57,33 @@
 </template>
 
 <script>
-import { mapState } from 'pinia';
+import { mapState, mapActions, mapStores } from 'pinia';
 import { useUserStore } from '../../stores/UserStore';
 import axios from "axios";
 import router from "../../router/index.js";
 
     export default {
-        name: "Profile",
+        name: 'Profile',
+        data() {
+            return {
+                passChange: false
+            }
+        },
         inject:[
             'isFrench'
         ],
         computed: {
             ...mapState(useUserStore, ['user']),
+            ...mapStores(useUserStore)
         },
         methods: {
             //TODO
             // editProfile() {
             //     console.log('editProfile');
             // },
+            ...mapActions(useUserStore, ['updatePassword']),
             changePassword() {
-                console.log('changePassword');
+                this.passChange = !this.passChange
             },
             async deleteAccount(){
                 await axios.delete('/api/users/' + this.user.id);
@@ -65,7 +92,7 @@ import router from "../../router/index.js";
         },
         beforeMount() {
             const userStore = useUserStore()
-            userStore.getCurrentUser(11); //TODO GET ID ???
+            userStore.getCurrentUser(userStore.user.id);
         }
     }
     

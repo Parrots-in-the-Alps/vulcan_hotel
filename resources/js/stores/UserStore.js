@@ -10,7 +10,8 @@ export const useUserStore = defineStore('user',{
             avatarUrl: "https://daisyui.com/tailwind-css-component-profile-1@94w.jpg",
             name: "Betsy",
             lastName: "Mougnagna",
-            email: "betsy.mougnagna@vulcan-hotel.mom",
+            // email: "betsy.mougnagna@vulcan-hotel.mom",
+            email: "matthias.codvelle@le-campus-numerique.fr",
             address: {
                 streetNumber: 10,
                 streetName: "toto street",
@@ -20,6 +21,11 @@ export const useUserStore = defineStore('user',{
             },
             password:"toto",
             confirmPassword:"toto"
+        },
+        pass: {
+            old_password: "",
+            new_password: "",
+            new_password_confirmation: ""
         }
     }),
     actions: {
@@ -46,20 +52,33 @@ export const useUserStore = defineStore('user',{
         async info() {
             axios.get('/api/user/info')
             .then((response) => {
-                if(response.status == 200) this.logged = true;
+                if(response.status == 200) {
+                    this.logged = true;
+                    console.log(response);
+                    this.user.id = response.data.id;
+                }
             })
             .catch((error) => {
                 this.logged = false;
+            });
+        },
+        async updatePassword() {
+            axios.post('/api/user/updatepass', this.pass)
+            .then((response) => {
+                if(response.status == 200) {
+                    console.log(response); 
+                }
+            })
+            .catch((error) => {
+                console.log(error);
             });
         },
         async getCurrentUser(userID) {
             //TODO
             axios.get('/api/users/' + userID)
             .then((response) => {
-                console.log(response.data.data);
-                this.user.name = response.data.data.name; 
+                this.user.name = response.data.data.name;
                 this.user.email = response.data.data.email;
-                // this.user = response.data.data;
             })
             .catch((error) => {
                 console.log(error);

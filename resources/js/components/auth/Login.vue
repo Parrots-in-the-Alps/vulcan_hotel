@@ -32,7 +32,7 @@ import { useUserStore } from '../../stores/UserStore';
             'isFrench',
         ],
         computed: {
-        ...mapStores(useUserStore)
+            ...mapStores(useUserStore)
         },
         methods: {
             ...mapActions(useUserStore, ['login']),

@@ -14,9 +14,9 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        //TODO
         // return parent::toArray($request);
 
+        //TODO
         // dd($request);
         // il manque des entrées (les 3 commentaires du return) en base de donnée pour la table user, pour le profile (voir /components/profile/Profile.vue)
 
