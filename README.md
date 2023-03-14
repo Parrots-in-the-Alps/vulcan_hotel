@@ -62,7 +62,7 @@ npm run watch
 ```
 ## Mise en place de MailGun
 
-dans le fichier `.env`
+dans le fichier `.env` (toutes les infos nécessaire ce trouvent sur mailgun)
 >MAIL_DRIVER=mailgun  
 >MAIL_HOST=smtp.mailgun.org  
 >MAIL_PORT=587  
@@ -92,3 +92,36 @@ dans le fichier `.env`
 >6. Maintenant il faut envoyé le mail, cela peut-être fait à différent endroit (dans un controller, dans une commandes avec un cron, à un évenement précis dans l'application (création de compte)) voici un exemple de code pour envoyé le mail que nous venons de créer:
 ` Mail::to($reservation->user->email)->send(new RecapMail($reservation));`
 j'envoie un mail à l'utilisateur qui à fait la réservation et je lui envoie donc un nouveau `RecapMail` avec comme paramètres tout ce que j'ai mis dans la fonction construct de cette entité
+
+
+## Stockage s3
+
+>Pour pouvoir afficher une image dans un mail il faut récuperer une URL publique ainsi qu'un token expirable, pour ce faire il faut stocker les images sur un Simple Storage Service (S3).  
+>Comment faire ?  
+>1. configurer le fichier `.env` pour qu'il cible notre bucket distant
+>FILESYSTEM_DRIVER=s3  
+>AWS_ACCESS_KEY_ID=secret  
+>AWS_SECRET_ACCESS_KEY=secret  
+>AWS_DEFAULT_REGION=fr-par  
+>AWS_BUCKET=vulcan  
+>AWS_ENDPOINT= https://s3.fr-par.scw.cloud  
+>AWS_USE_PATH_STYLE_ENDPOINT=true  
+
+>2. installer le package de AWS s3 avec la commande 'composer require --with-all-dependencies league/flysystem-aws-s3-v3 "^1.0"'
+>3. je peux maintenant récuperer mes fichiers stockées sur mon bucket comme ceci `    $files = Storage::disk('s3')->allFiles('weather-icons');`  ce code récupère tout les documents du dossier `weather-icons`; ne pas oublier d'importer Storage dans le fichier php `use Illuminate\Support\Facades\Storage;` 
+>4. à l'aide d'une boucle je recupère le chemin de chacun de mes fichiers , et à l'aide de ces chemins je vais créer une URL avec un token expirable grace à la méthode `temporaryUrl()` dont voici un exemple
+    `$urls = [];
+     foreach ($files as $file) {
+            $path = Storage::disk('s3')->path($file);
+            $url = Storage::disk('s3')->temporaryUrl($path, now()->addHour(72));
+            array_push($urls, $url);
+     }`
+
+>5. je peux maintenant envoyé des images dans un mail en rajoutant mon tableau $urls comme paramètre de mon mail avec la méthode `with()` exemple :  
+>`return $this->view('email.recapmail')
+                    ->subject('séjour dans 1 semaine')
+                    ->with([
+                        'reservation' => $this->reservation,
+                        'urls' => $urls,
+                        
+        ]);`
