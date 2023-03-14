@@ -116,7 +116,4 @@ class ReservationController extends Controller
         return response()->json(["type" => $availableRequestedRoomType,"suggested" => $availableSuggestedRoomType]);
     }
 
-
-
-
 }

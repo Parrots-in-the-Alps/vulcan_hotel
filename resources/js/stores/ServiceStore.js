@@ -25,7 +25,8 @@ export const useServiceStore = defineStore('service',{
         },
 
         getService(id){
-            return this.activeServices.find(service.id === id);
+            return this.activeServices.find(service => service.id == id);
+            
         }
     },
     

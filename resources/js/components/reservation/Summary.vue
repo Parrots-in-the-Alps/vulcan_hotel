@@ -1,62 +1,56 @@
 <template>
     <div class="flex justify-center">
-        <div class="card w-96 bg-base-100 shadow-xl">
+        <div class="card w-full bg-base-100 shadow-xl">
             <div class="card-body">
-                <div class="text-primary font-Philosopher text-center font-light">
-                    {{ isFrench ? "résumé de votre réservation" : "Booking summary" }}
-                </div>
+                <h1 class="text-primary font-Philosopher text-center font-light">{{ isFrench ? "résumé de votre réservation"
+                    : "Booking summary" }}</h1>
+                <div class="flex flex-col">
+                    <ContentSeparator v-if="isFrench" menuTitle="Votre chambre" />
 
-                <div class="flex flex-row space-between space-x-8">
-                    <div class="mt-8 mb-2 text-primary text-left">
-                        {{ isFrench ? "Votre chambre:" : "Your room:" }}
-                    </div>
-                    <div class="flex flex-col justify-between">
+                    <ContentSeparator v-else menuTitle="Your room" />
+                    <!-- <h1 class="mt-8 mb-2 text-primary text-left">{{ isFrench ? "Votre chambre:" : "Your room:" }}</h1> -->
+                    <div class="flex flex-row justify-between">
                         <div>
-                            <a href="#" class="lightbox transition-all duration-500 group-hover:scale-105 tobii-zoom"
-                                title="">
-                                <img class="object-cover" :src="'/images/rooms/' + room.image">
-                            </a>
-                        </div>
-                        <div class="text-center font-Philosopher text-cadetblue">
                             {{ this.selectedRoom.name }}
                         </div>
-                        <div class="flex flex-col font-Philosopher text-cadetblue justify-between">
+                        <div class="flex flex-row justify-between">
                             <p>{{ this.getStayDurationDays() }}</p>
                             <p>{{ isFrench ? "jours" : "days" }}</p>
                             <p>&</p>
-                            <p>{{ this.getStayDurationNights() }}</p>
+                            <p>{{ this.getStayDurationDays() }}</p>
                             <p>{{ isFrench ? "nuits" : "nights" }}</p>
                         </div>
-                        <div class="flex flex-row">
-                            <p class="text-center font-Philosopher text-primary">{{ isFrench ? "Prix" : "Pirce" }}</p>
-                            <div class="flex flex-col font-Philosopher text-secondary">
-                                <p>{{ this.getRoomPrice }}</p>
+                    </div>
+                    <div class="flex flex-row justify-between place-self-end">
+                        <p>{{ isFrench ? "Prix: " : "Price: " }}</p>
+                        <p>{{ this.getRoomPrice() }}</p>
+                        <p>€</p>
+                    </div>
+                    <div>
+                        <ContentSeparator v-if="isFrench" menuTitle="Vos services" />
+
+                        <ContentSeparator v-else menuTitle="Services" />
+                        <!-- <h1 class="mt-8 mb-2 text-primary text-left">{{ isFrench ? "Vos services:" : "Services:" }}</h1> -->
+                        <div class="flex flex-col">
+                            <div class="flex flex-row" v-for="service in this.selectedServices" :key="service.id">
+                                <p>{{ service.title }}</p>
+                                <p>{{ service.price }}</p>
                                 <p>€</p>
                             </div>
                         </div>
                     </div>
-                    <div class="mt-8 mb-2 text-primary text-left">
-                        {{ isFrench ? "Vos services:" : "Services:" }}
+                    <div class="flex flex-row justify-between place-self-end">
+                        <p>{{ isFrench ? "Total services: " : "Services total price :" }}</p>
+                        <p>{{ this.getServiceTotalPrice() }}</p>
+                        <p>€</p>
                     </div>
-                    <div class="flex flex-row justify-between">
-                        <div class="flex flex-col" v-for="service in this.selectedServices" :key="service.id">
-                            <p>{{ service.title }}</p>
-                            <p>{{ service.price }}</p>
-                            <p>€</p>
-                        </div>
-                        <div class="flex flex-col font-Philosopher">
-                            <p>{{ isFrench ? "Total services" : "Services total price" }}</p>
-                            <p>{{ this.getServiceTotalPrice }}</p>
-                            <p>€</p>
-                        </div>
-                    </div>
-                    <div class="mt-8 mb-2 text-primary text-left flex flex-col">
-                        <p>{{ isFrench ? "Coût total de votre séjour:" : "Stay total cost:" }}</p>
+                    <div class="mt-8 mb-2 flex flex-row justify-between place-self-end">
+                        <p>{{ isFrench ? "Coût total de votre séjour: " : "Stay total cost: " }}</p>
                         <p>{{ this.getTotalPrice() }}</p>
+                        <p>€</p>
                     </div>
+                    <ButtonResa previousRoute="/reservation/Services" nextRoute="/" nextStep = "" customEventNext="submit" previousStep="services" @submit=""/>
                 </div>
-                <button class="btn btn-secondary font-Cinzel text-base-100" @click="this.emitFunction(room)">{{
-                    isFrench ? "Réserver" : "Book Now" }}</button>
             </div>
         </div>
     </div>
@@ -64,18 +58,18 @@
 
 <script>
 import PreviousNextButtonVue from './commons/PreviousNextButton.vue';
+import ContentSeparator from '../commons/ContentSeparator.vue';
+import ButtonResa from './commons/ButtonResa.vue';
 import { mapStores } from 'pinia';
 import { useReservationStore } from '../../stores/ReservationStore';
 import { useRoomStore } from '../../stores/RoomStore';
 import { useUserStore } from '../../stores/UserStore';
+import { useServiceStore } from '../../stores/ServiceStore';
 
 export default {
     mounted() {
-        const room = this.reservationStore.getSelectedRoom();
-        this.selectedRoom = room;
-
-        const services = this.getServices();
-        this.selectedServices = services;
+        this.selectedRoom = this.reservationStore.getSelectedRoom();
+        this.getServices();
     },
     name: "Summary",
 
@@ -90,7 +84,7 @@ export default {
     },
 
     components: {
-        PreviousNextButtonVue
+        ButtonResa, ContentSeparator
     },
     props: {
         currentStep: String,
@@ -99,7 +93,7 @@ export default {
         'isFrench',
     ],
     computed: {
-        ...mapStores(useReservationStore, useRoomStore, useUserStore)
+        ...mapStores(useReservationStore, useRoomStore, useUserStore, useServiceStore)
     },
 
     methods: {
@@ -108,7 +102,7 @@ export default {
 
             let unitPrice = selectedRoom.price;
 
-            let nightNumber = this.getStayDurationNights();
+            let nightNumber = this.getStayDurationDays();
 
             return nightNumber * unitPrice;
         },
@@ -122,11 +116,11 @@ export default {
             return numberOfDays;
         },
 
-        getStayDurationNights() {
-            let numberOfDays = this.getStayDurationDays();
+        // getStayDurationNights() {
+        //     let numberOfDays = this.getStayDurationDays();
 
-            return numberOfDays - 1;
-        },
+        //     return numberOfDays - 1;
+        // },
 
         getServices() {
             this.reservationStore.details.services.ids.forEach(id => {
@@ -138,12 +132,18 @@ export default {
         getServiceTotalPrice() {
             let price = 0;
             let days = this.getStayDurationDays();
-            let weeks = math.ceil(days / 7);
+            let weeks = Math.ceil(days / 7);
+            console.log(weeks);
 
             this.selectedServices.forEach(service => {
+
                 switch (service.billing_type) {
                     case "daily":
-                        price += service.price * days;
+                        if (service.id == 4) {
+                            price += service.price * days * 2;
+                        } else {
+                            price += service.price * days;
+                        }
                         break;
                     case "unitary":
                         price += service.price;

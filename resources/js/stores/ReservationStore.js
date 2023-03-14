@@ -38,8 +38,7 @@ export const useReservationStore = defineStore('reservation',{
         },
 
         async checkAvailability(){
-            console.log("coucou toto");
-
+            
             const response = await axios.post('api/isAvailable',{"entryDate":this.details.entryDate,
                 "exitDate": this.details.exitDate,
                 "type" : this.details.room.type});
@@ -52,6 +51,18 @@ export const useReservationStore = defineStore('reservation',{
 
         setRoomType(epyt){
             this.$patch({details:{room:{type : epyt}}});;
+        },
+
+        async createReservation(){
+            let available = await this.checkAvailability();
+
+            let requested = available.requested;
+            
+            if(requested.length > 0){
+                let room = requested.pop();
+                //let userId = this.userStore.
+                const response = await axios.post()
+            }
         }
 
         // getAvailabilities(){

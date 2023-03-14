@@ -29,7 +29,7 @@
                         
                     </div> 
                 </div>
-                <PreviousNextButtonVue v-if=this.changedType customEventBack="" previousRoute="/reservation/Stays" previousStep="stays" customEventNext="isAvailable" nextRoute="/reservation/Services" nextStep="services" />
+                <PreviousNextButtonVue v-if=this.changedType customEventBack="" previousRoute="/reservation/Stays" previousStep="stays" customEventNext="" nextRoute="/reservation/Services" nextStep="services" />
             </div>
         </div>
     </div>

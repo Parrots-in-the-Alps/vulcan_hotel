@@ -52,7 +52,7 @@ const router = createRouter({
                 },
                 {
                     path: '/reservation/summary',
-                    name: 'Summary',
+                    name: 'Sumnew',
                     component: () => import('../components/reservation/Summary.vue')
                 },
             ]

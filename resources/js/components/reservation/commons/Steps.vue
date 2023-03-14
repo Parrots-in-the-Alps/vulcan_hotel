@@ -36,7 +36,7 @@ export default {
                 },
                 
                 {
-                    title: 'Booking Summary',
+                    title: 'Summary',
                     className: 'summary'
                 }
             ]

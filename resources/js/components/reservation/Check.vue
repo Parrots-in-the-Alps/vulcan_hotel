@@ -51,15 +51,12 @@ export default {
 
             const selectedRooms = rooms.requested;
 
-            console.log(selectedRooms);
-            console.log("caca"+selectedRooms.length);
 
             if(selectedRooms.length > 0){
                 this.availableType = true;
             }else{
                 this.availableType = false
             }
-            console.log(this.availableType);
         }
 
         
