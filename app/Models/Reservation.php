@@ -15,11 +15,12 @@ class Reservation extends Model
         'user_id',
         'isDue',
         'room_id',
-        'services',
+        'service_id',
     ];
 
     public $casts = [
-        'isDue' => 'boolean'
+        'isDue' => 'boolean',
+        'service_id' =>  'array'
     ];
 
     public function user()
