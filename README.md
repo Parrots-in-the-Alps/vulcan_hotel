@@ -63,14 +63,14 @@ npm run watch
 ## Mise en place de MailGun
 
 dans le fichier `.env`
->MAIL_DRIVER=mailgun
->MAIL_HOST=smtp.mailgun.org
->MAIL_PORT=587
->MAIL_USERNAME=postmaster@sandboxe686d62be99b45c68c1bdec673e3e3e6.mailgun.org
->MAIL_PASSWORD=demande à théo :)
->MAIL_ENCRYPTION=tls
->MAIL_FROM_ADDRESS=theo.colombel@le-campus-numerique.fr
->MAIL_FROM_NAME="${APP_NAME}"
+>MAIL_DRIVER=mailgun  
+>MAIL_HOST=smtp.mailgun.org  
+>MAIL_PORT=587  
+>MAIL_USERNAME=postmaster@sandboxe686d62be99b45c68c1bdec673e3e3e6.mailgun.org  
+>MAIL_PASSWORD=demande à théo :)  
+>MAIL_ENCRYPTION=tls  
+>MAIL_FROM_ADDRESS=theo.colombel@le-campus-numerique.fr  
+>MAIL_FROM_NAME="${APP_NAME}"  
 
 ## Envoyé un mail
 
