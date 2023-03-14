@@ -60,3 +60,35 @@ Ouvrez une nouvelle instance de terminal
 ```shell=
 npm run watch
 ```
+## Mise en place de MailGun
+
+dans le fichier `.env`
+>MAIL_DRIVER=mailgun
+>MAIL_HOST=smtp.mailgun.org
+>MAIL_PORT=587
+>MAIL_USERNAME=postmaster@sandboxe686d62be99b45c68c1bdec673e3e3e6.mailgun.org
+>MAIL_PASSWORD=demande à théo :)
+>MAIL_ENCRYPTION=tls
+>MAIL_FROM_ADDRESS=theo.colombel@le-campus-numerique.fr
+>MAIL_FROM_NAME="${APP_NAME}"
+
+## Envoyé un mail
+
+> 1. on créer l'entité de mail avec la commande > `php artisan make:mail RecapMail`
+> 2. dans la fonction construct ont inscrit tout les paramètres nécessaire à notre mail (dans le cas du mail de réservation le seul paramètre attendu est donc la réservation)
+>3. dans la fonction build de notre entité de mail on décide quelle vue notre mail va renvoyé avec la fonction view() qui vient rechercher une vue dans le dossier `/vulcan_hotel/resources/views/`. ont peu ici (toujours dans la fonction build()) donner plus d'informations au mail comme son sujet , ses paramètres des pièces jointes etc.
+>voici un exemple:
+
+ return $this->view('email.recapmail')
+                    ->subject('séjour dans 1 semaine')
+                    ->with([
+                        'reservation' => $this->reservation,
+                    ])
+
+>4. ecrire le mail (la vue ) qui se trouve ici `vulcan_hotel/resources/views/email/` dans notre cas ont créer la vue recapmail.blade.php (ne pas oublier les extensions IDIOT !)
+>5.  dans cette vue tout les paramètres que nous avons donné dans notre entité de mail sont utilisable, je peux donc ecrire ceci dans mon mail :
+` <h1>Merci {{ $reservation->user->name }} pour votre réservation !</h1>`
+
+>6. Maintenant il faut envoyé le mail, cela peut-être fait à différent endroit (dans un controller, dans une commandes avec un cron, à un évenement précis dans l'application (création de compte)) voici un exemple de code pour envoyé le mail que nous venons de créer:
+` Mail::to($reservation->user->email)->send(new RecapMail($reservation));`
+j'envoie un mail à l'utilisateur qui à fait la réservation et je lui envoie donc un nouveau `RecapMail` avec comme paramètres tout ce que j'ai mis dans la fonction construct de cette entité
