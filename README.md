@@ -98,7 +98,7 @@ j'envoie un mail à l'utilisateur qui à fait la réservation et je lui envoie d
 
 >Pour pouvoir afficher une image dans un mail il faut récuperer une URL publique ainsi qu'un token expirable, pour ce faire il faut stocker les images sur un Simple Storage Service (S3).  
 >Comment faire ?  
->1. configurer le fichier `.env` pour qu'il cible notre bucket distant
+>1. configurer le fichier `.env` pour qu'il cible notre bucket distant  
 >FILESYSTEM_DRIVER=s3  
 >AWS_ACCESS_KEY_ID=secret  
 >AWS_SECRET_ACCESS_KEY=secret  
@@ -107,18 +107,22 @@ j'envoie un mail à l'utilisateur qui à fait la réservation et je lui envoie d
 >AWS_ENDPOINT= https://s3.fr-par.scw.cloud  
 >AWS_USE_PATH_STYLE_ENDPOINT=true  
 
->2. installer le package de AWS s3 avec la commande 'composer require --with-all-dependencies league/flysystem-aws-s3-v3 "^1.0"'
->3. je peux maintenant récuperer mes fichiers stockées sur mon bucket comme ceci `    $files = Storage::disk('s3')->allFiles('weather-icons');`  ce code récupère tout les documents du dossier `weather-icons`; ne pas oublier d'importer Storage dans le fichier php `use Illuminate\Support\Facades\Storage;` 
->4. à l'aide d'une boucle je recupère le chemin de chacun de mes fichiers , et à l'aide de ces chemins je vais créer une URL avec un token expirable grace à la méthode `temporaryUrl()` dont voici un exemple
-    `$urls = [];
-     foreach ($files as $file) {
-            $path = Storage::disk('s3')->path($file);
-            $url = Storage::disk('s3')->temporaryUrl($path, now()->addHour(72));
-            array_push($urls, $url);
+>2. installer le package de AWS s3 avec la commande `composer require --with-all-dependencies league/flysystem-aws-s3-v3 "^1.0"`
+>3. je peux maintenant récuperer mes fichiers stockées sur mon bucket comme ceci :    
+> `    $files = Storage::disk('s3')->allFiles('weather-icons');`   
+> ce code récupère tout les documents du dossier `weather-icons` prése nt sur mon bucket scaleway; ne pas oublier d'importer Storage dans le fichier php  
+> `use Illuminate\Support\Facades\Storage;`  
+>4. à l'aide d'une boucle je recupère le chemin de chacun de mes fichiers , et à l'aide de ces chemins je vais créer une URL avec un token expirable grace à la méthode `temporaryUrl()` dont voici un exemple  
+
+    `$urls = [];  
+     foreach ($files as $file) {  
+            $path = Storage::disk('s3')->path($file);  
+            $url = Storage::disk('s3')->temporaryUrl($path, now()->addHour(72));  
+            array_push($urls, $url);  
      }`
 
 >5. je peux maintenant envoyé des images dans un mail en rajoutant mon tableau $urls comme paramètre de mon mail avec la méthode `with()` exemple :  
->`return $this->view('email.recapmail')
+> `return $this->view('email.recapmail')
                     ->subject('séjour dans 1 semaine')
                     ->with([
                         'reservation' => $this->reservation,
