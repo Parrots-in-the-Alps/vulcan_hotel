@@ -95,11 +95,11 @@
                 md:mt-0
             "
             >
-                <li><a href="#" class="hover:text-persimmon text-md ">Services</a></li>
-                                <li><a href="#" class="hover:text-persimmon text-md ">Rooms</a></li>
-                                <li><a href="#" class="hover:text-persimmon text-md ">Actualities</a></li>
-                                <li><a href="#" class="hover:text-persimmon text-md ">Reviews</a></li>
-                                <li><a href="#" class="hover:text-persimmon text-md ">Contact</a></li>
+                                <li><router-link to="#services"><p class="hover:text-persimmon text-md ">Services</p></router-link></li>
+                                <li><router-link to="#rooms"><p class="hover:text-persimmon text-md ">Rooms</p></router-link></li>
+                                <li><router-link to="#actualities"><p class="hover:text-persimmon text-md ">Actualities</p></router-link></li>
+                                <li><router-link to="#reviews"><p class="hover:text-persimmon text-md ">Reviews</p></router-link></li>
+                                <li><p class="hover:text-persimmon text-md ">Contact</p></li>
                                 <li v-if="this.logged !== true">
                                     <router-link to="/auth/register">
                                         <a class="hover:text-persimmon text-md">Register</a>
