@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ReservationFactory extends Factory
@@ -14,8 +15,8 @@ class ReservationFactory extends Factory
     public function definition()
     {
         return [
-            'entryDate' => $this->faker->dateTimethisYear(),
-            'exitDate' => $this->faker->dateTimeThisyear(),
+            'entryDate' => Carbon::now()->format('m/d/Y'),
+            'exitDate' => Carbon::now()->format('m/d/Y'),
             'user_id' => $this->faker->numberBetween(1, 10),
             'room_id' => $this->faker->numberBetween(1,31),
         ];
