@@ -25,7 +25,7 @@ export default {
     data(){
         return{
             
-            availableType:true,
+            availableType:false,
             
         }
     },
@@ -47,9 +47,20 @@ export default {
 
     methods:{
         async setComponent(){
+            console.log("totocompo")
             const rooms = await this.reservationStore.checkAvailability();
+            console.log("check 1");
 
             const selectedRooms = rooms.requested;
+
+            const suggested = rooms.suggested;
+            selectedRooms.forEach(element => {
+                console.log(element.id);
+            });
+            console.log("check 2");
+            suggested.forEach(element => {
+                console.log(element.id);
+            });
 
 
             if(selectedRooms.length > 0){

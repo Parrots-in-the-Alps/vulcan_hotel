@@ -11,6 +11,7 @@ use App\Http\Resources\ReservationCollection;
 use App\Http\Resources\ReservationResource;
 use App\Http\Resources\RoomCollection;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class ReservationController extends Controller
 {
@@ -67,7 +68,7 @@ class ReservationController extends Controller
         //implement validator
         //extract data from request
         //implement availability algo
-            //ckeck entry/exitdates not in reservated intervals
+            //ckeck entry/exitdates not in booked intervals
             //return array of  reservedroomIds
             //return roomid in roomtable not in reserved roomIds array
             //compare roomType requested by customer vs available roomIds (room objects)
@@ -81,17 +82,53 @@ class ReservationController extends Controller
         ]);
 
         $validated_details = $validator->validated();
+        
+        $bookedReservations = Reservation::all();
+        //dd($bookedReservations);
 
-       $bookedReservations = Reservation::whereBetween('entryDate',[$validated_details['entryDate'],$validated_details['exitDate']])
-       ->orWhereBetween('exitDate',[$validated_details['entryDate'],$validated_details['exitDate']]);
+        $validatedEntryDate = $validated_details['entryDate'];
+        $validatedExitDate = $validated_details['exitDate'];
+        //$bookedReservations = $bookedReservations->whereBetween('entryDate',[$validated_details['entryDate'],$validated_details['exitDate']]);
+        $bookedReservations = $bookedReservations->filter(function ($item) use ($validatedEntryDate,$validatedExitDate) {
+            return (
+                (
+                    $item->entryDate >= $validatedEntryDate
+                    && $item->entryDate <= $validatedExitDate
+                )
+                ||
+                (
+                    $item->exitDate >= $validatedEntryDate
+                    && $item->exitDate <= $validatedExitDate
+                )
+                ||
+                (
+                    $validatedEntryDate >= $item->entryDate
+                    && $validatedEntryDate <= $item->exitDate
+
+                )
+                ||
+                (
+                    $validatedExitDate >= $item->entryDate
+                    && $validatedExitDate <= $item->exitDate
+                )
+            );
+        });
+    //    $bookedReservations = Reservation::whereBetween('entryDate',[$validated_details['entryDate'],$validated_details['exitDate']])
+    //    ->orWhereBetween('exitDate',[$validated_details['entryDate'],$validated_details['exitDate']]);
         
         $bookedRooms = array();
+        //dd($bookedReservations);
 
         foreach($bookedReservations as $reservation){
-            $bookedRooms[$reservation['room_id']];
+            //dd($reservation['room_id']);
+            array_push($bookedRooms, $reservation['room_id']);
         }
+
+        //dd($bookedRooms);
         
         $availableRooms= Room::all()->whereNotIn('id',$bookedRooms);
+
+        //dd($availableRooms);
         
         $availableRequestedRoomType = array();
         $availableSuggestedRoomType = array();
@@ -112,6 +149,7 @@ class ReservationController extends Controller
                }    
             }
         }
+        //dd($availableRequestedRoomType);
 
         return response()->json(["type" => $availableRequestedRoomType,"suggested" => $availableSuggestedRoomType]);
     }

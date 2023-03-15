@@ -114,7 +114,7 @@ export default {
             this.availableType = toto.suggested;
             console.log(this.availableType);
             this.availableType.forEach(element => {console.log(element.id)});
-            console.log("toto");
+            console.log("toto mange un gros kebab");
         },
 
         emitFunction(room){
