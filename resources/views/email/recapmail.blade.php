@@ -3,7 +3,7 @@
 <head>
 
 </head>
-<body>
+<body>/home/theocop/Laravel/vulcan_hotel/resources/views
     <h1>Merci {{ $reservation->user->name }} pour votre réservation !</h1>
 
   <p> Nous vous attendons le <b>{{$reservation->entryDate}}</b> à partir de 12h !</p>
@@ -50,10 +50,7 @@
     <img src="{{ $urls['rain']}}" width="100px" alt="test"/>
         @break
 
-    @case(66)
-    @case(67)
-    <img src="{{ $urls['rain']}}" width="100px" alt="test"/>
-        @break
+    @case(66)/home/theocop/Laravel/vulcan_hotel/resources/views
 
     @case(71)
     @case(73)
