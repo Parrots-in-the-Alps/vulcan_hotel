@@ -8,8 +8,10 @@
                 <h1 v-else class="text-primary font-Philosopher text-center font-light">{{ isFrench ? "Padbol"
                     : "try again" }}</h1>
 
-                <ButtonResa previousRoute="/reservation/Summary" nextRoute="/" nextStep="" customEventNext=""
-                    previousStep="services" />
+                <router-link :to='/'>
+                    <button @click="this.reset()"
+                        class="btn btn-secondary w-28 font-Cinzel text-base-100">{{ isFrench ? "FIN" : "EXIT" }}</button>
+                </router-link>
             </div>
         </div>
     </div>
@@ -25,7 +27,7 @@ import { useReservationStore } from '../../stores/ReservationStore';
 
 export default {
     mounted() {
-       
+
     },
     name: "Final",
 
@@ -53,6 +55,9 @@ export default {
     },
 
     methods: {
+        reset(){
+            this.reservationStore.resaStatus();
+        }
 
 
     },

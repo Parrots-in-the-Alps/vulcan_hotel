@@ -104,8 +104,13 @@ export const useReservationStore = defineStore('reservation', {
                     this.resaStatus = true;
                 }
             } 
-        }
+        },
+
         //TODO reset resaStatus-->final.vue
+
+        resetResaStatus(){
+            this.resaStatus = false;
+        }
 
         // getAvailabilities(){
         //     const availableRooms = this.checkAvailability();
