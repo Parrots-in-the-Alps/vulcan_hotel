@@ -1,15 +1,15 @@
 <template>
     <Heroes />
 
-    <ContentSeparator 
+    <ContentSeparator id="services"
    menuTitle="Services" />
    
    <Services />
 
-   <ContentSeparator 
+   <ContentSeparator id="rooms"
    v-if="isFrench" menuTitle="Nos chambres" />
 
-   <ContentSeparator 
+   <ContentSeparator id="rooms"
     v-else menuTitle="Rooms" />
 
     <Rooms />
@@ -19,18 +19,18 @@
 
     <Videos />
 
-    <ContentSeparator 
+    <ContentSeparator id="reviews"
    v-if="isFrench" menuTitle="Avis clients" />
 
-   <ContentSeparator 
+   <ContentSeparator id="reviews"
    v-else menuTitle="Reviews" />
 
     <Reviews />
 
-   <ContentSeparator 
+   <ContentSeparator id="actualities"
    v-if="isFrench" menuTitle="Actualitées" />
 
-   <ContentSeparator 
+   <ContentSeparator id="actualities"
    v-else menuTitle="Actualities" />
 
     <Actualities />

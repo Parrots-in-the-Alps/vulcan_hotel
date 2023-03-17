@@ -68,6 +68,20 @@ const router = createRouter({
             ]
         },
     ],
+    scrollBehavior(to, from, savedPosition) {
+        if (savedPosition) {
+          return { x: 0, y: 0 };
+        } else if (to.hash) {
+            return {
+                el: to.hash,
+                behavior: 'smooth',
+            };
+        } else {
+          return { x: 0, y: 0 };
+        }
+      }
 });
+
+
 
 export default router
