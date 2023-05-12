@@ -8,7 +8,7 @@
                 <h1 v-else class="text-primary font-Philosopher text-center font-light">{{ isFrench ? "Padbol"
                     : "try again" }}</h1>
 
-                <router-link :to='/'>
+                <router-link to='/'>
                     <button @click="this.reset()"
                         class="btn btn-secondary w-28 font-Cinzel text-base-100">{{ isFrench ? "FIN" : "EXIT" }}</button>
                 </router-link>
