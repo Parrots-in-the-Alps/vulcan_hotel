@@ -1,6 +1,0 @@
-[
-    {"user_name" : "theo",  "image_user_avatar" : "avatar.jpg", "rating" : 4, "comment" :  "truc de zinzin la chambre de luxe" },
-    {"user_name" : "pierre",  "image_user_avatar" : "avatar.jpg", "rating" : 1, "comment" :  "trop nul" },
-    {"user_name" : "matthias",  "image_user_avatar" : "avatar.jpg", "rating" : 3, "comment" :  "l'hôtel est pas mal mais j'ai une maison donc bon..." }
-  
-]

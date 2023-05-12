@@ -1,4 +1,0 @@
-[
-    {"title" : {"en" : "hip jazz club", "fr" : "hip jazz club"} , "image" : "jazz_actuality.jpg", "description" :  {"en" : "Come to the hip jazz club tonight!", "fr" : "Venez au club de jazz branché ce soir !"}, "start_date" : "23/12/2022", "end_date" : "30/12/2022"  },
-    {"title" : {"en" : "basket contest", "fr" : "tournoi de basket"} , "image" : "basket_actuality.jpg", "description" :  {"en" : "Come and take part in the basketball tournament organ ized by the annecy club", "fr" : "Venez participez au  tournoi de basket organiser par le club d'annecy"}, "start_date" : "23/11/2022", "end_date" : "30/11/2022" }
-]
