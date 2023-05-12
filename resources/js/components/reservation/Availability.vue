@@ -118,17 +118,8 @@ export default {
         },
 
         emitFunction(room){
-            let moor = room;
-            let epyt = "";
-
-            if(this.isFrench){
-                epyt = moor.type.fr;
-            }else{
-                epyt = moor.type.en ;
-            }
-            
             //this.$parent.$emit('update:currentStep', );
-            this.reservationStore.setRoomType(epyt);
+            this.reservationStore.setRoomType(room.type.en);
             this.changedType = true;
         },
 
