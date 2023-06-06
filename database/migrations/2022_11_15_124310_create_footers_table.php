@@ -13,6 +13,16 @@ class CreateFootersTable extends Migration
      */
     public function up()
     {
+        Schema::create('addresses', function (Blueprint $table) {
+            $table->id();
+            $table->integer('street_num');
+            $table->string('street_name');
+            $table->string('zip');
+            $table->string('city_name');
+            $table->string('country');
+            $table->timestamps();
+            $table->boolean('isActive')->default(false);
+        });
         Schema::create('footers', function (Blueprint $table) {
             $table->id();
             $table->boolean('isActive')->default(false);
@@ -36,6 +46,8 @@ class CreateFootersTable extends Migration
      */
     public function down()
     {
+
         Schema::dropIfExists('footers');
+        Schema::dropIfExists('addresses');
     }
 }
