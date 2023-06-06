@@ -59,31 +59,31 @@ export default {
     methods: {
 
         async fetchActualities() {
-            const response = await axios.get('api/actualities/active');
+            const response = await axios.get('/api/actualities/active');
             console.log(response.data)
             this.actualities = response.data['data'];
         },
 
         async fetchHero() {
-            const response = await axios.get('api/heroes/active');
+            const response = await axios.get('/api/heroes/active');
             console.log(response.data)
             this.hero = response.data['data'];
         },
 
         async fetchFooter(){
-            const response = await axios.get('api/footers/active');
+            const response = await axios.get('/api/footers/active');
             console.log(response.data)
             this.footer = response.data['data'];
         },
 
         async fetchReviews(){
-            const response = await axios.get('api/reviews/active');
+            const response = await axios.get('/api/reviews/active');
             console.log(response.data)
             this.reviews = response.data['data'];
         },
 
         async fetchVideos(){
-            const response = await axios.get('api/videos/active');
+            const response = await axios.get('/api/videos/active');
             console.log(response.data)
             this.videos = response.data['data'];
         }
