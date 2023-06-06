@@ -19,8 +19,6 @@ ENV APP_ENV production
 ENV APP_DEBUG true
 ENV LOG_CHANNEL stderr
 
-RUN php artisan migrate:fresh
-
 COPY --from=node /var/app/public/js /var/www/html/public/js
 COPY --from=node /var/app/public/css /var/www/html/public/css
 
