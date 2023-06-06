@@ -24,8 +24,6 @@
         </style>
     </head>
     <body class="antialiased bg-backGround">
-            <h1>APP_URL: {{ env('APP_URL') }}</h1>
-
         <div id="app"></div>
 
         <script src="/js/app.js"></script>
