@@ -1,11 +1,13 @@
 FROM node:lts as node 
-COPY . .
-
+COPY . /var/app
+WORKDIR /var/app
 RUN npm i
 RUN npm run production
 
 FROM richarvey/nginx-php-fpm:3.1.5
 COPY . .
+
+COPY --from=node /var/app/public/js 
 
 # Image config
 ENV SKIP_COMPOSER 1
