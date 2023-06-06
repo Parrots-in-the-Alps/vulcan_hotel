@@ -1,6 +1,6 @@
 FROM node:lts as node 
-COPY . .
-
+COPY . /var/app
+WORKDIR /var/app
 RUN npm i
 RUN npm run production
 
@@ -18,6 +18,9 @@ ENV REAL_IP_HEADER 1
 ENV APP_ENV production
 ENV APP_DEBUG false
 ENV LOG_CHANNEL stderr
+
+COPY --from=node /var/app/public/js /var/www/html/public/js
+COPY --from=node /var/app/public/css /var/www/html/public/css
 
 # Allow composer to run as root
 ENV COMPOSER_ALLOW_SUPERUSER 1
