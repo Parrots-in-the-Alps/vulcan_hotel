@@ -135,6 +135,20 @@ j'envoie un mail à l'utilisateur qui à fait la réservation et je lui envoie d
 
 # Deploiement sur Render
 
+## Avantages / Inconvéniants
+
+### Avantages
+
+- 25 premiers nom de domaine gratuit
+- hébergement de plusieurs services gratuit
+- déploiement rapide (30min environ)
+
+### Invonvéniants
+
+- Limité dans les resources
+- Impossible de faire des backups depuis render
+- Documentation pas très clair
+
 ## Resources
 
 - [Render](https://render.com/)
@@ -328,19 +342,24 @@ DATABASE_URL=INTERNAL_DATABASE_URL
 
 ## Crée un Web Service
 
-1. Connecter le repository du site d'hôtel avec Render [ici](https://dashboard.render.com/select-repo?type=web)
-2. Crée le web service (*Connect*) en prenant en compte ces informations:
+1. Connecter le repository du site d'hôtel avec Render [ici](https://dashboard.render.com/select-repo?type=web) en cliquant sur `Connect Account`
+2. Crée le web service en cliquant sur `Connect` en prenant en compte ces informations:
   - **Region**: Frankfurt (EU Central)
   - **Branch**: la branche que vous souhaiter déployer
   - **Runtime**: Docker
   - **Instance Type**: Free
   - Cliquer tout en bas sur `Advenced`
-    - Cliquer sur `Add Environment Variable` 4 fois
+  :::info
+  Ici on ajoute les variables d'environnements du .`env`, il faut pensez à ajouter celle qui feront fonctionner le system de mail
+  :::
+    - Cliquer sur `Add Environment Variable` 3 fois
     - Remplir comme ceci:
       - **key**: DATABASE_URL - **value**: INTERNAL_DATABASE_URL (voir *Récupérer l'Internal Database URL*)
       - **key**: APP_KEY - **value**: APP_KEY dans le `.env`
-      - **key**: APP_URL - **value**: L'url du site fourni en haut de cette page (en violet)
       - **key**: DB_CONNECTION - **value**: pgsql
+3. Aller dans `Environment`
+4. Ajouter :
+  - **key**: APP_URL - **value**: L'url du site fourni en haut de cette page (en violet)
 
 ### Récupérer l'Internal Database URL
 
@@ -355,3 +374,14 @@ DATABASE_URL=INTERNAL_DATABASE_URL
 - Cliquer sur le Web Service du site
 - Lancer le déploiement
 
+## Custom le nom de domaine
+
+- Se connecter a Render
+- Aller dans les settings du web service du site d'hôtel
+- Aller dans la section `Custom Domains`
+- Cliquer sur `Add Custom Domains`
+- Se connecter sur le site ou l'on à pris le nom de domaine
+- Pensez à supprimer les entrés précédente de Scaleway
+- Crée les entrés indiqués sur Render dans le site ou l'on a pris le nom de domaine
+- Recharger la page (Render)
+- Il devrait indiquer **Verified . Certificate Pending**
