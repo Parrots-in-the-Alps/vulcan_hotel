@@ -130,3 +130,228 @@ j'envoie un mail à l'utilisateur qui à fait la réservation et je lui envoie d
                                 'urls' => $urls,  
                                 
                 ]);
+
+---
+
+# Deploiement sur Render
+
+## Resources
+
+- [Render](https://render.com/)
+- [deploy-php-laravel-docker](https://render.com/docs/deploy-php-laravel-docker)
+
+## HTTPS - Docker/Nginx - script deploy 
+
+- Mettre à jour `app/Providers/AppServiceProvider.php` comme ceci
+```php=
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Routing\UrlGenerator;
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot(UrlGenerator $url)
+    {
+        if (env('APP_ENV') == 'production') {
+            $url->forceScheme('https');
+        }
+    }
+}
+```
+
+- Crée les dossiers/fichiers suivants:
+
+**.dockerignore**
+```shell=
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+.env
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+```
+
+**Dockerfile**
+```shell=
+FROM node:lts as node 
+COPY . /var/app
+WORKDIR /var/app
+RUN npm i
+RUN npm run production
+
+FROM richarvey/nginx-php-fpm:3.1.5
+COPY . .
+
+# Image config
+ENV SKIP_COMPOSER 1
+ENV WEBROOT /var/www/html/public
+ENV PHP_ERRORS_STDERR 1
+ENV RUN_SCRIPTS 1
+ENV REAL_IP_HEADER 1
+
+# Laravel config
+ENV APP_ENV production
+ENV APP_DEBUG true
+ENV LOG_CHANNEL stderr
+
+COPY --from=node /var/app/public/js /var/www/html/public/js
+COPY --from=node /var/app/public/css /var/www/html/public/css
+
+# Allow composer to run as root
+ENV COMPOSER_ALLOW_SUPERUSER 1
+
+CMD ["/start.sh"]
+```
+
+**conf/nginx/nginx-site.conf**
+```shell=
+server {
+  # Render provisions and terminates SSL
+  listen 80;
+
+  # Make site accessible from http://localhost/
+  server_name _;
+
+  root /var/www/html/public;
+  index index.html index.htm index.php;
+
+  # Disable sendfile as per https://docs.vagrantup.com/v2/synced-folders/virtualbox.html
+  sendfile off;
+
+  # Add stdout logging
+  error_log /dev/stdout info;
+  access_log /dev/stdout;
+
+  # block access to sensitive information about git
+  location /.git {
+    deny all;
+    return 403;
+  }
+
+  add_header X-Frame-Options "SAMEORIGIN";
+  add_header X-XSS-Protection "1; mode=block";
+  add_header X-Content-Type-Options "nosniff";
+
+  charset utf-8;
+
+  location / {
+      try_files $uri $uri/ /index.php?$query_string;
+  }
+
+  location = /favicon.ico { access_log off; log_not_found off; }
+  location = /robots.txt  { access_log off; log_not_found off; }
+
+  error_page 404 /index.php;
+
+  location ~* \.(jpg|jpeg|gif|png|css|js|ico|webp|tiff|ttf|svg)$ {
+    expires 5d;
+  }
+
+  location ~ \.php$ {
+    fastcgi_split_path_info ^(.+\.php)(/.+)$;
+    fastcgi_pass unix:/var/run/php-fpm.sock;
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_param SCRIPT_NAME $fastcgi_script_name;
+    include fastcgi_params;
+  }
+
+  # deny access to . files
+  location ~ /\. {
+    log_not_found off;
+    deny all;
+  }
+
+  location ~ /\.(?!well-known).* {
+    deny all;
+  }
+}
+```
+
+**scripts/00-laravel-deploy.sh**
+```shell=
+#!/usr/bin/env bash
+echo "Running composer"
+# composer global require hirak/prestissimo
+composer install --no-dev --working-dir=/var/www/html
+
+echo "Caching config..."
+php artisan config:cache
+
+echo "Caching routes..."
+php artisan route:cache
+
+echo "Running migrations..."
+php artisan migrate --force
+```
+
+---
+
+## Crée une base PostgreSQL
+
+1. Crée un compte sur [Render](https://render.com/) (possibilité d'utiliser la connexion Google)
+2. [Crée une base PostgreSQL](https://dashboard.render.com/new/database) en prenant en compte ces informations:
+  - **Region**: Frankfurt (EU Central)
+  - **Instance Type**: Free
+  - **PostgreSQL Version**: 15
+3. Cliquer sur `Create Database`
+
+Si l'on veut travailler sur la base crée sur Render, on peut effectuer cette étape supplémentaire :
+- Dans le `.env` remplacer les informations concernant la base de donnée par:
+```shell=
+DB_CONNECTION=pgsql
+DATABASE_URL=INTERNAL_DATABASE_URL
+```
+
+## Crée un Web Service
+
+1. Connecter le repository du site d'hôtel avec Render [ici](https://dashboard.render.com/select-repo?type=web)
+2. Crée le web service (*Connect*) en prenant en compte ces informations:
+  - **Region**: Frankfurt (EU Central)
+  - **Branch**: la branche que vous souhaiter déployer
+  - **Runtime**: Docker
+  - **Instance Type**: Free
+  - Cliquer tout en bas sur `Advenced`
+    - Cliquer sur `Add Environment Variable` 4 fois
+    - Remplir comme ceci:
+      - **key**: DATABASE_URL - **value**: INTERNAL_DATABASE_URL (voir *Récupérer l'Internal Database URL*)
+      - **key**: APP_KEY - **value**: APP_KEY dans le `.env`
+      - **key**: APP_URL - **value**: L'url du site fourni en haut de cette page (en violet)
+      - **key**: DB_CONNECTION - **value**: pgsql
+
+### Récupérer l'Internal Database URL
+
+1. Aller dans la section `Info`
+2. Déscendre à la section `Connections`
+3. Copier `Internal Database URL`
+
+## Déployer le site de l'hôtel
+
+- Aller sur le [dashboard](https://dashboard.render.com/)
+- Vérifier que la base PostgreSQL affiche **Status: Available**
+- Cliquer sur le Web Service du site
+- Lancer le déploiement
+

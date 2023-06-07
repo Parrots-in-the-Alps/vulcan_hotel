@@ -13,6 +13,16 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
+        Schema::create('addresses', function (Blueprint $table) {
+            $table->id();
+            $table->integer('street_num');
+            $table->string('street_name');
+            $table->string('zip');
+            $table->string('city_name');
+            $table->string('country');
+            $table->timestamps();
+            $table->boolean('isActive')->default(false);
+        });
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -38,5 +48,6 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('addresses');
     }
 }
