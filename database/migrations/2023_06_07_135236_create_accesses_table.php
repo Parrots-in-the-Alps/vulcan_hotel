@@ -15,7 +15,13 @@ class CreateAccessesTable extends Migration
     {
         Schema::create('accesses', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('reservation_id')->constrained();
             $table->timestamps();
+            $table->foreign('reservation_id')
+                ->references('id')
+                ->on('reservations')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

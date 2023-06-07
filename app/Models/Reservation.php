@@ -16,6 +16,7 @@ class Reservation extends Model
         'isDue',
         'room_id',
         'service_id',
+        'checked_in'
     ];
 
     public $casts = [
@@ -30,6 +31,10 @@ class Reservation extends Model
 
     public function room(){
         return $this->belongsTo(Room::class);
+    }
+
+    public function access(){
+        return $this->hasMany(Access::class);
     }
     
 }

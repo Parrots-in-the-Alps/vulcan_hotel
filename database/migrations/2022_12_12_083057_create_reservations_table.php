@@ -22,6 +22,7 @@ class CreateReservationsTable extends Migration
             $table->timestamps();
             $table->unsignedInteger('room_id')->constrained();
             $table->json('service_id')->nullable();
+            $table->dateTime('checked_in')->nullable();
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
