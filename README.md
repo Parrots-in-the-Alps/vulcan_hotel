@@ -350,7 +350,7 @@ DATABASE_URL=INTERNAL_DATABASE_URL
   - **Instance Type**: Free
   - Cliquer tout en bas sur `Advenced`
   :::info
-  Ici on ajoute les variables d'environnements du .`env`, il faut pensez à ajouter celle qui feront fonctionner le system de mail
+  Ici on ajoute les variables d'environnements du .`env`, il faut pensez à ajouter celle qui feront fonctionner le system de mail et de stockage s3
   :::
     - Cliquer sur `Add Environment Variable` 3 fois
     - Remplir comme ceci:
