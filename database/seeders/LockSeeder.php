@@ -13,6 +13,6 @@ class LockSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\Lock::factory(30)->create();
     }
 }

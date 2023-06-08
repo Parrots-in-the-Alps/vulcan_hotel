@@ -13,6 +13,6 @@ class AccessSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\Access::factory(10)->create();
     }
 }

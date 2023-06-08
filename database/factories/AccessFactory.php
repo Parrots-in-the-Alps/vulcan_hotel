@@ -14,7 +14,7 @@ class AccessFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'reservation_id' => $this->faker->numberBetween(1,9),
         ];
     }
 }
