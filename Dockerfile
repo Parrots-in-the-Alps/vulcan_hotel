@@ -21,6 +21,7 @@ ENV LOG_CHANNEL stderr
 
 COPY --from=node /var/app/public/js /var/www/html/public/js
 COPY --from=node /var/app/public/css /var/www/html/public/css
+COPY --from=node /var/app/vendor /var/www/html/vendor
 
 # Allow composer to run as root
 ENV COMPOSER_ALLOW_SUPERUSER 1
