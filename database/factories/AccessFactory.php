@@ -15,6 +15,7 @@ class AccessFactory extends Factory
     {
         return [
             'reservation_id' => $this->faker->numberBetween(1,9),
+            'room_id' => $this->faker->numberBetween(1,31),
         ];
     }
 }
