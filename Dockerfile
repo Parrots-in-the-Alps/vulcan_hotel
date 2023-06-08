@@ -25,4 +25,6 @@ COPY --from=node /var/app/public/css /var/www/html/public/css
 # Allow composer to run as root
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
+RUN php artisan schedule:work
+
 CMD ["/start.sh"]
