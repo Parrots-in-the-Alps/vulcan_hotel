@@ -11,6 +11,7 @@ use App\Http\Resources\AccessResource;
 //use App\Http\Resources\RoomCollection;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class AccessController extends Controller
 {
@@ -32,12 +33,15 @@ class AccessController extends Controller
      */
     public function store(Request $request)
     {
-        $access_input = $request->input;
+        $access_input = $request->input();
+        //dd($access_input);
 
         $access = new Access();
+        
         $access->create($access_input);
+        
 
-        return new AccessResource($access);
+        return response()->json(['description' => 'access created'], 200);
     }
 
     /**
@@ -48,20 +52,28 @@ class AccessController extends Controller
      */
     public function show($reservation_id)
     {
-        return AccessCollection(Access::where('reservation_id', $reservation_id));
+        //dd($reservation_id);
+        return new AccessCollection(Access::where('reservation_id', $reservation_id)->get());
     }
 
-    public function getFirstAccess($reservation_id){
-
-
-        $access = Access::where(['reservation_id' => $reservation_id])
-                            ->oldest();
-        $reservation = $access -> reservation_id;
-        $room = $access->room_id;
-        $accessedAt = $access->created_at
+    public function getFirstAccess(Request $request){
+        //dd($request->all());
+        $reservation_id = $request['reservation_id'];
+        //dd($reservation_id);
+        //dd($reservation_id);Access::where('reservation_id', $reservation_id)
+        //->oldest();
+        $access = DB::table('accesses')
+            ->where('reservation_id','=',$reservation_id)
+            ->orderBy('created_at','asc')
+            ->first();
+        return response()->json(['reservation'=> $access->reservation_id, 'room'=> $access->room_id, 'accessed_at'=>$access->created_at], 200);
+        //dd($access);
         
+        // $reservation = $access -> reservation_id;
+        // $room = $access->room_id;
+        // $accessedAt = $access->created_at;        
 
-        return response()-> json('reservation_id'=> );
+        // return response()-> json(['reservation_id'=> $reservation, 'room' => $room, 'first access' => accessedAt],200);
 
     }
 
@@ -83,10 +95,13 @@ class AccessController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function destroy($id)
-    // {
-    //     //unallowed
-    // }
+    public function destroy($id)
+    {
+        Access::where(['id'=>$id])
+            ->delete();
+        
+            return response()->json(['description' => 'access deleted'], 200);
+    }
 
     public function deleteAccesses(){
         Access::truncate();

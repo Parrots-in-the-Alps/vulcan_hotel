@@ -20,9 +20,9 @@ class AccessResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'reservation' => $this->reservation_id,
+            'reservation_id' => $this->reservation_id,
             'room_id' => $this->room_id,
-            'accessTime' => $this->created_at,
+            'created_at' => $this->created_at,
         ];
     }
 }

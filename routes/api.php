@@ -16,6 +16,8 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\AccessController;
+use App\Http\Controllers\LockController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +47,7 @@ Route::get('/heroes/active', [HeroController::class, 'showActiveHeroes']);
 Route::get('/videos/active', [VideoController::class, 'showActiveVideos']);
 Route::get('/rooms/active', [RoomController::class, 'showActiveRooms']);
 
+
 Route::middleware(['auth:sanctum', 'setLocale'])->group(function() {
 
     Route::get('logout', [AuthController::class, 'logout']);
@@ -52,7 +55,7 @@ Route::middleware(['auth:sanctum', 'setLocale'])->group(function() {
     Route::post('user/updatepass', [UserController::class, 'updatePassword']);
 
     Route::apiResource('users', UserController::class);
-    Route::apiResource("rooms", RoomController::class);
+    
     Route::apiResource("actualities", ActualityController::class);
     Route::apiResource("heroes", HeroController::class);
     Route::apiResource("services", ServiceController::class);
@@ -63,6 +66,17 @@ Route::middleware(['auth:sanctum', 'setLocale'])->group(function() {
     Route::apiResource("footers", FooterController::class);
     Route::apiResource("mailinglists", MailingListController::class);
     Route::apiResource("reservations", ReservationController::class);
+    
 });
-
+//TODO
+//RANGER
 Route::post("/isAvailable",[ReservationController::class,'showRoomAvailability']);
+Route::post("/firstAccess", [AccessController::class, 'getFirstAccess']);
+Route::apiResource("access", AccessController::class);
+Route::apiResource("rooms", RoomController::class);
+Route::apiResource("reservations", ReservationController::class);
+Route::post("isresavalide", [ReservationController::class, 'isReservationValide']);
+Route::post("validateresa", [ReservationController::class, 'validateReservation']);
+Route::post("openNaaNoor", [LockController::class, 'openNaaNoor']);
+Route::post("setNfc", [LockController::class, 'setNfcTag']);
+Route::apiResource("locks", LockController::class);

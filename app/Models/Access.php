@@ -9,6 +9,12 @@ class Access extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'room_id',
+        'reservation_id'
+    ];
+
+
     public function reservation(){
         return $this->belongsTo(Reservation::class);
     }

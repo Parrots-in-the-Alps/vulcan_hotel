@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Room;
+use App\Models\Lock;
 use File;
 
 class RoomSeeder extends Seeder
@@ -30,6 +31,11 @@ class RoomSeeder extends Seeder
             ->setTranslations('description', $value["description"])
             ->setTranslations('type', $value["type"])
                 ->save();
+            
+                $roomId = ['room_id'=> $room->id];
+
+                $lock = new Lock();
+                $lock->create($roomId);
         }
 
     }

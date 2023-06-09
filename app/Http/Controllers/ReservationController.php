@@ -154,4 +154,70 @@ class ReservationController extends Controller
         return response()->json(["type" => $availableRequestedRoomType,"suggested" => $availableSuggestedRoomType]);
     }
 
+    public function isReservationValide(Request $request){ 
+        $validator = Validator::make($request->all(),[
+            'reservation_id' => 'required',
+        ]);
+
+        $validatedInfo = $validator -> validated();
+
+        $reservationId = $validatedInfo['reservation_id'];
+
+        $reservation = Reservation::where('id', $reservationId)->first();
+        // dd($reservation);
+
+        if($reservation == null){
+            return response()->json(['status'=> 'N° de reservation invalide', 'reservation'=> ""], 403);
+        }
+
+        $presentDate = Carbon::today()->format('m/d/Y');
+        // dd($presentDate);
+
+        $dateIn = $reservation->entryDate;
+        // dd($dateIn);
+
+        $dateOut = $reservation->exitDate;
+        // dd($dateOut);
+
+        $checkinTodayOk = $presentDate >= $dateIn;
+        // dd($todayEntryOk);
+
+        $todayBeforeCheckOut = $presentDate < $dateOut;
+        // dd($todayBeforeCheckin);
+
+        if(!$presentDate || !$todayBeforeCheckOut){
+            return response()->json(['status'=> 'Les dates de la reservation sont invalides', 'reservation'=> ""], 403);
+        }
+        // dd($reservation->checked_in);
+        $checkedInNotNull = $reservation->checked_in == null ;
+        // dd($checkedInNotNull);
+
+        if(!$checkedInNotNull){
+            return response()->json(['status'=> 'La réservation à déjà été validée', 'reservation'=> ""], 403);
+        }
+        
+        return response()->json(['status'=> 'La réservation est valide', 'reservation'=>$reservation], 203);
+    }
+
+    public function validateReservation(Request $request){ 
+        $validator = Validator::make($request->all(),[
+            'reservation_id' => 'required',
+            'room_id' => 'required'
+        ]);
+
+        $validated = $validator->validated();
+
+        $reservationId = $validated['reservation_id'];
+        $roomId = $validated['room_id'];
+
+        $checkedInAt = Carbon::now();
+
+        Reservation::where('id', $reservationId)
+                        ->update(['checked_in'=> $checkedInAt]);
+
+        $nfc_tag = bin2hex(random_bytes(22));
+        
+        return response()->json(['staus'=> 'Réservation validée', 'nfc_tag'=>$nfc_tag], 203);
+    }
+
 }

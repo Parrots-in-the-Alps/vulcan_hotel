@@ -10,7 +10,8 @@ class Lock extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nfc_tag'
+        'nfc_tag',
+        'room_id'
     ];
 
     public $casts = [
