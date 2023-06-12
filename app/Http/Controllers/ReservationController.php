@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Reservation;
 use App\Models\Service;
 use App\Models\Room;
+use App\Models\User;
 use App\Http\Resources\ReservationCollection;
 use App\Http\Resources\ReservationResource;
 use App\Http\Resources\RoomCollection;
@@ -170,6 +171,9 @@ class ReservationController extends Controller
             return response()->json(['status'=> 'N° de reservation invalide', 'reservation'=> ""], 403);
         }
 
+        $userId = $reservation->user_id;
+        $user = User::where('id', $userId)->first();
+
         $presentDate = Carbon::today()->format('m/d/Y');
         // dd($presentDate);
 
@@ -196,19 +200,17 @@ class ReservationController extends Controller
             return response()->json(['status'=> 'La réservation à déjà été validée', 'reservation'=> ""], 403);
         }
         
-        return response()->json(['status'=> 'La réservation est valide', 'reservation'=>$reservation], 203);
+        return response()->json(['status'=> 'La réservation est valide', 'reservation'=>$reservation, 'user'=>$user], 203);
     }
 
     public function validateReservation(Request $request){ 
         $validator = Validator::make($request->all(),[
-            'reservation_id' => 'required',
-            'room_id' => 'required'
+            'reservation_id' => 'required'
         ]);
 
         $validated = $validator->validated();
 
         $reservationId = $validated['reservation_id'];
-        $roomId = $validated['room_id'];
 
         $checkedInAt = Carbon::now();
 
@@ -217,7 +219,7 @@ class ReservationController extends Controller
 
         $nfc_tag = bin2hex(random_bytes(22));
         
-        return response()->json(['staus'=> 'Réservation validée', 'nfc_tag'=>$nfc_tag], 203);
+        return response()->json(['status'=> 'Réservation validée', 'nfc_tag'=>$nfc_tag], 203);
     }
 
 }

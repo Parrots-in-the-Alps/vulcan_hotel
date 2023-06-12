@@ -90,8 +90,26 @@ class LockController extends Controller
     }
 
     public function checkCardCounter(Request $request){
-        //DOING
+        $validator = Validator::make($request->all(),[
+            'room_id' => 'required'
+        ]);
+        $validatedAttributes = $validator->validated();
+
+        $validated = $validator->validated();
+
+        $roomId = $validated['room_id'];
+
+        $lock = Lock::where('room_id', $roomId)->first();
+
+        if(!$lock->card_counter < 2){
+            return response()->json(['staus'=>'Nombre maximun de cartes atteint'], 403);
+        }
+
+        return response()->json(['status'=>'ok'], 203);
+
     }
+
+    public function
 
     public function setNfcTag(Request $request){
         $validator = Validator::make($request->all(),[
