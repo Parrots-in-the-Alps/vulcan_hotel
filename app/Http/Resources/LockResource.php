@@ -20,7 +20,8 @@ class LockResource extends JsonResource
         return [
             'id' => $this->id,
             'room_id' => $this->room_id,
-            'nfc_tag' => $this->nfc_tag
+            'nfc_tag' => $this->nfc_tag,
+            'card_counter' => $this->card_counter
         ];
     }
 }

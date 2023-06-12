@@ -11,11 +11,13 @@ class Lock extends Model
 
     protected $fillable = [
         'nfc_tag',
-        'room_id'
+        'room_id',
+        'card_counter'
     ];
 
     public $casts = [
-        'nfc_tag' => 'string'
+        'nfc_tag' => 'string',
+        'card_counter' => 'integer'
     ];
 
     public function room(){

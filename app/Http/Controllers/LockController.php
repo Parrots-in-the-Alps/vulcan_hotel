@@ -89,6 +89,10 @@ class LockController extends Controller
         //
     }
 
+    public function checkCardCounter(Request $request){
+        //DOING
+    }
+
     public function setNfcTag(Request $request){
         $validator = Validator::make($request->all(),[
             'nfc_tag' => 'required',
@@ -104,8 +108,8 @@ class LockController extends Controller
         if($lock == null){
             return response()->json(['status'=>'serrure inexistante'], 403);
         }
-
-        $update = $lock->update(['nfc_tag'=>$nfcTag]);
+        
+        $update = $lock->update(['nfc_tag'=>$nfcTag, 'card_counter'=> 1]);
 
         if(!$update){
             return response()->json(['status' => 'erreur lors de l\'enregistrement'], 403);

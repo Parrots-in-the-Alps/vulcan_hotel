@@ -18,6 +18,7 @@ class CreateLocksTable extends Migration
             $table->timestamps();
             $table->unsignedInteger('room_id')->constrained()->unique();
             $table->string('nfc_tag')->nullable();
+            $table->integer('card_counter')->default(0);
             $table->foreign('room_id')
                 ->references('id')
                 ->on('rooms')
