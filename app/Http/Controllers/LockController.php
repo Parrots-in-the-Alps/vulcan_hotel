@@ -6,12 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Lock;
 use App\Models\Access;
+use App\Models\Reservation;
 use App\Http\Resources\LockCollection;
-use App\Http\Resources\LockResource;
-//use App\Http\Resources\RoomCollection;
 use Illuminate\Support\Facades\Validator;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 
 class LockController extends Controller
 {
@@ -109,8 +106,6 @@ class LockController extends Controller
 
     }
 
-    public function
-
     public function setNfcTag(Request $request){
         $validator = Validator::make($request->all(),[
             'nfc_tag' => 'required',
@@ -139,13 +134,12 @@ class LockController extends Controller
     public function openNaaNoor(Request $request){
         $validator = Validator::make($request->all(),[
             'nfc_tag' => 'required',
-            'room_id' => 'required',
             'reservation_id' => 'required'
         ]);
 
         $validated = $validator->validated();
 
-        $roomId = $validated['room_id'];
+        $roomId = $roomId = Reservation::where('id', $validated['reservation_id'])->first()->room_id;
         $nfcTag = $validated['nfc_tag'];
         $reservationId = $validated['reservation_id'];
         
