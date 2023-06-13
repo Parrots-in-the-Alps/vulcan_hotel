@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
-class ReservationFactory extends Factory
+class LockFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,10 +15,8 @@ class ReservationFactory extends Factory
     public function definition()
     {
         return [
-            'entryDate' => Carbon::now()->format('m/d/Y'),
-            'exitDate' => Carbon::now()->addMonth()->format('m/d/Y'),
-            'user_id' => $this->faker->numberBetween(1, 10),
             'room_id' => $this->faker->numberBetween(1,31),
+            'nfc_tag' => Str::random(10),
         ];
     }
 }

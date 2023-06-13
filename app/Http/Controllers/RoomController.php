@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Room;
 use App\Http\Resources\RoomCollection;
 use App\Http\Resources\RoomResource;
+use App\Models\Lock;
 
 class RoomController extends Controller
 {
@@ -66,6 +67,11 @@ class RoomController extends Controller
         ->setTranslations('description', $rooms_input['description'])
         ->setTranslations('type', $rooms_input['type'])
             ->save();
+
+        $roomId = ['room_id'=> $room->id];
+
+        $lock = new Lock();
+        $lock->create($roomId);
 
         return new RoomResource($room);
     }

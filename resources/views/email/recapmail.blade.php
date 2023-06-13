@@ -3,7 +3,7 @@
 <head>
 
 </head>
-<body>/home/theocop/Laravel/vulcan_hotel/resources/views
+<body>
     <h1>Merci {{ $reservation->user->name }} pour votre réservation !</h1>
 
   <p> Nous vous attendons le <b>{{$reservation->entryDate}}</b> à partir de 12h !</p>
@@ -50,7 +50,7 @@
     <img src="{{ $urls['rain']}}" width="100px" alt="test"/>
         @break
 
-    @case(66)/home/theocop/Laravel/vulcan_hotel/resources/views
+    @case(66)
 
     @case(71)
     @case(73)
@@ -83,7 +83,7 @@
 
 
 
-
+<img src="https://api.qrserver.com/v1/create-qr-code/?data=Reservation:%20{{ $reservation->id }}!&size=100x100" alt="qr code" />
 
 @if(in_array(7, $reservation->service_id))
 

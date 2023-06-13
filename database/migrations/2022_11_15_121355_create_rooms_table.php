@@ -16,7 +16,7 @@ class CreateRoomsTable extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->json('name')->nullable();
-            $table->integer('number');
+            $table->integer('number')->constrained()->unique();
             $table->boolean('isActive')->default(false);
             $table->boolean('isQueued')->default(false);
             $table->json('type')->nullable();

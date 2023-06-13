@@ -2,10 +2,9 @@
 
 namespace Database\Factories;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ReservationFactory extends Factory
+class AccessFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,9 +14,7 @@ class ReservationFactory extends Factory
     public function definition()
     {
         return [
-            'entryDate' => Carbon::now()->format('m/d/Y'),
-            'exitDate' => Carbon::now()->addMonth()->format('m/d/Y'),
-            'user_id' => $this->faker->numberBetween(1, 10),
+            'reservation_id' => $this->faker->numberBetween(1,9),
             'room_id' => $this->faker->numberBetween(1,31),
         ];
     }
