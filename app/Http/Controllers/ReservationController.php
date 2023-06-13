@@ -8,6 +8,7 @@ use App\Models\Reservation;
 use App\Models\Service;
 use App\Models\Room;
 use App\Models\User;
+use App\Models\Lock;
 use App\Http\Resources\ReservationCollection;
 use App\Http\Resources\ReservationResource;
 use App\Http\Resources\RoomCollection;
@@ -186,6 +187,9 @@ class ReservationController extends Controller
         $userId = $reservation->user_id;
         $user = User::where('id', $userId)->first();
 
+        $roomId = $reservation->room_id;
+        $room = Room::where('id', $roomId)->first();
+
         $presentDate = Carbon::today()->format('m/d/Y');
         // dd($presentDate);
 
@@ -211,8 +215,10 @@ class ReservationController extends Controller
         if(!$checkedInNotNull){
             return response()->json(['status'=> 'La réservation à déjà été validée', 'reservation'=> ""], 403);
         }
+        $reservation->user = $user->name;
+        $reservation->room = $room;
         
-        return response()->json(['status'=> 'La réservation est valide', 'reservation'=>$reservation, 'user'=>$user], 203);
+        return response()->json(['status'=> 'La réservation est valide', 'reservation'=>$reservation], 203);
     }
 
     public function validateReservation(Request $request){ 
@@ -232,6 +238,56 @@ class ReservationController extends Controller
         $nfc_tag = bin2hex(random_bytes(22));
         
         return response()->json(['status'=> 'Réservation validée', 'nfc_tag'=>$nfc_tag], 203);
+    }
+
+    public function getRollingReservations(){
+        $presentDate = Carbon::today()->format('m/d/Y');
+
+        $bookedReservations = Reservation::all();
+
+        $bookedReservations = $bookedReservations->filter(function ($item) use ($presentDate) {
+            return (
+                (
+                    $item->entryDate <= $presentDate
+                    && $item->exitDate >= $presentDate
+                )
+               
+            );
+        });
+
+        $bookedRooms = array();
+        //dd($bookedReservations);
+
+        foreach($bookedReservations as $reservation){
+            // dd($reservation);
+            $roomId = $reservation->room_id;
+            $userId = $reservation->user_id;
+
+            $user = User::where('id', $userId)->first();
+
+            $room = Room::where('id',$roomId)->first();
+
+            $lock = Lock::where('room_id',$roomId)->first();
+            // dd($lock);
+
+
+            $reservation->room = $room;
+            $reservation->cardCounter = $lock->card_counter;
+            $reservation->user = $user->name;
+            $reservation->nfcTag = $lock->nfc_tag;
+            // dd($reservation->room);
+            // dd($reservation->user);
+
+            // dd($reservation->cardNumber);
+
+            array_push($bookedRooms, $reservation);
+        }
+        
+        if(empty($bookedRooms)){
+            return response()->json(['status'=>'Aucune réservations'], 403);
+        }
+
+        return response()->json(['status'=> 'ok','reservations'=>$bookedRooms], 203);
     }
 
 }

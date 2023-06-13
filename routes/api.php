@@ -77,6 +77,8 @@ Route::apiResource("rooms", RoomController::class);
 Route::apiResource("reservations", ReservationController::class);
 Route::post("isresavalide", [ReservationController::class, 'isReservationValide']);
 Route::post("validateresa", [ReservationController::class, 'validateReservation']);
+Route::get("getRollingReservations", [ReservationController::class, 'getRollingReservations']);
 Route::post("openNaaNoor", [LockController::class, 'openNaaNoor']);
 Route::post("setNfc", [LockController::class, 'setNfcTag']);
+Route::post("checkcard", [LockController::class, 'checkCardCounter']);
 Route::apiResource("locks", LockController::class);

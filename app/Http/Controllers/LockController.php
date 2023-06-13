@@ -98,13 +98,18 @@ class LockController extends Controller
 
         $lock = Lock::where('room_id', $roomId)->first();
 
+        if($lock == null){
+            return response()->json(['status'=>'serrure inexistante'], 403);
+        }
+
         if(!$lock->card_counter < 2){
-            return response()->json(['staus'=>'Nombre maximun de cartes atteint'], 403);
+            return response()->json(['staus'=>'Nombre maximun de cartes atteint', 'nfc_tag'=>""], 403);
         }
 
         return response()->json(['status'=>'ok'], 203);
-
     }
+
+    
 
     public function setNfcTag(Request $request){
         $validator = Validator::make($request->all(),[
@@ -118,17 +123,22 @@ class LockController extends Controller
 
         $lock = Lock::where('room_id',$roomId)->first();
 
-        if($lock == null){
-            return response()->json(['status'=>'serrure inexistante'], 403);
+        $cardCounter = $lock->card_counter;
+
+        switch($cardCounter){
+            case 0 : $update = $lock->update(['nfc_tag'=>$nfcTag,'card_counter'=>1]);
+                        break;
+            case 1 : $update = $lock->update(['card_counter'=>2]);
+                        break;
+            default : return response()->json(['status' => 'erreur'], 403);
         }
         
-        $update = $lock->update(['nfc_tag'=>$nfcTag, 'card_counter'=> 1]);
-
         if(!$update){
             return response()->json(['status' => 'erreur lors de l\'enregistrement'], 403);
         }
 
         return response()->json(['status' => 'serrure ok !'], 203);
+        
     }
 
     public function openNaaNoor(Request $request){
