@@ -13,6 +13,7 @@ use App\Http\Resources\RoomCollection;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use App\Mail\MailDeTest;
+use App\Mail\RecapMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 
@@ -44,7 +45,7 @@ class ReservationController extends Controller
     $resa->save();
 
     // Envoi de l'e-mail de confirmation
-    Mail::to($user->email)->send(new MailDeTest());
+    Mail::to($user->email)->send(new RecapMail($resa));
 
     return new ReservationResource($resa);
 }
