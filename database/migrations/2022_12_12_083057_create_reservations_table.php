@@ -15,8 +15,8 @@ class CreateReservationsTable extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->date('entryDate')->format('m/d/Y');
-            $table->date('exitDate')->format('m/d/Y');
+            $table->dateTime('entryDate');
+            $table->dateTime('exitDate');
             $table->unsignedInteger('user_id')->constrained();
             $table->boolean('isDue')->default(true);
             $table->timestamps();

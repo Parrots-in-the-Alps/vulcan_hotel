@@ -5,16 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
-use App\Models\Service;
 use App\Models\Room;
 use App\Models\User;
 use App\Models\Lock;
 use App\Http\Resources\ReservationCollection;
 use App\Http\Resources\ReservationResource;
-use App\Http\Resources\RoomCollection;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
-use App\Mail\MailDeTest;
 use App\Mail\RecapMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
@@ -190,7 +187,7 @@ class ReservationController extends Controller
         $roomId = $reservation->room_id;
         $room = Room::where('id', $roomId)->first();
 
-        $presentDate = Carbon::today()->format('m/d/Y');
+        $presentDate = Carbon::today()->format('Y-m-d');
         // dd($presentDate);
 
         $dateIn = $reservation->entryDate;
@@ -241,7 +238,7 @@ class ReservationController extends Controller
     }
 
     public function getRollingReservations(){
-        $presentDate = Carbon::today()->format('m/d/Y');
+        $presentDate = Carbon::today()->format('Y-m-d');
 
         $bookedReservations = Reservation::all();
 

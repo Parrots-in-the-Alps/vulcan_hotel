@@ -15,8 +15,8 @@ class ReservationFactory extends Factory
     public function definition()
     {
         return [
-            'entryDate' => Carbon::now()->format('m/d/Y'),
-            'exitDate' => Carbon::now()->addMonth()->format('m/d/Y'),
+            'entryDate' => Carbon::now()->format('Y-m-d'),
+            'exitDate' => Carbon::now()->addMonth()->format('Y-m-d'),
             'user_id' => $this->faker->numberBetween(1, 10),
             'room_id' => $this->faker->numberBetween(1,31),
         ];
