@@ -13,6 +13,10 @@ use App\Http\Resources\ReservationResource;
 use App\Http\Resources\RoomCollection;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use App\Mail\MailDeTest;
+use App\Mail\RecapMail;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
@@ -30,14 +34,22 @@ class ReservationController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $reservation_input = $request->input();
+{
+    $reservation_input = $request->input();
 
-        $resa = new Reservation();
-        $resa->create($reservation_input);
+    // Récupérer l'utilisateur associé à la réservation
+    $user = Auth::user();
 
-        return new ReservationResource($resa);
-    }
+    $resa = new Reservation();
+    $resa->user()->associate($user); // Associer l'utilisateur à la réservation
+    $resa->fill($reservation_input);
+    $resa->save();
+
+    // Envoi de l'e-mail de confirmation
+    Mail::to($user->email)->send(new RecapMail($resa));
+
+    return new ReservationResource($resa);
+}
 
     public function update(Request $request, $id)
     {
