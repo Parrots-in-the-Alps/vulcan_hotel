@@ -15,14 +15,14 @@ class CreateReservationsTable extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('entryDate');
-            $table->dateTime('exitDate');
+            $table->date('entryDate');
+            $table->date('exitDate');
             $table->unsignedInteger('user_id')->constrained();
             $table->boolean('isDue')->default(true);
             $table->timestamps();
             $table->unsignedInteger('room_id')->constrained();
             $table->json('service_id')->nullable();
-            $table->dateTime('checked_in')->nullable();
+            $table->date('checked_in')->nullable();
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')

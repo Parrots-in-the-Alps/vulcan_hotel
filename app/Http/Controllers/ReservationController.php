@@ -238,12 +238,13 @@ class ReservationController extends Controller
     }
 
     public function getRollingReservations(){
-        $presentDate = Carbon::today()->format('m/d/Y');
+        $presentDate = Carbon::today()->format('Y-m-d');
+        
 
         $bookedReservations = Reservation::all();
 
         $bookedReservations = $bookedReservations->filter(function ($item) use ($presentDate) {
-        
+   
             return (
                 (
                     $item->entryDate <= $presentDate
