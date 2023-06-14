@@ -212,10 +212,31 @@ class ReservationController extends Controller
         if(!$checkedInNotNull){
             return response()->json(['status'=> 'La réservation à déjà été validée', 'reservation'=> ""], 403);
         }
-        $reservation->user = $user->name;
-        $reservation->room = $room;
+
+        $resaId = $reservation->id;
+        $resaDateIn = $reservation->entryDate;
+        $resaDateOut = $reservation->exitDate;
+        $resaRoomType = $room->type;
+        $resaRoomNumber = $room->number;
+        $resaUserName = $user->name;
+        $resaNfcTag = "";
+        $resaCheckedIn = $reservation->checked_in;
+        $resaCardCounter = "";
+
+        $formatedReservation['id'] =$resaId;
+        $formatedReservation['dateIn'] = $resaDateIn;
+        $formatedReservation['dateOut'] = $resaDateOut;
+        $formatedReservation['userName']= $resaUserName;
+        $formatedReservation['nfcTag'] = $resaNfcTag;
+        $formatedReservation['checkedIn'] = $resaCheckedIn;
+        $formatedReservation['room']['type'] = $resaRoomType;
+        $formatedReservation['room']['number'] = $resaRoomNumber;
+        $formatedReservation['room']['ActiveCards'] = $resaCardCounter;
+
+        $reservations = array();
+        array_push($reservations, $formatedReservation);
         
-        return response()->json(['status'=> 'La réservation est valide', 'reservation'=>$reservation], 203);
+        return response()->json(['status'=> 'La réservation est valide', 'reservations'=>$reservations], 203);
     }
 
     public function validateReservation(Request $request){ 
@@ -254,13 +275,14 @@ class ReservationController extends Controller
             );
         });
 
-        $bookedRooms = array();
-        //dd($bookedReservations);
+        $rollingReservations = array();
+        //  dd($bookedReservations);
 
         foreach($bookedReservations as $reservation){
             // dd($reservation);
             $roomId = $reservation->room_id;
             $userId = $reservation->user_id;
+            // dd($reservation->id);
 
             $user = User::where('id', $userId)->first();
 
@@ -269,24 +291,35 @@ class ReservationController extends Controller
             $lock = Lock::where('room_id',$roomId)->first();
             // dd($lock);
 
+            $resaId = $reservation->id;
+            // dd({s})
+            $resaDateIn = $reservation->entryDate;
+            $resaDateOut = $reservation->exitDate;
+            $resaRoomType = $room->type;
+            $resaRoomNumber = $room->number;
+            $resaUserName = $user->name;
+            $resaNfcTag = $lock->nfc_tag;
+            $resaCheckedIn = $reservation->checked_in;
+            $resaCardCounter = $lock->card_counter;
 
-            $reservation->room = $room;
-            $reservation->cardCounter = $lock->card_counter;
-            $reservation->user = $user->name;
-            $reservation->nfcTag = $lock->nfc_tag;
-            // dd($reservation->room);
-            // dd($reservation->user);
+            $formatedReservation['id'] =$resaId;
+            $formatedReservation['dateIn'] = $resaDateIn;
+            $formatedReservation['dateOut'] = $resaDateOut;
+            $formatedReservation['userName']= $resaUserName;
+            $formatedReservation['nfcTag'] = $resaNfcTag;
+            $formatedReservation['checkedIn'] = $resaCheckedIn;
+            $formatedReservation['room']['type'] = $resaRoomType;
+            $formatedReservation['room']['number'] = $resaRoomNumber;
+            $formatedReservation['room']['ActiveCards'] = $resaCardCounter;
 
-            // dd($reservation->cardNumber);
-
-            array_push($bookedRooms, $reservation);
+            array_push($rollingReservations, $formatedReservation);
         }
         
-        if(empty($bookedRooms)){
+        if(empty($rollingReservations)){
             return response()->json(['status'=>'Aucune réservations'], 403);
         }
 
-        return response()->json(['status'=> 'ok','reservations'=>$bookedRooms], 203);
+        return response()->json(['status'=> 'ok','reservations'=>$rollingReservations], 203);
     }
 
 }
