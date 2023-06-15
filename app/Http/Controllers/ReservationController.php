@@ -218,6 +218,7 @@ class ReservationController extends Controller
         $resaDateOut = $reservation->exitDate;
         $resaRoomType = $room->type;
         $resaRoomNumber = $room->number;
+        $resaRoomId = $room->id;
         $resaUserName = $user->name;
         $resaNfcTag = "";
         $resaCheckedIn = $reservation->checked_in;
@@ -232,6 +233,7 @@ class ReservationController extends Controller
         $formatedReservation['room']['type'] = $resaRoomType;
         $formatedReservation['room']['number'] = $resaRoomNumber;
         $formatedReservation['room']['ActiveCards'] = $resaCardCounter;
+        $formatedReservation['room']['roomId'] = $resaRoomId;
 
         $reservations = array();
         array_push($reservations, $formatedReservation);
@@ -297,6 +299,7 @@ class ReservationController extends Controller
             $resaDateOut = $reservation->exitDate;
             $resaRoomType = $room->type;
             $resaRoomNumber = $room->number;
+            $resaRoomId = $room->id;
             $resaUserName = $user->name;
             $resaNfcTag = $lock->nfc_tag;
             $resaCheckedIn = $reservation->checked_in;
@@ -311,6 +314,7 @@ class ReservationController extends Controller
             $formatedReservation['room']['type'] = $resaRoomType;
             $formatedReservation['room']['number'] = $resaRoomNumber;
             $formatedReservation['room']['ActiveCards'] = $resaCardCounter;
+            $formatedReservation['room']['roomId'] = $resaRoomId;
 
             array_push($rollingReservations, $formatedReservation);
         }
