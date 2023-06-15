@@ -83,7 +83,7 @@
 
 
 
-<img src="https://api.qrserver.com/v1/create-qr-code/?data=Reservation:%20{{ $reservation->id }}!&size=100x100" alt="qr code" />
+<img src="https://api.qrserver.com/v1/create-qr-code/?data={{ $reservation->id }}&size=100x100" alt="qr code" />
 
 @if(in_array(7, $reservation->service_id))
 
