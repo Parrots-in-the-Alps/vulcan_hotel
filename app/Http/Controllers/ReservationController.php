@@ -274,7 +274,7 @@ class ReservationController extends Controller
 
         $bookedReservations = Reservation::all();
 
-        if($checkedInResa){
+        if($checkedInResa == "true"){
             $bookedReservations = $bookedReservations->filter(function ($item) use ($presentDate) {
    
                 return (
