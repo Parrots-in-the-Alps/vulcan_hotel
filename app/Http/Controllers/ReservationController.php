@@ -260,22 +260,49 @@ class ReservationController extends Controller
         return response()->json(['status'=> 'Réservation validée', 'nfc_tag'=>$nfc_tag], 203);
     }
 
-    public function getRollingReservations(){
+    public function getRollingReservations(Request $request){
+        $validator = Validator::make($request->all(),[
+            'checkedIn_resa' => 'required'
+        ]);
+
+        $validated = $validator->validated();
+
+        $checkedInResa = $validated['checkedIn_resa'];
+
         $presentDate = Carbon::today()->format('Y-m-d');
         
 
         $bookedReservations = Reservation::all();
 
-        $bookedReservations = $bookedReservations->filter(function ($item) use ($presentDate) {
+        if($checkedInResa){
+            $bookedReservations = $bookedReservations->filter(function ($item) use ($presentDate) {
    
-            return (
-                (
-                    $item->entryDate <= $presentDate
-                    && $item->exitDate >= $presentDate
-                )
-               
-            );
-        });
+                return (
+                    (
+                        $item->entryDate <= $presentDate
+                        && $item->exitDate >= $presentDate
+                    )
+                    &&
+                    (
+                        $item->checked_in != null
+                    )
+                   
+                );
+            });
+        }else{
+            $bookedReservations = $bookedReservations->filter(function ($item) use ($presentDate) {
+   
+                return (
+                    (
+                        $item->entryDate <= $presentDate
+                        && $item->exitDate >= $presentDate
+                    )
+                   
+                );
+            });
+        }
+
+        
 
         $rollingReservations = array();
         //  dd($bookedReservations);
