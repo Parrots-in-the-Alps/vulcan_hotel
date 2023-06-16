@@ -102,7 +102,7 @@ class LockController extends Controller
             return response()->json(['status'=>'serrure inexistante'], 403);
         }
 
-        if(!$lock->card_counter < 2){
+        if($lock->card_counter > 1){
             return response()->json(['staus'=>'Nombre maximun de cartes atteint', 'nfc_tag'=>""], 403);
         }
 
