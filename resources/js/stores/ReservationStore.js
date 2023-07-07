@@ -40,10 +40,16 @@ export const useReservationStore = defineStore('reservation', {
         },
 
         async checkAvailability() {
-            const entry_date = moment(this.details.entryDate).format("Y-m-d");
-            const exit_date = moment(this.details.exitDate).format("Y-m-d");
 
-            console.log("totodate");
+
+            console.log("totodate1");
+            console.log(this.details.entryDate);
+            console.log(this.details.exitDate);
+
+            const entry_date = moment(this.details.entryDate).format("YYYY-MM-DD");
+            const exit_date = moment(this.details.exitDate).format("YYYY-MM-DD");
+
+            console.log("totodate2");
             console.log(entry_date);
             console.log(exit_date);
 
@@ -82,8 +88,8 @@ export const useReservationStore = defineStore('reservation', {
             console.log(suggested);
 
             if (requested.length > 0) {
-                const entry_date = moment(this.details.entryDate).format("Y-m-d");
-                const exit_date = moment(this.details.exitDate).format("Y-m-d");
+                const entry_date = moment(this.details.entryDate).format("YYYY-MM-DD");
+                const exit_date = moment(this.details.exitDate).format("YYYY-MM-DD");
                 let room = requested.pop();
                 console.log(room);
                 let roomId = room.id;
