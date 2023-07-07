@@ -11,7 +11,7 @@ export const useUserStore = defineStore('user',{
             name: "Betsy",
             lastName: "Mougnagna",
             // email: "betsy.mougnagna@vulcan-hotel.mom",
-            email: "matthias.codvelle@le-campus-numerique.fr",
+            email: "theocolombel@gmail.com",
             address: {
                 streetNumber: 10,
                 streetName: "toto street",
