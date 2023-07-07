@@ -43,7 +43,7 @@
 
 
 
-    <div class="bg-[#0A0A0B]">
+    <div class="bg-white">
       <nav
         class="
           container
