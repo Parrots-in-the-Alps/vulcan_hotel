@@ -295,7 +295,7 @@ class ReservationController extends Controller
         $endDate = $request->input('exitDate');
 
         if (!$startDate || !$endDate || !strtotime($startDate) || !strtotime($endDate)) {
-            return response()->json(['error' => 'Bad Request invalid date range format'], 400);
+            return response()->json(['message' => 'Bad Request invalid date range format'], 400);
         }
 
 
@@ -307,7 +307,7 @@ class ReservationController extends Controller
             return response()->json(['message' => 'Not Found. No reservations found for the given date range.'], 404);
         }
 
-        return response()->json($reservations, 200);
+        return response()->json(['message' => $reservations], 200);
         }
 
 }
