@@ -290,8 +290,24 @@ class ReservationController extends Controller
         return response()->json(['status'=> 'ok','reservations'=>$bookedRooms], 203);
     }
 
-    public function getReservationsOnDates() {
-        return response()->json(['status' => 'Hello, World!'], 200);
-    }
+    public function getReservationsOnDates(Request $request) {
+        $startDate = $request->input('entryDate');
+        $endDate = $request->input('exitDate');
+
+        if (!$startDate || !$endDate || !strtotime($startDate) || !strtotime($endDate)) {
+            return response()->json(['error' => 'Bad Request invalid date range format'], 400);
+        }
+
+
+        $reservations = Reservation::whereBetween('entryDate', [$startDate, $endDate])
+        ->orWhereBetween('exitDate', [$startDate, $endDate])
+        ->get();
+
+        if ($reservations->isEmpty()) {
+            return response()->json(['message' => 'Not Found. No reservations found for the given date range.'], 404);
+        }
+
+        return response()->json($reservations, 200);
+        }
 
 }
