@@ -290,4 +290,8 @@ class ReservationController extends Controller
         return response()->json(['status'=> 'ok','reservations'=>$bookedRooms], 203);
     }
 
+    public function getReservationsOnDates() {
+        return response()->json(['status' => 'Hello, World!'], 200);
+    }
+
 }
