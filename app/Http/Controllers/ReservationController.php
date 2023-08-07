@@ -291,7 +291,7 @@ class ReservationController extends Controller
     }
 
     public function getReservationsOnDates() {
-        return response()->json(['status' => 'Hello, World!'], 200);
+        return response()->json(['message' => 'Hello, World!'], 200);
     }
 
 }
