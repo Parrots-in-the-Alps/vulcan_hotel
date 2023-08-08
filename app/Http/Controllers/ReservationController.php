@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
+use App\Models\Service;
 use App\Models\Room;
 use App\Models\User;
 use App\Models\Lock;
@@ -15,6 +16,7 @@ use Carbon\Carbon;
 use App\Mail\RecapMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ReservationController extends Controller
 {
@@ -362,17 +364,30 @@ class ReservationController extends Controller
         }
 
 
-        $reservations = Reservation::whereBetween('entryDate', [$startDate, $endDate])
-        ->orWhereBetween('exitDate', [$startDate, $endDate])
-        ->join('rooms', 'reservations.room_id', '=', 'rooms.id')
-        ->select('reservations.*', 'rooms.*')
+        $reservations = Reservation::where(function ($query) use ($startDate, $endDate) {
+            $query->whereBetween('entryDate', [$startDate, $endDate])
+                ->orWhereBetween('exitDate', [$startDate, $endDate]);
+        })
+        ->with(['room'])
         ->get();
+        
 
         if ($reservations->isEmpty()) {
             return response()->json(['message' => 'Not Found. No reservations found for the given date range.'], 404);
         }
 
         $transformedReservations = $reservations->map(function ($reservation) {
+            $serviceIds = $reservation->service_id;
+            $services = Service::whereIn('id', $serviceIds)->get();
+        
+            $transformedServices = $services->map(function ($service) {
+                return [
+                    'id' => $service->id,
+                    'serviceName' => $service->title, 
+                    'servicePrice' => $service->price,
+                ];
+            });
+        
             return [
                 'id' => $reservation->id,
                 'entryDate' => $reservation->entryDate,
@@ -381,19 +396,17 @@ class ReservationController extends Controller
                 'isDue' => $reservation->isDue,
                 'created_at' => $reservation->created_at,
                 'updated_at' => $reservation->updated_at,
-                'service_id' => $reservation->service_id,
                 'checked_in' => $reservation->checked_in,
                 'room' => [
                     'id' => $reservation->room_id,
-                    'roomNumber' => $reservation->number,
-                    'roomType' => $reservation->type,
-                    'roomPrice' => $reservation->price
+                    'roomNumber' => $reservation->room->number,
+                    'roomType' => $reservation->room->type,
+                    'roomPrice' => $reservation->room->price,
                     // Ajoutez d'autres propriétés de la chambre que vous souhaitez inclure
                 ],
-                
+                'services' => $transformedServices,
             ];
         });
-
 
         return response()->json(['message' => $transformedReservations], 200);
         }
