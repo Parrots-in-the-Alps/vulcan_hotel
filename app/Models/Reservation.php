@@ -16,7 +16,8 @@ class Reservation extends Model
         'isDue',
         'room_id',
         'service_id',
-        'checked_in'
+        'checked_in',
+        'guest_number'
     ];
 
     public $casts = [

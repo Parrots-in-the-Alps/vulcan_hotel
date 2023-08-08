@@ -11,6 +11,8 @@ use App\Models\User;
 use App\Models\Lock;
 use App\Http\Resources\ReservationCollection;
 use App\Http\Resources\ReservationResource;
+use App\Http\Resources\RoomCollection;
+use App\Http\Resources\RoomResource;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use App\Mail\RecapMail;
@@ -36,7 +38,7 @@ class ReservationController extends Controller
     public function store(Request $request)
 {
     $reservation_input = $request->input();
-
+    
     // Récupérer l'utilisateur associé à la réservation
     $user = Auth::user();
 
@@ -46,7 +48,7 @@ class ReservationController extends Controller
     $resa->save();
 
     // Envoi de l'e-mail de confirmation
-    Mail::to($user->email)->send(new RecapMail($resa));
+    //Mail::to($user->email)->send(new RecapMail($resa));
 
     return new ReservationResource($resa);
 }
@@ -355,6 +357,7 @@ class ReservationController extends Controller
         return response()->json(['status'=> 'ok','reservations'=>$rollingReservations], 203);
     }
 
+
     public function getReservationsOnDates(Request $request) {
         $startDate = $request->input('entryDate');
         $endDate = $request->input('exitDate');
@@ -409,6 +412,58 @@ class ReservationController extends Controller
         });
 
         return response()->json(['message' => $transformedReservations], 200);
+        }
+
+
+        public function getOpsDashBoardData(){
+            //date du jour
+            $todayDate = Carbon::today()->format('Y-m-d');
+
+            //récuper les chambres
+            $rooms = new RoomCollection(Room::all());
+                //boucler et sommer capacity->capacité d'accueil.
+            $hotelCapacity = 0;
+            foreach($rooms as $room){
+                $hotelCapacity += $room->capacity;
+            }
+
+            //récupérer les reservations dont les dates entree sortie englobe date du jour
+            $reservations = Reservation::where('entryDate', '<=', $todayDate)
+            ->where('exitDate', '>=', $todayDate)
+            ->with(['room'])
+            ->get();
+            dd($reservations);
+                //recuperer les reservations commançant ce jour même
+
+                //recupérer les chambres occupées ce jour->exit date => libérée le
+                    //récupérer les room ids
+                    //comparer avec la table room
+                    //récupérer les id ne figurant pas dans les résa
+                        //récupérer les chambres correspondantes->chambres disponibles
+                        //récupérer les prochaines réservations pour ces chambres->prochaine occupation
+                
+                        // (
+                        //     $item->entryDate >= $validatedEntryDate
+                        //     && $item->entryDate <= $validatedExitDate
+                        // )
+                        // ||
+                        // (
+                        //     $item->exitDate >= $validatedEntryDate
+                        //     && $item->exitDate <= $validatedExitDate
+                        // )
+                        // ||
+                        // (
+                        //     $validatedEntryDate >= $item->entryDate
+                        //     && $validatedEntryDate <= $item->exitDate
+        
+                        // )
+                        // ||
+                        // (
+                        //     $validatedExitDate >= $item->entryDate
+                        //     && $validatedExitDate <= $item->exitDate
+                        // )
+            
+            
         }
 
 

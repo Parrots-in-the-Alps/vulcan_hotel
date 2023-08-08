@@ -85,3 +85,4 @@ Route::apiResource("locks", LockController::class);
 
 
 Route::get("/getReservationsOnDates", [ReservationController::class, 'getReservationsOnDates']);
+Route::get("/opsDashBoard", [ReservationController::class, 'getOpsDashBoardData']);
