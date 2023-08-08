@@ -430,9 +430,10 @@ class ReservationController extends Controller
             //récupérer les reservations dont les dates entree sortie englobe date du jour
             $reservations = Reservation::where('entryDate', '<=', $todayDate)
             ->where('exitDate', '>=', $todayDate)
-            ->with(['room'])
+            ->with(['room','access'])
             ->get();
             dd($reservations);
+            
                 //recuperer les reservations commançant ce jour même
 
                 //recupérer les chambres occupées ce jour->exit date => libérée le
