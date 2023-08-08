@@ -353,4 +353,50 @@ class ReservationController extends Controller
         return response()->json(['status'=> 'ok','reservations'=>$rollingReservations], 203);
     }
 
+    public function getReservationsOnDates(Request $request) {
+        $startDate = $request->input('entryDate');
+        $endDate = $request->input('exitDate');
+
+        if (!$startDate || !$endDate || !strtotime($startDate) || !strtotime($endDate)) {
+            return response()->json(['message' => 'Bad Request invalid date range format'], 400);
+        }
+
+
+        $reservations = Reservation::whereBetween('entryDate', [$startDate, $endDate])
+        ->orWhereBetween('exitDate', [$startDate, $endDate])
+        ->join('rooms', 'reservations.room_id', '=', 'rooms.id')
+        ->select('reservations.*', 'rooms.*')
+        ->get();
+
+        if ($reservations->isEmpty()) {
+            return response()->json(['message' => 'Not Found. No reservations found for the given date range.'], 404);
+        }
+
+        $transformedReservations = $reservations->map(function ($reservation) {
+            return [
+                'id' => $reservation->id,
+                'entryDate' => $reservation->entryDate,
+                'exitDate' => $reservation->exitDate,
+                'user_id' => $reservation->user_id,
+                'isDue' => $reservation->isDue,
+                'created_at' => $reservation->created_at,
+                'updated_at' => $reservation->updated_at,
+                'service_id' => $reservation->service_id,
+                'checked_in' => $reservation->checked_in,
+                'room' => [
+                    'id' => $reservation->room_id,
+                    'roomNumber' => $reservation->number,
+                    'roomType' => $reservation->type,
+                    'roomPrice' => $reservation->price
+                    // Ajoutez d'autres propriétés de la chambre que vous souhaitez inclure
+                ],
+                
+            ];
+        });
+
+
+        return response()->json(['message' => $transformedReservations], 200);
+        }
+
+
 }

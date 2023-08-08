@@ -82,3 +82,6 @@ Route::post("openNaaNoor", [LockController::class, 'openNaaNoor']);
 Route::post("setNfc", [LockController::class, 'setNfcTag']);
 Route::post("checkcard", [LockController::class, 'checkCardCounter']);
 Route::apiResource("locks", LockController::class);
+
+
+Route::get("/getReservationsOnDates", [ReservationController::class, 'getReservationsOnDates']);
