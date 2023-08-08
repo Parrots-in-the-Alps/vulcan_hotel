@@ -39,7 +39,7 @@
                 </div> -->
                 <div class="border border-persimmon w-80"></div>
                 <div class="flex items-center">
-                    <select v-model="reservationStore.details.room.guestNumber"
+                    <select v-model="reservationStore.details.guestNumber"
                         class="select select-bordered w-270 max-w-xs">
                         <option disabled selected>Number of guest</option>
                         <option>1</option>

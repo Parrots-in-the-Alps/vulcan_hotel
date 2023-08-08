@@ -25,6 +25,7 @@ class ReservationResource extends JsonResource
             'user_id' => $this->user_id,
             'isDue' => $this->isDue,
             'room_id' => $this->room_id,
+            'guest_number' => $this->guest_number,
             'service_id' => $this->service_id
         ];
     }

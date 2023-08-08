@@ -13,13 +13,12 @@ export const useReservationStore = defineStore('reservation', {
             userId: "",
             entryDate: "",
             exitDate: "",
+            guestNumber: "",
             services: {
                 ids: []
             },
             room: {
                 type: "",
-                guestNumber: "",
-
             }
         },
         resaStatus: false
@@ -101,7 +100,8 @@ export const useReservationStore = defineStore('reservation', {
                     "exitDate": exit_date,
                     "user_id": userId,
                     "room_id": roomId,
-                    "service_id": this.details.services.ids
+                    "service_id": this.details.services.ids,
+                    "guest_number":guestNumber,
                 });
 
                 console.log(response.status);

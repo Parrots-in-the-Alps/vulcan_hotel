@@ -19,6 +19,7 @@ class CreateReservationsTable extends Migration
             $table->date('exitDate');
             $table->unsignedInteger('user_id')->constrained();
             $table->boolean('isDue')->default(true);
+            $table->integer('guest_number');
             $table->timestamps();
             $table->unsignedInteger('room_id')->constrained();
             $table->json('service_id')->nullable();

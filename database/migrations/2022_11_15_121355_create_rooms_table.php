@@ -20,7 +20,7 @@ class CreateRoomsTable extends Migration
             $table->boolean('isActive')->default(false);
             $table->boolean('isQueued')->default(false);
             $table->json('type')->nullable();
-            $table->integer('capacity');
+            $table->integer('capacity')->default(3);
             $table->float('price');
             $table->string('image');
             $table->json('description')->nullable();
