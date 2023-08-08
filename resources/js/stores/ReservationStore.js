@@ -101,7 +101,7 @@ export const useReservationStore = defineStore('reservation', {
                     "user_id": userId,
                     "room_id": roomId,
                     "service_id": this.details.services.ids,
-                    "guest_number":guestNumber,
+                    "guest_number":this.details.guestNumber,
                 });
 
                 console.log(response.status);
