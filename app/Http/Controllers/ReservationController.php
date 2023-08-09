@@ -394,7 +394,7 @@ class ReservationController extends Controller
                     'servicePrice' => $service->price,
                 ];
             });
-        if(isset($reservation->access[0])){
+        
             return [
                 'id' => $reservation->id,
                 'entryDate' => $reservation->entryDate,
@@ -409,32 +409,14 @@ class ReservationController extends Controller
                     'roomNumber' => $reservation->room->number,
                     'roomType' => $reservation->room->type,
                     'roomPrice' => $reservation->room->price,
+
                 ],
                 'access' =>[
-                    'premiere_ouverture' => $reservation->access[0]->created_at,
+                    'premiere_ouverture' => $reservation->access->isEmpty() ? null : $reservation->access[0]->created_at,
 
                 ],
                 'services' => $transformedServices,
             ];
-        }else{
-            return [
-                'id' => $reservation->id,
-                'entryDate' => $reservation->entryDate,
-                'exitDate' => $reservation->exitDate,
-                'user_id' => $reservation->user_id,
-                'isDue' => $reservation->isDue,
-                'created_at' => $reservation->created_at,
-                'updated_at' => $reservation->updated_at,
-                'checked_in' => $reservation->checked_in,
-                'room' => [
-                    'id' => $reservation->room_id,
-                    'roomNumber' => $reservation->room->number,
-                    'roomType' => $reservation->room->type,
-                    'roomPrice' => $reservation->room->price,
-                ],
-                'services' => $transformedServices,
-            ];
-        }
             
         });
             
@@ -510,10 +492,6 @@ class ReservationController extends Controller
                 $currentMonth->copy()->endOfMonth(),
             ])->get(),
         ];
-
-        if ($reservations['precedently_month']->isEmpty() && $reservations['currently_month']) {
-            return response()->json(['message' => 'Not Found. No reservations found for the given date range.'], 404);
-        }
 
         // ATTENTION ici il fallait utiliser ->copy() car sinon il remplace la valeur fourni (->startOfMonth()), donc la suite de la plage n'est plus bonne
 
