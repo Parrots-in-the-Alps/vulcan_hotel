@@ -392,6 +392,7 @@ class ReservationController extends Controller
                     'id' => $service->id,
                     'serviceName' => $service->title, 
                     'servicePrice' => $service->price,
+                    'billingType' => $service->billing_type
                 ];
             });
 
