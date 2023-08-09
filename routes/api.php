@@ -48,6 +48,7 @@ Route::get('/videos/active', [VideoController::class, 'showActiveVideos']);
 Route::get('/rooms/active', [RoomController::class, 'showActiveRooms']);
 
 
+
 Route::middleware(['auth:sanctum', 'setLocale'])->group(function() {
 
     Route::get('logout', [AuthController::class, 'logout']);

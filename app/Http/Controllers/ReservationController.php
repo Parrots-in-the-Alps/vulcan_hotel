@@ -10,10 +10,12 @@ use App\Models\Room;
 use App\Models\User;
 use App\Models\Lock;
 use App\Http\Resources\ReservationCollection;
+use App\Http\Resources\LockCollection;
 use App\Http\Resources\ReservationResource;
 use App\Http\Resources\RoomCollection;
 use App\Http\Resources\RoomResource;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\ItemNotFoundException;
 use Carbon\Carbon;
 use App\Mail\RecapMail;
 use Illuminate\Support\Facades\Mail;
@@ -427,80 +429,168 @@ class ReservationController extends Controller
         });
             
         return response()->json(['message' => $transformedReservations], 200);
-    }
-
-    public function getOpsDashBoardData(){
-        //date du jour
-        $todayDate = Carbon::today()->format('Y-m-d');
-
-        //récuper les chambres
-        $rooms = new RoomCollection(Room::all());
-            //boucler et sommer capacity->capacité d'accueil.
-        $hotelCapacity = 0;
-        foreach($rooms as $room){
-            $hotelCapacity += $room->capacity;
         }
 
-        //récupérer les reservations dont les dates entree sortie englobe date du jour
-        $reservations = Reservation::where('entryDate', '<=', $todayDate)
-        ->where('exitDate', '>=', $todayDate)
-        ->with(['room','access'])
-        ->get();
-        dd($reservations);
-        
-            //recuperer les reservations commançant ce jour même
+        //TODO
+        //Refacto->eclater
+        public function getOpsDashBoardData(){
+            //date du jour
+            $todayDate = Carbon::today()->format('Y-m-d');
 
-            //recupérer les chambres occupées ce jour->exit date => libérée le
-                //récupérer les room ids
+            //récupérer les cartes
+            $accessCards = new LockCollection(Lock::all());
+            $totalAccessCards = count($accessCards)*2;
+            $distributedCards = 0;
+            //boucler -> cartes en circulation
+            foreach($accessCards as $accessCard){
+                    $distributedCards += $accessCard->card_counter;
+                }
+
+            //récuper les chambres
+            $rooms = new RoomCollection(Room::all());
+                //boucler et sommer capacity->capacité d'accueil.
+            $hotelCapacity = 0;
+            $roomIds = [];
+            foreach($rooms as $room){
+                $hotelCapacity += $room->capacity;
+                array_push($roomIds, $room->id);
+            }
+
+            //récupérer les reservations dont les dates entree sortie englobe date du jour
+            $reservations = Reservation::where('entryDate', '<=', $todayDate)
+            ->where('exitDate', '>=', $todayDate)
+            ->with(['room','access','user'])
+            ->get();
+            
+                //recuperer les reservations commançant ce jour même
+            $todayReservations = $reservations->filter(function ($item) use ($todayDate) {
+                return ($item->entryDate === $todayDate);
+            });
+            
+            //nombre de check-in prevus
+            $todayCheckins = count($todayReservations);
+            // nombre de checkins réalisés + formattage pour calculs temps accueil + checkin/heure
+            $todayCheckedins = 0 ;
+            $checkinAnalysis = [];
+            foreach($todayReservations as $reservation){
+                if($reservation->checked_in != null){
+                    $todayCheckedins ++;
+                    
+                    $reservationCheckinAt = $reservation['checked_in'];
+
+                    $reservationFirstAccess = count($reservation->access) > 0 ?
+                       strval($reservation->access[0]->created_at) :
+                        "toto";
+                    dd($reservationFirstAccess);
+                    
+                }
+            }
+            
+                //recupérer les chambres occupées ce jour->exit date => libérée le
+            $checkedInReservations = $reservations->filter(function ($item){
+                return ($item->checked_in != null);
+            });
+                    //récupérer les room ids
+            $occupiedRoomsIds = [];
+            foreach($checkedInReservations as $reservation){
+                array_push($occupiedRoomsIds, $reservation->room_id);
+            }
                 //comparer avec la table room
                 //récupérer les id ne figurant pas dans les résa
-                    //récupérer les chambres correspondantes->chambres disponibles
-                    //récupérer les prochaines réservations pour ces chambres->prochaine occupation
+            $availableRoomIds = array_diff($roomIds, $occupiedRoomsIds);
+            //récupérer les chambres correspondantes->chambres disponibles
+
+            //récupérer les prochaines réservations pour ces chambres->prochaine occupation
+            $futureReservations =  Reservation::where('entryDate', '>', $todayDate)
+            ->whereIn('room_id',$availableRoomIds)
+            ->with(['room'])
+            ->orderBy('entryDate')
+            ->get();
             
-                    // (
-                    //     $item->entryDate >= $validatedEntryDate
-                    //     && $item->entryDate <= $validatedExitDate
-                    // )
-                    // ||
-                    // (
-                    //     $item->exitDate >= $validatedEntryDate
-                    //     && $item->exitDate <= $validatedExitDate
-                    // )
-                    // ||
-                    // (
-                    //     $validatedEntryDate >= $item->entryDate
-                    //     && $validatedEntryDate <= $item->exitDate
-    
-                    // )
-                    // ||
-                    // (
-                    //     $validatedExitDate >= $item->entryDate
-                    //     && $validatedExitDate <= $item->exitDate
-                    // )
-        
-        
-    }
+            $totoRooms = [];
+            foreach($availableRoomIds as $id){
+                try{
 
-    public function getReservationsByMonths(Request $request) {
-        $precedently_month = $request->input('precedently_month');
-        $currently_month = $request->input('currently_month');
+                    $resa = $futureReservations->where('room_id', $id)
+                        ->firstOrfail();
+                    
+                    $roomNumber = $resa->room['number'];
+                    $roomType = $resa->room['type'];
+                    $roomOccupied = $resa['entryDate'];
+                    
+                    $toto['number'] = $roomNumber;
+                    $toto['type'] = $roomType;
+                    $toto['occupiedOn'] = $roomOccupied;
 
-        $precedingMonth = Carbon::createFromFormat('m/d/Y', $precedently_month);
-        $currentMonth = Carbon::createFromFormat('m/d/Y', $currently_month);
-        
-        $reservations = [
-            'precedently_month' => Reservation::whereBetween('entryDate', [
-                $precedingMonth->copy()->startOfMonth(),
-                $precedingMonth->copy()->endOfMonth(),
-            ])->get(),
-            'currently_month' => Reservation::whereBetween('entryDate', [
-                $currentMonth->copy()->startOfMonth(),
-                $currentMonth->copy()->endOfMonth(),
-            ])->get(),
-        ];
 
-        // ATTENTION ici il fallait utiliser ->copy() car sinon il remplace la valeur fourni (->startOfMonth()), donc la suite de la plage n'est plus bonne
+                    array_push($totoRooms, $toto);
+                    
+                }catch(ItemNotFoundException $e){
+                    $moor = $rooms->where('id', $id)
+                        ->first();
 
-        return response()->json(['reservations' => $reservations]);
-    }
+                    $roomNumber = $moor['number'];
+                    $roomType = $moor['type'];
+                    $roomOccupied = "";
+                    
+                    $toto['number'] = $roomNumber;
+                    $toto['type'] = $roomType;
+                    $toto['occupiedOn'] = $roomOccupied;
+
+                    array_push($totoRooms, $toto);
+                }
+            }
+            usort($totoRooms, function($a, $b){
+                return $a['number'] > $b['number'];
+            });
+
+            //chambres occupées
+            $tutuRooms = [];
+            foreach($checkedInReservations as $reservation){
+                $client = $reservation->user['name'];
+                $roomNumber = $reservation->room['number'];
+                $roomType = $reservation->room['type'];
+                $freeOn = $reservation['exitDate'];
+
+                $tutu['number'] = $roomNumber;
+                $tutu['type'] = $roomType;
+                $tutu['freeOn'] = $freeOn;
+                $tutu['client'] = $client;
+
+                
+                array_push($tutuRooms, $tutu);
+            }
+
+            usort($tutuRooms, function($a, $b){
+                return $a['number'] > $b['number'];
+            });
+
+            //reservation to check-in this day
+            $toChekinReservations = $todayReservations->filter(function ($item){
+                return $item->checked_in === null;
+            });
+            //format  
+            $tata = [];
+            foreach($toChekinReservations as $reservation){
+                $resaId = $reservation['id'];
+                $resaClient = $reservation->user['name'];
+                $resaRoomNumber = $reservation->room['number'];
+                $resaRoomType = $reservation->room['type'];
+
+                $aser['id'] = $resaId;
+                $aser['client'] = $resaClient;
+                $aser['roomNumber'] = $resaRoomNumber;
+                $aser['roomType'] = $resaRoomType;
+
+                array_push($tata, $aser);
+            }
+
+            usort($tata, function($a, $b){
+                return $a['id'] > $b['id'];
+            });
+
+            
+
+            dd($tata);       
+        }
 }
