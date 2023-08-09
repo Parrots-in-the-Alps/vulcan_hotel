@@ -492,6 +492,10 @@ class ReservationController extends Controller
             ])->get(),
         ];
 
+        if ($reservations['precedently_month']->isEmpty() && $reservations['currently_month']) {
+            return response()->json(['message' => 'Not Found. No reservations found for the given date range.'], 404);
+        }
+
         // ATTENTION ici il fallait utiliser ->copy() car sinon il remplace la valeur fourni (->startOfMonth()), donc la suite de la plage n'est plus bonne
 
         return response()->json(['reservations' => $reservations]);
