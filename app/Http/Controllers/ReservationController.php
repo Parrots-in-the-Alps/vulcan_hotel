@@ -394,6 +394,10 @@ class ReservationController extends Controller
                     'servicePrice' => $service->price,
                 ];
             });
+
+            $ping = Carbon::parse($reservation->entryDate);
+            $pong = Carbon::parse($reservation->exitDate);
+            $reservationDuration = $ping->diffInDays($pong);
         
             return [
                 'id' => $reservation->id,
@@ -401,6 +405,7 @@ class ReservationController extends Controller
                 'exitDate' => $reservation->exitDate,
                 'user_id' => $reservation->user_id,
                 'isDue' => $reservation->isDue,
+                'duration' => $reservationDuration,
                 'created_at' => $reservation->created_at,
                 'updated_at' => $reservation->updated_at,
                 'checked_in' => $reservation->checked_in,
