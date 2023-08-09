@@ -412,60 +412,80 @@ class ReservationController extends Controller
         });
 
         return response()->json(['message' => $transformedReservations], 200);
+    }
+
+    public function getOpsDashBoardData(){
+        //date du jour
+        $todayDate = Carbon::today()->format('Y-m-d');
+
+        //récuper les chambres
+        $rooms = new RoomCollection(Room::all());
+            //boucler et sommer capacity->capacité d'accueil.
+        $hotelCapacity = 0;
+        foreach($rooms as $room){
+            $hotelCapacity += $room->capacity;
         }
 
-
-        public function getOpsDashBoardData(){
-            //date du jour
-            $todayDate = Carbon::today()->format('Y-m-d');
-
-            //récuper les chambres
-            $rooms = new RoomCollection(Room::all());
-                //boucler et sommer capacity->capacité d'accueil.
-            $hotelCapacity = 0;
-            foreach($rooms as $room){
-                $hotelCapacity += $room->capacity;
-            }
-
-            //récupérer les reservations dont les dates entree sortie englobe date du jour
-            $reservations = Reservation::where('entryDate', '<=', $todayDate)
-            ->where('exitDate', '>=', $todayDate)
-            ->with(['room','access'])
-            ->get();
-            dd($reservations);
-            
-                //recuperer les reservations commançant ce jour même
-
-                //recupérer les chambres occupées ce jour->exit date => libérée le
-                    //récupérer les room ids
-                    //comparer avec la table room
-                    //récupérer les id ne figurant pas dans les résa
-                        //récupérer les chambres correspondantes->chambres disponibles
-                        //récupérer les prochaines réservations pour ces chambres->prochaine occupation
-                
-                        // (
-                        //     $item->entryDate >= $validatedEntryDate
-                        //     && $item->entryDate <= $validatedExitDate
-                        // )
-                        // ||
-                        // (
-                        //     $item->exitDate >= $validatedEntryDate
-                        //     && $item->exitDate <= $validatedExitDate
-                        // )
-                        // ||
-                        // (
-                        //     $validatedEntryDate >= $item->entryDate
-                        //     && $validatedEntryDate <= $item->exitDate
+        //récupérer les reservations dont les dates entree sortie englobe date du jour
+        $reservations = Reservation::where('entryDate', '<=', $todayDate)
+        ->where('exitDate', '>=', $todayDate)
+        ->with(['room','access'])
+        ->get();
+        dd($reservations);
         
-                        // )
-                        // ||
-                        // (
-                        //     $validatedExitDate >= $item->entryDate
-                        //     && $validatedExitDate <= $item->exitDate
-                        // )
-            
-            
-        }
+            //recuperer les reservations commançant ce jour même
 
+            //recupérer les chambres occupées ce jour->exit date => libérée le
+                //récupérer les room ids
+                //comparer avec la table room
+                //récupérer les id ne figurant pas dans les résa
+                    //récupérer les chambres correspondantes->chambres disponibles
+                    //récupérer les prochaines réservations pour ces chambres->prochaine occupation
+            
+                    // (
+                    //     $item->entryDate >= $validatedEntryDate
+                    //     && $item->entryDate <= $validatedExitDate
+                    // )
+                    // ||
+                    // (
+                    //     $item->exitDate >= $validatedEntryDate
+                    //     && $item->exitDate <= $validatedExitDate
+                    // )
+                    // ||
+                    // (
+                    //     $validatedEntryDate >= $item->entryDate
+                    //     && $validatedEntryDate <= $item->exitDate
+    
+                    // )
+                    // ||
+                    // (
+                    //     $validatedExitDate >= $item->entryDate
+                    //     && $validatedExitDate <= $item->exitDate
+                    // )
+        
+        
+    }
 
+    public function getReservationsByMonths(Request $request) {
+        $precedently_month = $request->input('precedently_month');
+        $currently_month = $request->input('currently_month');
+
+        $precedingMonth = Carbon::createFromFormat('m/d/Y', $precedently_month);
+        $currentMonth = Carbon::createFromFormat('m/d/Y', $currently_month);
+        
+        $reservations = [
+            'precedently_month' => Reservation::whereBetween('entryDate', [
+                $precedingMonth->copy()->startOfMonth(),
+                $precedingMonth->copy()->endOfMonth(),
+            ])->get(),
+            'currently_month' => Reservation::whereBetween('entryDate', [
+                $currentMonth->copy()->startOfMonth(),
+                $currentMonth->copy()->endOfMonth(),
+            ])->get(),
+        ];
+
+        // ATTENTION ici il fallait utiliser ->copy() car sinon il remplace la valeur fourni (->startOfMonth()), donc la suite de la plage n'est plus bonne
+
+        return response()->json(['reservations' => $reservations]);
+    }
 }
