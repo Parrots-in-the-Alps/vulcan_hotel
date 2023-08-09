@@ -19,6 +19,7 @@ use App\Mail\RecapMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\Access;
 
 class ReservationController extends Controller
 {
@@ -361,6 +362,7 @@ class ReservationController extends Controller
     public function getReservationsOnDates(Request $request) {
         $startDate = $request->input('entryDate');
         $endDate = $request->input('exitDate');
+        
 
         if (!$startDate || !$endDate || !strtotime($startDate) || !strtotime($endDate)) {
             return response()->json(['message' => 'Bad Request invalid date range format'], 400);
@@ -371,7 +373,7 @@ class ReservationController extends Controller
             $query->whereBetween('entryDate', [$startDate, $endDate])
                 ->orWhereBetween('exitDate', [$startDate, $endDate]);
         })
-        ->with(['room'])
+        ->with(['room', 'access'])
         ->get();
         
 
@@ -382,6 +384,7 @@ class ReservationController extends Controller
         $transformedReservations = $reservations->map(function ($reservation) {
             $serviceIds = $reservation->service_id;
             $services = Service::whereIn('id', $serviceIds)->get();
+           
         
             $transformedServices = $services->map(function ($service) {
                 return [
@@ -407,10 +410,15 @@ class ReservationController extends Controller
                     'roomPrice' => $reservation->room->price,
                     // Ajoutez d'autres propriétés de la chambre que vous souhaitez inclure
                 ],
+                'access' =>[
+                    'premiere_ouverture' => $reservation->access[0]->created_at,
+
+                ],
                 'services' => $transformedServices,
             ];
+            
         });
-
+            
         return response()->json(['message' => $transformedReservations], 200);
     }
 
