@@ -384,6 +384,7 @@ class ReservationController extends Controller
         $transformedReservations = $reservations->map(function ($reservation) {
             $serviceIds = $reservation->service_id;
             $services = Service::whereIn('id', $serviceIds)->get();
+
            
         
             $transformedServices = $services->map(function ($service) {
@@ -393,7 +394,7 @@ class ReservationController extends Controller
                     'servicePrice' => $service->price,
                 ];
             });
-        
+        if(isset($reservation->access[0])){
             return [
                 'id' => $reservation->id,
                 'entryDate' => $reservation->entryDate,
@@ -408,7 +409,6 @@ class ReservationController extends Controller
                     'roomNumber' => $reservation->room->number,
                     'roomType' => $reservation->room->type,
                     'roomPrice' => $reservation->room->price,
-                    // Ajoutez d'autres propriétés de la chambre que vous souhaitez inclure
                 ],
                 'access' =>[
                     'premiere_ouverture' => $reservation->access[0]->created_at,
@@ -416,6 +416,25 @@ class ReservationController extends Controller
                 ],
                 'services' => $transformedServices,
             ];
+        }else{
+            return [
+                'id' => $reservation->id,
+                'entryDate' => $reservation->entryDate,
+                'exitDate' => $reservation->exitDate,
+                'user_id' => $reservation->user_id,
+                'isDue' => $reservation->isDue,
+                'created_at' => $reservation->created_at,
+                'updated_at' => $reservation->updated_at,
+                'checked_in' => $reservation->checked_in,
+                'room' => [
+                    'id' => $reservation->room_id,
+                    'roomNumber' => $reservation->room->number,
+                    'roomType' => $reservation->room->type,
+                    'roomPrice' => $reservation->room->price,
+                ],
+                'services' => $transformedServices,
+            ];
+        }
             
         });
             
