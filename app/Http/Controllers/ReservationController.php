@@ -461,6 +461,12 @@ class ReservationController extends Controller
             ->where('exitDate', '>=', $todayDate)
             ->with(['room','access','user'])
             ->get();
+
+            //clients présents dans l'hotel
+            $clientInHotel = 0;
+            foreach($reservations as $reservation){
+                $clientInHotel += $reservation['guest_number'];
+            }
             
                 //recuperer les reservations commançant ce jour même
             $todayReservations = $reservations->filter(function ($item) use ($todayDate) {
@@ -492,10 +498,7 @@ class ReservationController extends Controller
                 }
                
             }
-            dd($checkinAnalysis);
-            
-            
-                //recupérer les chambres occupées ce jour->exit date => libérée le
+             //recupérer les chambres occupées ce jour->exit date => libérée le
             $checkedInReservations = $reservations->filter(function ($item){
                 return ($item->checked_in != null);
             });
@@ -605,9 +608,8 @@ class ReservationController extends Controller
             $opsData['totalAccessCards'] = $totalAccessCards;
             $opsData['distributedCards'] = $distributedCards;
             $opsData['customerCapacity'] = $hotelCapacity;
+            $opsData['clientInHotel'] = $clientInHotel;
 
-
-            
             return response()->json(['message' => $opsData], 200);
         }
 
