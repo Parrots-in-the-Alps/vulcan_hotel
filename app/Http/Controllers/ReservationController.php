@@ -476,15 +476,24 @@ class ReservationController extends Controller
                 if($reservation->checked_in != null){
                     $todayCheckedins ++;
                     
-                    $reservationCheckinAt = $reservation['checked_in'];
+                    $reservationCheckedInAt = $reservation['checked_in'];
 
                     $reservationFirstAccess = count($reservation->access) > 0 ?
-                       strval($reservation->access[0]->created_at) :
-                        "toto";
-                    dd($reservationFirstAccess);
-                    
+                       strval($reservation->access[0]['created_at']) :
+                        "";
+                        
+                    $reservationNumber = $reservation['id'];
+
+                    $titi['checkedinAt'] = $reservationCheckedInAt;
+                    $titi['FirstAccess'] = $reservationFirstAccess;
+                    $titi['reservationId'] = $reservationNumber;
+
+                    array_push($checkinAnalysis, $titi);
                 }
+               
             }
+            dd($checkinAnalysis);
+            
             
                 //recupérer les chambres occupées ce jour->exit date => libérée le
             $checkedInReservations = $reservations->filter(function ($item){
@@ -587,10 +596,76 @@ class ReservationController extends Controller
 
             usort($tata, function($a, $b){
                 return $a['id'] > $b['id'];
-            });
+            }); 
+
+            $opsData['resaToCheckin'] = $tata;
+            $opsData['occupiedRooms'] = $tutuRooms;
+            $opsData['availableRooms'] = $totoRooms;
+            $opsData['checkinStats'] = $checkinAnalysis;
+            $opsData['totalAccessCards'] = $totalAccessCards;
+            $opsData['distributedCards'] = $distributedCards;
+            $opsData['customerCapacity'] = $hotelCapacity;
+
 
             
+            return response()->json(['message' => $opsData], 200);
+        }
 
-            dd($tata);       
+
+        public function getReservationsByMonths(Request $request) {
+            $precedently_month = $request->input('precedently_month');
+            $currently_month = $request->input('currently_month');
+    
+            $precedingMonth = Carbon::createFromFormat('m/d/Y', $precedently_month);
+            $currentMonth = Carbon::createFromFormat('m/d/Y', $currently_month);
+            
+            $reservations = [
+                'precedently_month' => Reservation::whereBetween('entryDate', [
+                    $precedingMonth->copy()->startOfMonth(),
+                    $precedingMonth->copy()->endOfMonth(),
+                ])->with(['room', 'access'])->get(),
+                'currently_month' => Reservation::whereBetween('entryDate', [
+                    $currentMonth->copy()->startOfMonth(),
+                    $currentMonth->copy()->endOfMonth(),
+                ])->with(['room', 'access'])->get(),
+            ];
+    
+            if ($reservations['precedently_month']->isEmpty() && $reservations['currently_month']) {
+                return response()->json(['message' => 'Not Found. No reservations found for the given date range.'], 404);
+            }
+    
+            for($i = 0; $i < count($reservations['precedently_month']); $i++) {
+                $serviceIds = $reservations['precedently_month'][$i]->service_id;
+                $services = Service::whereIn('id', $serviceIds)->get();
+    
+                $transformedServices = $services->map(function ($service) {
+                    return [
+                        'id' => $service->id,
+                        'serviceName' => $service->title, 
+                        'servicePrice' => $service->price,
+                    ];
+                });
+    
+                $reservations['precedently_month'][$i]->services = $transformedServices;
+            }
+    
+            for($i = 0; $i < count($reservations['currently_month']); $i++) {
+                $serviceIds = $reservations['currently_month'][$i]->service_id;
+                $services = Service::whereIn('id', $serviceIds)->get();
+    
+                $transformedServices = $services->map(function ($service) {
+                    return [
+                        'id' => $service->id,
+                        'serviceName' => $service->title, 
+                        'servicePrice' => $service->price,
+                    ];
+                });
+    
+                $reservations['precedently_month'][$i]->services = $transformedServices;
+            }
+    
+            // ATTENTION ici il fallait utiliser ->copy() car sinon il remplace la valeur fourni (->startOfMonth()), donc la suite de la plage n'est plus bonne
+    
+            return response()->json(['reservations' => $reservations]);
         }
 }
