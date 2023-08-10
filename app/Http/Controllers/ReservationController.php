@@ -605,6 +605,8 @@ class ReservationController extends Controller
             $opsData['occupiedRooms'] = $tutuRooms;
             $opsData['availableRooms'] = $totoRooms;
             $opsData['checkinStats'] = $checkinAnalysis;
+            $opsData['todayCheckins'] = $todayCheckins;
+            $opsData['todayCheckedins'] = $todayCheckedins;
             $opsData['totalAccessCards'] = $totalAccessCards;
             $opsData['distributedCards'] = $distributedCards;
             $opsData['customerCapacity'] = $hotelCapacity;
