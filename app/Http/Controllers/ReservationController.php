@@ -600,7 +600,7 @@ class ReservationController extends Controller
             usort($tata, function($a, $b){
                 return $a['id'] > $b['id'];
             }); 
-
+            
             $opsData['resaToCheckin'] = $tata;
             $opsData['occupiedRooms'] = $tutuRooms;
             $opsData['availableRooms'] = $totoRooms;
